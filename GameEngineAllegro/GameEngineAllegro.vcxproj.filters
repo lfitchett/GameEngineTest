@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\EventLoop">
+      <UniqueIdentifier>{f4a021fd-99b5-4722-b9e0-2c4594def351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{77e91d80-b4d6-437a-a764-4a63b9d8abb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Base">
+      <UniqueIdentifier>{ae029261-57ef-4ffd-b93e-106f00c3338c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{39b5c848-3ee7-456e-b368-0a7532db0307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataStores">
+      <UniqueIdentifier>{8cf4e089-427c-494f-a437-48fe8a66e969}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -25,6 +40,42 @@
     </ClCompile>
     <ClCompile Include="GameEngineAllegro.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventLoop.cpp">
+      <Filter>Source Files\EventLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="EventNode.cpp">
+      <Filter>Source Files\EventLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="CleanupList.cpp">
+      <Filter>Source Files\EventLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CleanupEntity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SFMLEventListener.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityWithData.cpp">
+      <Filter>Source Files\Entities\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TickingEntity.cpp">
+      <Filter>Source Files\Entities\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedData.cpp">
+      <Filter>Source Files\DataStores</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

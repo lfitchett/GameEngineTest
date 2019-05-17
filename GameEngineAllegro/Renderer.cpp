@@ -1,0 +1,38 @@
+#include "pch.h"
+
+#include <chrono>
+#include <thread>
+
+#include "EntityWithData.cpp"
+
+using namespace std::chrono;
+
+constexpr int FPS_TARGET = 30;
+constexpr nanoseconds TICK_INCREASE = duration_cast<nanoseconds>(seconds(1)) / FPS_TARGET;
+
+class Renderer : public EntityWithData
+{
+	using EntityWithData::EntityWithData;
+
+private:
+	time_point<system_clock> lastTickTime;
+	double averageFps;
+
+protected:
+	void Tick()
+	{
+		auto nextTickTime = lastTickTime + TICK_INCREASE;
+		std::this_thread::sleep_until(nextTickTime);
+
+		auto fps = duration_cast<nanoseconds>(seconds(1)) / duration_cast<nanoseconds>(system_clock::now() - lastTickTime);
+		averageFps = .9 * averageFps + .1 * fps;
+		printf("FPS: %.2f / %d\n", averageFps, FPS_TARGET);
+
+		lastTickTime = system_clock::now();
+
+		this->sharedData.window->clear();
+		this->sharedData.window->display();
+
+		printf("refresh\n\n\n");
+	}
+};
