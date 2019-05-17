@@ -14,7 +14,6 @@ struct Location {
 };
 
 struct SharedData {
-	sf::RenderWindow* window;
 	CleanupEntity* cleanup;
 	Location mouseClickLocation;
 	Location mouseLocation;

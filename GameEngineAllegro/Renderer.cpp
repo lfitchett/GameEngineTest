@@ -30,8 +30,8 @@ protected:
 
 		lastTickTime = system_clock::now();
 
-		this->sharedData.window->clear();
-		this->sharedData.window->display();
+		/*this->sharedData.window->clear();
+		this->sharedData.window->display();*/
 
 		printf("refresh\n\n\n");
 	}
