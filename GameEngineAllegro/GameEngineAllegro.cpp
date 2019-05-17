@@ -21,7 +21,7 @@ int main()
 	SharedData data;
 	CleanupList<TickingEntity*> cleanup;
 
-	ALLEGRO_DISPLAY* display = al_create_display(800, 600);
+	data.display = al_create_display(800, 600);
 
 	ALLEGRO_FONT* font = data.fontManager.GetFont();
 	al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -42,6 +42,8 @@ int main()
 	mainLoop.Start();
 
 	cleanup.Cleanup();*/
+	al_destroy_display(data.display);
+
 
 	return 0;
 }
