@@ -14,6 +14,7 @@ struct Location {
 };
 
 struct SharedData {
+	ALLEGRO_DISPLAY* display;
 	CleanupEntity* cleanup;
 	Location mouseClickLocation;
 	Location mouseLocation;
