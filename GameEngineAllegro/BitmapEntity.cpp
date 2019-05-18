@@ -33,9 +33,9 @@ private:
 protected:
 	void Tick()
 	{
-		currLocation = sharedData.mouseLocation;
+		currLocation.x = sharedData.mouseLocation.x;
+		currLocation.y = sharedData.mouseLocation.y;
 
 		al_draw_bitmap(bitmap, currLocation.x, currLocation.y, 0);
-		sharedData.mouseLocation.print();
 	}
 };
