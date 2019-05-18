@@ -31,6 +31,9 @@
     <Filter Include="Source Files\CollisionDetection">
       <UniqueIdentifier>{cd2d5fdb-2fdf-465f-88ea-90604c4d78e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\MovingEntities">
+      <UniqueIdentifier>{17f64b8e-3a23-4bb8-a805-7cf24c0da28d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -85,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="CollidableObject.cpp">
       <Filter>Source Files\CollisionDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingCircle.cpp">
+      <Filter>Source Files\Entities\MovingEntities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

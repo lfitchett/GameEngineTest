@@ -4,7 +4,8 @@
 #include "FontManager.cpp"
 #include "CleanupEntity.cpp"
 
-struct Location {
+struct Location 
+{
 	double x = 0;
 	double y = 0;
 
@@ -13,10 +14,18 @@ struct Location {
 	}
 };
 
-struct SharedData {
+struct Size 
+{
+	uint64_t width;
+	uint64_t height;
+};
+
+struct SharedData 
+{
 	ALLEGRO_DISPLAY* display;
-	CleanupEntity* cleanup;
+	Size displaySize;
 	Location mouseClickLocation;
 	Location mouseLocation;
 	FontManager fontManager;
+	CleanupEntity* cleanup;
 };

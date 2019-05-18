@@ -12,16 +12,23 @@
 #include "CleanupEntity.cpp"
 #include "BitmapBase.cpp"
 #include "Text.cpp"
+#include "BouncingCircle.cpp"
+
+#include "allegro5/allegro_image.h"
+
 
 int main()
 {
 	al_init();
+	al_init_image_addon();
 
 	EventLoop mainLoop;
 	SharedData data;
 	CleanupList<TickingEntity*> cleanup;
 
-	data.display = al_create_display(800, 600);
+	data.displaySize.width = 800;
+	data.displaySize.height = 600;
+	data.display = al_create_display(data.displaySize.width, data.displaySize.height);
 
 	data.cleanup = new CleanupEntity(mainLoop);
 	cleanup.Add(data.cleanup);
@@ -30,7 +37,7 @@ int main()
 	cleanup.Add(new EventListener(mainLoop, data));
 	cleanup.Add(new Text(mainLoop, data));
 	cleanup.Add(new BitmapBase(mainLoop, data, 20, 20, al_map_rgb(255, 0, 255)));
-
+	cleanup.Add(new BouncingCircle(mainLoop, data));
 
 
 	mainLoop.Start();

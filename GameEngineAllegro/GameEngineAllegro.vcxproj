@@ -83,6 +83,7 @@
     <Allegro_AddonColor>false</Allegro_AddonColor>
     <Allegro_AddonVideo>false</Allegro_AddonVideo>
     <Allegro_LibraryType>DynamicDebug</Allegro_LibraryType>
+    <Allegro_AddonImage>true</Allegro_AddonImage>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitmapBase.cpp" />
+    <ClCompile Include="BouncingCircle.cpp" />
     <ClCompile Include="CleanupEntity.cpp" />
     <ClCompile Include="CleanupList.cpp" />
     <ClCompile Include="CollidableObject.cpp" />
