@@ -3,16 +3,7 @@
 #include "pch.h"
 #include "FontManager.cpp"
 #include "CleanupEntity.cpp"
-
-struct Location 
-{
-	double x = 0;
-	double y = 0;
-
-	void print() {
-		printf("X: %f, Y: %f\n", x, y);
-	}
-};
+#include "Point.cpp"
 
 struct Size 
 {
@@ -24,8 +15,8 @@ struct SharedData
 {
 	ALLEGRO_DISPLAY* display;
 	Size displaySize;
-	Location mouseClickLocation;
-	Location mouseLocation;
+	Point mouseClickLocation;
+	Point mouseLocation;
 	FontManager fontManager;
 	CleanupEntity* cleanup;
 };

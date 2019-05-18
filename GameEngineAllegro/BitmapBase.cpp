@@ -7,7 +7,7 @@
 class BitmapBase : public EntityWithData
 {
 protected:
-	Location currLocation;
+	Point currLocation;
 	ALLEGRO_BITMAP* bitmap = nullptr;
 	Size size;
 
@@ -34,7 +34,7 @@ public:
 		currLocation.x = x;
 		currLocation.y = y;
 	}
-	void setLocation(Location loc)
+	void setLocation(Point loc)
 	{
 		currLocation.x = loc.x;
 		currLocation.y = loc.y;

@@ -1,16 +1,14 @@
+/* See https://www.sevenson.com.au/actionscript/sat/ */
+
 #pragma once
 
 #include "pch.h"
 
 #include <algorithm>
+#include "Point.cpp"
+#include "Shape.cpp"
 
-struct Point
-{
-	double x;
-	double y;
-};
-
-class Polygon
+class Polygon : public Shape
 {
 public:
 	Point* Points;
@@ -19,17 +17,17 @@ public:
 	double Radius;
 };
 
-template<uint16_t p>
+template<uint16_t s>
 class SizedPolygon : public Polygon
 {
 public:
-	Point Points[p];
-	size_t NumPoints = p;
+	Point Points[s];
+	size_t NumPoints = s;
 
-	SizedPolygon(int points[p][2])
+	SizedPolygon(int points[s][2])
 	{
 		int xMax = INT_MIN, xMin = INT_MAX, yMax = INT_MIN, yMin = INT_MAX;
-		for (int i = 0; i < p; i++) {
+		for (int i = 0; i < s; i++) {
 			Points[i].x = points[i][0];
 			Points[i].y = points[i][1];
 
