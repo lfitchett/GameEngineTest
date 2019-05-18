@@ -5,16 +5,35 @@
 class Hitbox
 {
 public:
-	Shape** Shapes;
-	size_t Size;
+	virtual Shape** GetShapes() { return NULL; };
+	virtual size_t GetSize() { return 0; }
+
+	virtual ~Hitbox() {};
 };
 
 template <size_t s>
-class MultiHitbox : Hitbox
+class MultiHitbox : public Hitbox
 {
-public:
+protected:
 	Shape* Shapes[s];
-	size_t Size = s;
+
+public:
+	Shape** GetShapes() { return Shapes; }
+	size_t GetSize() { return s; }
+
+	~MultiHitbox()
+	{
+		for (size_t i = 0; i < s; i++) {
+			delete Shapes[i];
+		}
+	}
 };
 
-class SingleHitbox : MultiHitbox<1> {};
+class SingleHitbox : public MultiHitbox<1>
+{
+public:
+	SingleHitbox(Shape* shape)
+	{
+		Shapes[0] = shape;
+	}
+};

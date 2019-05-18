@@ -4,5 +4,5 @@
 
 class Shape {
 public:
-	virtual ~Shape() = 0;
+	virtual ~Shape() {};
 };

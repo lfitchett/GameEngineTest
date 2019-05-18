@@ -13,6 +13,11 @@ private:
 	std::vector<Hitbox*> hitboxes;
 
 public:
+	void AddHitbox(Hitbox* h) 
+	{
+		hitboxes.push_back(h);
+	}
+
 	bool FindCollision(Hitbox* h1)
 	{
 		for (Hitbox* h2 : hitboxes) {
@@ -30,10 +35,10 @@ public:
 private:
 	bool isColliding(Hitbox* h1, Hitbox* h2)
 	{
-		for (size_t i = 0; i < h1->Size; i++) {
-			Shape* s1 = h1->Shapes[i];
-			for (size_t j = 0; j < h2->Size; j++) {
-				Shape* s2 = h2->Shapes[j];
+		for (size_t i = 0; i < h1->GetSize(); i++) {
+			Shape* s1 = h1->GetShapes()[i];
+			for (size_t j = 0; j < h2->GetSize(); j++) {
+				Shape* s2 = h2->GetShapes()[j];
 
 				if (isColliding(s1, s2)) {
 					return true;
@@ -64,6 +69,8 @@ private:
 				return isColliding(p1, p2);
 			}
 		}
+
+		return false;
 	}
 
 	bool isColliding(Circle* c1, Circle* c2)
@@ -72,7 +79,7 @@ private:
 		double dy = c1->Center.y - c2->Center.y;
 		double centerDistSquared = dx * dx + dy * dy;
 
-		double sr = c1->radius + c2->radius;
+		double sr = c1->Radius + c2->Radius;
 		double radiusSumSquared = sr*sr;
 
 		return radiusSumSquared >= centerDistSquared;
@@ -80,11 +87,11 @@ private:
 
 	bool isColliding(Circle* c1, Polygon* p2)
 	{
-
+		return false;
 	}
 
 	bool isColliding(Polygon* p1, Polygon* p2)
 	{
-
+		return false;
 	}
 };

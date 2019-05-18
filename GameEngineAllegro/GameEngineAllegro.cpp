@@ -3,25 +3,22 @@
 
 #include "pch.h"
 
-#include "SharedData.cpp"
-#include "EventLoop.cpp"
-#include "CleanupList.cpp"
-
-#include "EventListener.cpp"
-#include "Renderer.cpp"
-#include "CleanupEntity.cpp"
-#include "BitmapBase.cpp"
-#include "Text.cpp"
-#include "BouncingCircle.cpp"
-
-#include "Polygon.cpp";
+#include "CollisionManager.cpp";
 
 int main()
 {
-	int points[3][2] = { {1,1},{2,2},{3,3} };
-	SizedPolygon<3> test1(points);
+	Circle* c1 = new Circle(5, 5, 10);
+	Hitbox* h1 = new SingleHitbox(c1);
 
-	auto test2 = test1.Points;
+	Circle* c2 = new Circle(7, 7, 10);
+	Hitbox* h2 = new SingleHitbox(c2);
+
+	CollisionManager manager;
+	manager.AddHitbox(h1);
+	manager.AddHitbox(h2);
+
+	bool test = manager.FindCollision(h1);
+
 
 	return 0;
 }
