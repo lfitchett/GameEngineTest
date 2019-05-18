@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <Allegro_AddonTTF>false</Allegro_AddonTTF>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
     <Allegro_AddonPrimitives>false</Allegro_AddonPrimitives>
     <Allegro_AddonAudio>false</Allegro_AddonAudio>
     <Allegro_AddonAcodec>false</Allegro_AddonAcodec>

@@ -23,13 +23,7 @@ int main()
 
 	data.display = al_create_display(800, 600);
 
-	ALLEGRO_FONT* font = data.fontManager.GetFont();
-	al_clear_to_color(al_map_rgb(0, 0, 0));
-	al_draw_text(font, al_map_rgb(255, 255, 255), 400, 300, ALLEGRO_ALIGN_CENTER, "Welcome to Allegro!");
-	al_flip_display();
-	al_rest(5.0);
-
-	/*data.cleanup = new CleanupEntity(mainLoop);
+	data.cleanup = new CleanupEntity(mainLoop);
 	cleanup.Add(data.cleanup);
 
 	cleanup.Add(new Renderer(mainLoop, data));
@@ -41,9 +35,8 @@ int main()
 
 	mainLoop.Start();
 
-	cleanup.Cleanup();*/
+	cleanup.Cleanup();
 	al_destroy_display(data.display);
-
 
 	return 0;
 }

@@ -30,8 +30,8 @@ protected:
 
 		lastTickTime = system_clock::now();
 
-		/*this->sharedData.window->clear();
-		this->sharedData.window->display();*/
+		al_flip_display();
+		al_clear_to_color(al_map_rgb(0, 0, 0));
 
 		printf("refresh\n\n\n");
 	}

@@ -7,10 +7,11 @@ class Circle : public EntityWithData
 public:
 	Circle(EventLoop &loop, SharedData &data) : EntityWithData(loop, data)
 	{
-		this->currLocation = this->sharedData.mouseClickLocation;
+		printf("Making Circle\n");
 	}
 
-	~Circle() {
+	~Circle() 
+	{
 		printf("Cleanup Circle\n");
 	}
 
@@ -20,6 +21,6 @@ private:
 protected:
 	void Tick()
 	{
-
+		sharedData.mouseLocation.print();
 	}
 };

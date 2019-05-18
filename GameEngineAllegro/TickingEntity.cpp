@@ -17,7 +17,7 @@ public:
 		this->id = loop.Subscribe([this] {return this->Tick(); });
 	};
 
-	~TickingEntity() {
+	virtual ~TickingEntity() {
 		this->mainLoop.Unsubscribe(this->id);
 	}
 };
