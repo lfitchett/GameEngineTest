@@ -16,6 +16,11 @@ public:
 			printf("Failed to make event queue\n");
 		}
 
+		if (!al_install_mouse()) {
+			printf("Failed to register mouse\n");
+		}
+		al_register_event_source(eventQueue, al_get_mouse_event_source());
+
 		al_register_event_source(eventQueue, al_get_display_event_source(sharedData.display));
 	}
 
