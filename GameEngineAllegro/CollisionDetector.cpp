@@ -1,12 +1,15 @@
+#pragma once
+
 #include "pch.h"
 
 #include <vector>
+#include "CollidableObject.cpp"
 
-#define HitboxId uint64_t
+#define HitboxId CollidableObject*
 
 struct CircleHitbox
 {
-	HitboxId parentId;
+	HitboxId parent;
 	double x;
 	double y;
 	double radius;
@@ -34,8 +37,8 @@ public:
 				double maxDistance = c1->radius + c2->radius;
 				if (distanceSquared(c1, c2) <= maxDistance * maxDistance) {
 					/* Collision */
-					c1->ifHit(c2->parentId);
-					c2->ifHit(c1->parentId);
+					c1->ifHit(c2->parent);
+					c2->ifHit(c1->parent);
 				}
 			}
 		}

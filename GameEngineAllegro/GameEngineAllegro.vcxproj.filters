@@ -83,6 +83,9 @@
     <ClCompile Include="CollisionDetector.cpp">
       <Filter>Source Files\CollisionDetection</Filter>
     </ClCompile>
+    <ClCompile Include="CollidableObject.cpp">
+      <Filter>Source Files\CollisionDetection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
