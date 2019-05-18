@@ -165,7 +165,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BitmapEntity.cpp" />
+    <ClCompile Include="BitmapBase.cpp" />
     <ClCompile Include="CleanupEntity.cpp" />
     <ClCompile Include="CleanupList.cpp" />
     <ClCompile Include="EntityWithData.cpp" />

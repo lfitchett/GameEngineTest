@@ -5,8 +5,8 @@
 #include "CleanupEntity.cpp"
 
 struct Location {
-	double x;
-	double y;
+	double x = 0;
+	double y = 0;
 
 	void print() {
 		printf("X: %f, Y: %f\n", x, y);

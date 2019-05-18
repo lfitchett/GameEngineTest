@@ -10,7 +10,7 @@
 #include "EventListener.cpp"
 #include "Renderer.cpp"
 #include "CleanupEntity.cpp"
-#include "Circle.cpp"
+#include "BitmapBase.cpp"
 #include "Text.cpp"
 
 int main()
@@ -28,8 +28,8 @@ int main()
 
 	cleanup.Add(new Renderer(mainLoop, data));
 	cleanup.Add(new EventListener(mainLoop, data));
-	cleanup.Add(new Circle(mainLoop, data));
 	cleanup.Add(new Text(mainLoop, data));
+	cleanup.Add(new BitmapBase(mainLoop, data, 20, 20, al_map_rgb(255, 0, 255)));
 
 
 
