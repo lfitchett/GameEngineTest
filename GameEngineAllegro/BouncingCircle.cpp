@@ -14,6 +14,7 @@ public:
 	BouncingCircle(EventLoop &loop, SharedData &data) : BitmapBase(loop, data, "Resources/Images/blueCircle.png") 
 	{
 		setSize(30, 30);
+		setLocation(rand() % sharedData.displaySize.width, rand() % sharedData.displaySize.height);
 	}
 
 protected:
