@@ -28,6 +28,9 @@
     <Filter Include="Source Files\DataStores">
       <UniqueIdentifier>{8cf4e089-427c-494f-a437-48fe8a66e969}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\CollisionDetection">
+      <UniqueIdentifier>{cd2d5fdb-2fdf-465f-88ea-90604c4d78e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="BitmapBase.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionDetector.cpp">
+      <Filter>Source Files\CollisionDetection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

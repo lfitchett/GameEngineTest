@@ -168,6 +168,7 @@
     <ClCompile Include="BitmapBase.cpp" />
     <ClCompile Include="CleanupEntity.cpp" />
     <ClCompile Include="CleanupList.cpp" />
+    <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="EntityWithData.cpp" />
     <ClCompile Include="EventLoop.cpp" />
     <ClCompile Include="EventNode.cpp" />
