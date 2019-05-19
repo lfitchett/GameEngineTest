@@ -51,8 +51,8 @@ public:
 		Center.y = (yMax + yMin) / 2;
 	}
 
-	Point* GetPoints() override() { return Points; }
+	Point* GetPoints() override { return Points; }
 
-	size_t GetNumPoints override() { return s; }
+	size_t GetNumPoints() override { return s; }
 };
 
