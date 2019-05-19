@@ -6,30 +6,33 @@
 #include "CleanupList.cpp"
 
 #define EventId EventNode*
+#define NUM_PRIORITIES 2
 
 class EventLoop
 {
 private:
-	EventNode *head;
+	EventNode* head[NUM_PRIORITIES];
 	bool isLooping;
 
 public:
 	EventLoop()
 	{
-		this->head = nullptr;
+		for (size_t i = 0; i < NUM_PRIORITIES; i++) {
+			head[i] = nullptr;
+		}
 	};
 
-	EventId Subscribe(std::function<void()> func)
+	EventId Subscribe(std::function<void()> func, uint16_t priority = 0)
 	{
 		EventNode* newEvent = new EventNode(func);
 
-		if (this->head) {
-			newEvent->Child = this->head;
-			this->head->Parent = newEvent;
-			this->head = newEvent;
+		if (head[priority]) {
+			newEvent->Child = head[priority];
+			head[priority]->Parent = newEvent;
+			head[priority] = newEvent;
 		}
 		else {
-			this->head = newEvent;
+			head[priority] = newEvent;
 		}
 
 		return newEvent;
@@ -37,8 +40,10 @@ public:
 
 	void Unsubscribe(EventId id)
 	{
-		if (id == this->head) {
-			this->head = id->Child;
+		for (size_t i = 0; i < NUM_PRIORITIES; i++) {
+			if (id == head[i]) {
+				head[i] = id->Child;
+			}
 		}
 
 		delete id;
@@ -46,16 +51,18 @@ public:
 
 	void Start()
 	{
-		this->isLooping = true;
-		EventNode *current = this->head;
+		isLooping = true;
+		EventNode *current;
 
-		while (this->isLooping && this->head)
+		while (isLooping)
 		{
-			current = this->head;
-			while (current)
-			{
-				current->Func();
-				current = current->Child;
+			for (size_t i = 0; i < NUM_PRIORITIES; i++) {
+				current = head[i];
+				while (current)
+				{
+					current->Func();
+					current = current->Child;
+				}
 			}
 		}
 	}
@@ -67,11 +74,14 @@ public:
 
 	~EventLoop()
 	{
-		EventNode* current = this->head;
-		while (current)
-		{
-			current = current->Child;
-			delete current;
+		EventNode* current;
+		for (size_t i = 0; i < NUM_PRIORITIES; i++) {
+			current = head[i];
+			while (current)
+			{
+				current = current->Child;
+				delete current;
+			}
 		}
 	}
 };
