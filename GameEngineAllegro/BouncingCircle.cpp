@@ -5,7 +5,7 @@
 #include "HitboxDisplay.cpp"
 
 constexpr int MOVE_SPEED = 10;
-constexpr int BOUNCING_SIZE = 50;
+constexpr int RADIUS = 50;
 
 class BouncingCircle : public BitmapBase
 {
@@ -18,10 +18,10 @@ private:
 public:
 	BouncingCircle(EventLoop &loop, SharedData &data) : BitmapBase(loop, data, "Resources/Images/blueCircle.png")
 	{
-		setSize(BOUNCING_SIZE, BOUNCING_SIZE);
+		setSize(RADIUS * 2, RADIUS * 2);
 		setLocation(rand() % sharedData.displaySize.width, rand() % sharedData.displaySize.height);
 
-		hitbox = new SingleHitbox(new ReferenceCircle(currLocation, BOUNCING_SIZE));
+		hitbox = new SingleHitbox(new MovingCircle([this] {return Point{ currLocation.x + RADIUS, currLocation.y + RADIUS }; }, RADIUS));
 		sharedData.collisionManager.AddHitbox(hitbox);
 
 		hbDisplay = new HitboxDisplay(loop, data, hitbox);
