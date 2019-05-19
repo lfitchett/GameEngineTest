@@ -34,9 +34,15 @@
     <Filter Include="Source Files\Entities\MovingEntities">
       <UniqueIdentifier>{17f64b8e-3a23-4bb8-a805-7cf24c0da28d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\CollisionDetection\CollisionManager">
+      <UniqueIdentifier>{6229307d-756e-4fe7-9647-d583d533d292}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,9 +95,6 @@
     <ClCompile Include="Polygon.cpp">
       <Filter>Source Files\CollisionDetection</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Source Files\CollisionDetection</Filter>
-    </ClCompile>
     <ClCompile Include="Circle.cpp">
       <Filter>Source Files\CollisionDetection</Filter>
     </ClCompile>
@@ -106,6 +109,24 @@
     </ClCompile>
     <ClCompile Include="CollisionInformation.cpp">
       <Filter>Source Files\CollisionDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="HitboxCollision.cpp">
+      <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeCollision.cpp">
+      <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollision.cpp">
+      <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CirclePolygonCollision.cpp">
+      <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonCollision.cpp">
+      <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
