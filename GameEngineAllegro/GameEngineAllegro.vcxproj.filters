@@ -128,6 +128,9 @@
     <ClCompile Include="PolygonCollision.cpp">
       <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
     </ClCompile>
+    <ClCompile Include="HitboxDisplay.cpp">
+      <Filter>Source Files\Entities\MovingEntities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

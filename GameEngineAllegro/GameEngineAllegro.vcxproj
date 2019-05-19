@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
-    <Allegro_AddonPrimitives>false</Allegro_AddonPrimitives>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_AddonAudio>false</Allegro_AddonAudio>
     <Allegro_AddonAcodec>false</Allegro_AddonAcodec>
     <Allegro_AddonPhysfs>false</Allegro_AddonPhysfs>
@@ -183,6 +183,7 @@
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameEngineAllegro.cpp" />
     <ClCompile Include="HitboxCollision.cpp" />
+    <ClCompile Include="HitboxDisplay.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -2,6 +2,7 @@
 
 #include "BitmapBase.cpp"
 #include "Hitbox.cpp"
+#include "HitboxDisplay.cpp"
 
 constexpr int MOVE_SPEED = 10;
 constexpr int BOUNCING_SIZE = 50;
@@ -12,6 +13,7 @@ private:
 	bool movingRight = true;
 	bool movingDown = true;
 	Hitbox* hitbox;
+	HitboxDisplay* hbDisplay;
 
 public:
 	BouncingCircle(EventLoop &loop, SharedData &data) : BitmapBase(loop, data, "Resources/Images/blueCircle.png")
@@ -19,12 +21,15 @@ public:
 		setSize(BOUNCING_SIZE, BOUNCING_SIZE);
 		setLocation(rand() % sharedData.displaySize.width, rand() % sharedData.displaySize.height);
 
-		hitbox = new SingleHitbox(new ReferenceCircle(currLocation, BOUNCING_SIZE / 2));
+		hitbox = new SingleHitbox(new ReferenceCircle(currLocation, BOUNCING_SIZE));
 		sharedData.collisionManager.AddHitbox(hitbox);
+
+		hbDisplay = new HitboxDisplay(loop, data, hitbox);
 	}
 
 	~BouncingCircle()
 	{
+		delete hbDisplay;
 		sharedData.collisionManager.RemoveHitbox(hitbox);
 		delete hitbox;
 	}

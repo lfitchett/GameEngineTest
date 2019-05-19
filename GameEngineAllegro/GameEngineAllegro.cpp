@@ -14,13 +14,11 @@
 #include "Text.cpp"
 #include "BouncingCircle.cpp"
 
-#include "allegro5/allegro_image.h"
-
-
 int main()
 {
 	al_init();
 	al_init_image_addon();
+	al_init_primitives_addon();
 
 	EventLoop mainLoop;
 	SharedData data;
