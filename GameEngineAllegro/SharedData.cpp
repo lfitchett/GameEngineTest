@@ -1,9 +1,11 @@
 #pragma once
 
 #include "pch.h"
-#include "FontManager.cpp"
-#include "CleanupEntity.cpp"
+
 #include "Point.cpp"
+#include "FontManager.cpp"
+#include "CollisionManager.cpp"
+#include "CleanupEntity.cpp"
 
 struct Size 
 {
@@ -18,5 +20,6 @@ struct SharedData
 	Point mouseClickLocation;
 	Point mouseLocation;
 	FontManager fontManager;
+	CollisionManager collisionManager;
 	CleanupEntity* cleanup;
 };

@@ -3,22 +3,47 @@
 
 #include "pch.h"
 
-#include "CollisionManager.cpp";
+#include "SharedData.cpp"
+#include "EventLoop.cpp"
+#include "CleanupList.cpp"
+
+#include "EventListener.cpp"
+#include "Renderer.cpp"
+#include "CleanupEntity.cpp"
+#include "BitmapBase.cpp"
+#include "Text.cpp"
+#include "BouncingCircle.cpp"
+
+#include "allegro5/allegro_image.h"
+
 
 int main()
 {
-	Circle* c1 = new Circle(5, 5, 10);
-	Hitbox* h1 = new SingleHitbox(c1);
+	al_init();
+	al_init_image_addon();
 
-	Circle* c2 = new Circle(7, 7, 10);
-	Hitbox* h2 = new SingleHitbox(c2);
+	EventLoop mainLoop;
+	SharedData data;
+	CleanupList<TickingEntity*> cleanup;
 
-	CollisionManager manager;
-	manager.AddHitbox(h1);
-	manager.AddHitbox(h2);
+	data.displaySize.width = 800;
+	data.displaySize.height = 600;
+	data.display = al_create_display(data.displaySize.width, data.displaySize.height);
 
-	bool test = manager.FindCollision(h1);
+	data.cleanup = new CleanupEntity(mainLoop);
+	cleanup.Add(data.cleanup);
 
+	cleanup.Add(new Renderer(mainLoop, data));
+	cleanup.Add(new EventListener(mainLoop, data));
+	//cleanup.Add(new Text(mainLoop, data));
+	cleanup.Add(new BouncingCircle(mainLoop, data));
+	cleanup.Add(new BouncingCircle(mainLoop, data));
+
+
+	mainLoop.Start();
+
+	cleanup.Cleanup();
+	al_destroy_display(data.display);
 
 	return 0;
 }

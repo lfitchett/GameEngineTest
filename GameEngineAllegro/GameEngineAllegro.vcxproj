@@ -171,6 +171,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="CleanupEntity.cpp" />
     <ClCompile Include="CleanupList.cpp" />
+    <ClCompile Include="CollisionInformation.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EntityWithData.cpp" />

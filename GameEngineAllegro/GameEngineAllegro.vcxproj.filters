@@ -104,6 +104,9 @@
     <ClCompile Include="Hitbox.cpp">
       <Filter>Source Files\CollisionDetection</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionInformation.cpp">
+      <Filter>Source Files\CollisionDetection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

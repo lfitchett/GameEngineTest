@@ -1,20 +1,32 @@
 #include "pch.h"
 
 #include "BitmapBase.cpp"
+#include "Hitbox.cpp"
 
 constexpr int MOVE_SPEED = 10;
+constexpr int BOUNCING_SIZE = 50;
 
 class BouncingCircle : public BitmapBase
 {
 private:
 	bool movingRight = true;
 	bool movingDown = true;
+	Hitbox* hitbox;
 
 public:
-	BouncingCircle(EventLoop &loop, SharedData &data) : BitmapBase(loop, data, "Resources/Images/blueCircle.png") 
+	BouncingCircle(EventLoop &loop, SharedData &data) : BitmapBase(loop, data, "Resources/Images/blueCircle.png")
 	{
-		setSize(30, 30);
+		setSize(BOUNCING_SIZE, BOUNCING_SIZE);
 		setLocation(rand() % sharedData.displaySize.width, rand() % sharedData.displaySize.height);
+
+		hitbox = new SingleHitbox(new ReferenceCircle(currLocation, BOUNCING_SIZE / 2));
+		sharedData.collisionManager.AddHitbox(hitbox);
+	}
+
+	~BouncingCircle()
+	{
+		sharedData.collisionManager.RemoveHitbox(hitbox);
+		delete hitbox;
 	}
 
 protected:
@@ -48,6 +60,14 @@ protected:
 				currLocation.y = 0 - currLocation.y;
 				movingDown = true;
 			}
+		}
+
+		CollisionResult collision = sharedData.collisionManager.FindCollision(hitbox);
+		if (collision) {
+			movingDown = collision->OtherCenter->x < currLocation.x;
+			movingRight = collision->OtherCenter->y < currLocation.y;
+
+			printf("Collision\n");
 		}
 
 		BitmapBase::Tick();

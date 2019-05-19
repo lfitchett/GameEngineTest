@@ -11,8 +11,8 @@
 class Polygon : public Shape
 {
 public:
-	Point* Points;
-	size_t NumPoints;
+	virtual Point* GetPoints() = 0;
+	virtual size_t GetNumPoints() = 0;
 	Point Center;
 	double Radius;
 };
@@ -20,10 +20,10 @@ public:
 template<uint16_t s>
 class SizedPolygon : public Polygon
 {
-public:
+private:
 	Point Points[s];
-	size_t NumPoints = s;
 
+public:
 	SizedPolygon(int points[s][2])
 	{
 		int xMax = INT_MIN, xMin = INT_MAX, yMax = INT_MIN, yMin = INT_MAX;
@@ -50,5 +50,9 @@ public:
 		Center.x = (xMax + xMin) / 2;
 		Center.y = (yMax + yMin) / 2;
 	}
+
+	Point* GetPoints() override() { return Points; }
+
+	size_t GetNumPoints override() { return s; }
 };
 

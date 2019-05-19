@@ -6,28 +6,60 @@
 class Circle : public Shape
 {
 public:
-	Point Center;
 	double Radius;
 
-	Circle(double x, double y, double radius)
+	virtual Point GetCenter() = 0;
+
+	virtual ~Circle() {};
+
+protected:
+	Circle() {};
+};
+
+class StaticCircle : Circle
+{
+private:
+	Point Center;
+
+public:
+	StaticCircle(double x, double y, double radius)
 	{
 		Center.x = x;
 		Center.y = y;
 		Radius = radius;
 	}
 
-	~Circle() {};
+};
 
-protected:
-	Circle() {};
+class ReferenceCircle : public Circle
+{
+private:
+	Point& Center;
+
+public:
+	ReferenceCircle(Point& center, double radius) : Center(center)
+	{
+		Radius = radius;
+	}
+
+	Point GetCenter() override {
+		return Center;
+	}
 };
 
 class MovingCircle : public Circle
 {
+private:
+	std::function<Point()> Center;
+
 public:
-	Point& Center;
-	MovingCircle(Point& center, double radius) : Center(center)
+	MovingCircle(std::function<Point()> center, double radius)
 	{
+		Center = center;
 		Radius = radius;
+	}
+
+	Point GetCenter() override {
+		return Center();
 	}
 };
