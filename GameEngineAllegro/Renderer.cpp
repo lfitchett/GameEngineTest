@@ -18,6 +18,7 @@ private:
 	time_point<system_clock> lastTickTime;
 	double averageFps;
 	TextBase fpsMeter;
+	nanoseconds threadDelay;
 
 public:
 	Renderer(EventLoop &loop, SharedData& data) :RenderedEntity(loop), fpsMeter(loop, data)
@@ -26,12 +27,18 @@ public:
 		fpsMeter.flags = ALLEGRO_ALIGN_RIGHT;
 		fpsMeter.location.x = data.displaySize.width;
 		fpsMeter.location.y = 10;
+
+		// Figure out how long thread scheduling takes
+		std::this_thread::sleep_for(nanoseconds(100));
+		auto targetTime = system_clock::now() + TICK_INCREASE;
+		std::this_thread::sleep_until(targetTime);
+		threadDelay = system_clock::now() - targetTime;
 	}
 
 protected:
 	void Render() override
 	{
-		auto nextTickTime = lastTickTime + TICK_INCREASE;
+		auto nextTickTime = lastTickTime + TICK_INCREASE - threadDelay;
 		std::this_thread::sleep_until(nextTickTime);
 
 		auto fps = duration_cast<nanoseconds>(seconds(1)) / duration_cast<nanoseconds>(system_clock::now() - lastTickTime);

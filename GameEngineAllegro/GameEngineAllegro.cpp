@@ -25,7 +25,6 @@ int main()
 
 	data.displaySize.width = 800;
 	data.displaySize.height = 600;
-
 	std::unique_ptr<ALLEGRO_DISPLAY, decltype(&al_destroy_display)> display(al_create_display(data.displaySize.width, data.displaySize.height), &al_destroy_display);
 	data.display = display.get();
 
