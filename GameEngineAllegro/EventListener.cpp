@@ -1,15 +1,16 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
+#include "TickingEntity.cpp"
 
-class EventListener : public EntityWithData
+class EventListener : public EntityWithData, public TickingEntity
 {
 private:
 	ALLEGRO_EVENT_QUEUE* eventQueue; 
 	ALLEGRO_EVENT currentEvent;
 
 public:
-	EventListener(EventLoop &loop, SharedData &data) : EntityWithData(loop, data)
+	EventListener(EventLoop &loop, SharedData &data) : EntityWithData(data), TickingEntity(loop)
 	{
 		eventQueue = al_create_event_queue();
 		if (!eventQueue) {
@@ -30,7 +31,7 @@ public:
 	}
 
 protected:
-	void Tick()
+	void Tick() override
 	{
 		if (!al_event_queue_is_empty(eventQueue)) {
 			printf("not empty\n");

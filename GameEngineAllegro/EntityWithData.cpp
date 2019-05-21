@@ -2,12 +2,11 @@
 
 #include "pch.h"
 
-#include "TickingEntity.cpp"
 #include "SharedData.cpp"
 
-class EntityWithData : public TickingEntity {
+class EntityWithData {
 public:
-	EntityWithData(EventLoop &loop, SharedData &data) : TickingEntity(loop), sharedData(data) {};
+	EntityWithData(SharedData &data) : sharedData(data) {};
 
 protected:
 	SharedData &sharedData;

@@ -3,21 +3,22 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
+#include "RenderedEntity.cpp"
 
-class HitboxDisplay : public EntityWithData
+class HitboxDisplay : public EntityWithData, public RenderedEntity
 {
 private:
 	Hitbox* hitbox;
 	ALLEGRO_COLOR color = al_map_rgb(255, 0, 0);
 
 public:
-	HitboxDisplay(EventLoop &loop, SharedData &data, Hitbox* hitbox) : EntityWithData(loop, data)
+	HitboxDisplay(EventLoop &loop, SharedData &data, Hitbox* hitbox) : EntityWithData(data), RenderedEntity(loop)
 	{
 		this->hitbox = hitbox;
 	}
 
 protected:
-	void Tick() override
+	void Render() override
 	{
 		for (size_t i = 0; i < hitbox->GetSize(); i++) {
 			Shape* s = hitbox->GetShapes()[i];

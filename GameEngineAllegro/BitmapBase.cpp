@@ -3,8 +3,9 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
+#include "RenderedEntity.cpp"
 
-class BitmapBase : public EntityWithData
+class BitmapBase : public EntityWithData, public RenderedEntity
 {
 protected:
 	Point currLocation;
@@ -13,13 +14,13 @@ protected:
 
 public:
 	BitmapBase(EventLoop &loop, SharedData &data, int width, int height, ALLEGRO_COLOR color)
-		: EntityWithData(loop, data)
+		: EntityWithData(data), RenderedEntity(loop)
 	{
 		makeBitmap(width, height, color);
 	}
 
 	BitmapBase(EventLoop &loop, SharedData &data, std::string filename)
-		: EntityWithData(loop, data)
+		: EntityWithData(data), RenderedEntity(loop)
 	{
 		loadBitmap(filename);
 	}
@@ -42,9 +43,9 @@ public:
 
 
 protected:
-	BitmapBase(EventLoop &loop, SharedData &data) : EntityWithData(loop, data) {}
+	BitmapBase(EventLoop &loop, SharedData &data) : EntityWithData(data), RenderedEntity(loop) {}
 
-	void Tick()
+	void Render() override
 	{
 		al_draw_bitmap(bitmap, currLocation.x, currLocation.y, 0);
 	}

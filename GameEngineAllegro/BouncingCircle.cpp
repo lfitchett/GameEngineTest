@@ -7,7 +7,7 @@
 constexpr int MOVE_SPEED = 10;
 constexpr int RADIUS = 50;
 
-class BouncingCircle : public BitmapBase
+class BouncingCircle : public BitmapBase, public TickingEntity
 {
 private:
 	bool movingRight = true;
@@ -16,7 +16,7 @@ private:
 	HitboxDisplay* hbDisplay;
 
 public:
-	BouncingCircle(EventLoop &loop, SharedData &data) : BitmapBase(loop, data, "Resources/Images/blueCircle.png")
+	BouncingCircle(EventLoop &loop, SharedData &data) : BitmapBase(loop, data, "Resources/Images/blueCircle.png"), TickingEntity(loop)
 	{
 		setSize(RADIUS * 2, RADIUS * 2);
 		setLocation(rand() % sharedData.displaySize.width, rand() % sharedData.displaySize.height);
@@ -35,7 +35,7 @@ public:
 	}
 
 protected:
-	void Tick()
+	void Tick() override
 	{
 		if (movingRight) {
 			currLocation.x += MOVE_SPEED;
@@ -74,7 +74,5 @@ protected:
 
 			printf("Collision\n");
 		}
-
-		BitmapBase::Tick();
 	}
 };

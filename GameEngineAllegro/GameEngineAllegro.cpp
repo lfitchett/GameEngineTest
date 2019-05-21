@@ -22,7 +22,7 @@ int main()
 
 	EventLoop mainLoop;
 	SharedData data;
-	CleanupList<TickingEntity*> cleanup;
+	CleanupList<void*> cleanup;
 
 	data.displaySize.width = 800;
 	data.displaySize.height = 600;
@@ -31,7 +31,7 @@ int main()
 	data.cleanup = new CleanupEntity(mainLoop);
 	cleanup.Add(data.cleanup);
 
-	cleanup.Add(new Renderer(mainLoop, data));
+	cleanup.Add(new Renderer(mainLoop));
 	cleanup.Add(new EventListener(mainLoop, data));
 	//cleanup.Add(new Text(mainLoop, data));
 	cleanup.Add(new BouncingCircle(mainLoop, data));

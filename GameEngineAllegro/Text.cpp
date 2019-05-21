@@ -1,11 +1,12 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
+#include "TickingEntity.cpp"
 
-class Text : public EntityWithData
+class Text : public EntityWithData, public TickingEntity
 {
 public:
-	Text(EventLoop &loop, SharedData &data) : EntityWithData(loop, data)
+	Text(EventLoop &loop, SharedData &data) : EntityWithData(data), TickingEntity(loop)
 	{
 		
 	}

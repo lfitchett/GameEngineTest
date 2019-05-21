@@ -16,7 +16,7 @@ protected:
 
 public:
 	RenderedEntity(EventLoop &loop) : mainLoop(loop) {
-		this->id = loop.Subscribe([this] {return this->Render(); });
+		this->id = loop.Subscribe([this] {return this->Render(); }, 1);
 	};
 
 	virtual ~RenderedEntity() {
