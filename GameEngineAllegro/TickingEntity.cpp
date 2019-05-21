@@ -16,10 +16,10 @@ protected:
 
 public:
 	TickingEntity(EventLoop &loop) : mainLoop(loop) {
-		this->id = loop.Subscribe([this] {return this->Tick(); });
+		id = loop.Subscribe([this] { Tick(); });
 	};
 
 	virtual ~TickingEntity() {
-		this->mainLoop.Unsubscribe(this->id);
+		mainLoop.Unsubscribe(id);
 	}
 };

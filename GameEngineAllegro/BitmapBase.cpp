@@ -25,7 +25,7 @@ public:
 		loadBitmap(filename);
 	}
 
-	~BitmapBase()
+	virtual ~BitmapBase()
 	{
 		al_destroy_bitmap(bitmap);
 	}

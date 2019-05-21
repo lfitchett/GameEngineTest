@@ -134,6 +134,9 @@
     <ClCompile Include="RenderedEntity.cpp">
       <Filter>Source Files\Entities\Base</Filter>
     </ClCompile>
+    <ClCompile Include="CollidingEntity.cpp">
+      <Filter>Source Files\Entities\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

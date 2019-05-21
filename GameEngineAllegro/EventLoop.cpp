@@ -6,7 +6,7 @@
 #include "CleanupList.cpp"
 
 #define EventId EventNode*
-#define NUM_PRIORITIES 2
+#define NUM_PRIORITIES 3
 
 class EventLoop
 {
