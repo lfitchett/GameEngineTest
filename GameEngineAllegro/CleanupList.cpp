@@ -1,62 +1,63 @@
 #pragma once
 
 #include "pch.h"
+#include <typeinfo>
 
-template <typename T>
+class IDisposable
+{
+public:
+	virtual ~IDisposable() = 0;
+};
+
 class CleanupList
 {
 private:
-	struct SingleNode
+	struct CleanupNode
 	{
-		SingleNode *child;
-		T data;
+		CleanupNode *child;
+		IDisposable* data;
 
-		SingleNode(T data)
+		CleanupNode(IDisposable* data)
 		{
 			this->data = data;
 			this->child = nullptr;
 		}
 	};
 
-	SingleNode *head;
-	SingleNode *tail;
+	CleanupNode *head = nullptr;
 
 public:
-	CleanupList<T>() {
-		this->head = nullptr;
-		this->tail = nullptr;
-	}
-
-	void Add(T item)
+	void Add(IDisposable* item)
 	{
-		if (!this->head)
+		if (!head)
 		{
-			this->head = new SingleNode(item);
-			this->tail = this->head;
+			head = new CleanupNode(item);
 		}
 		else
 		{
-			this->tail->child = new SingleNode(item);
-			this->tail = this->tail->child;
+			CleanupNode* newNode = new CleanupNode(item);
+			newNode->child = head;
+			head = newNode;
 		}
 	}
 
 	void Cleanup()
 	{
-		SingleNode *current = this->head;
+		CleanupNode *current = head;
 		while (current)
 		{
-			SingleNode *next = current->child;
+			printf("Cleaning up %s.", typeid(current->data).name());
+
+			CleanupNode *next = current->child;
 			delete current->data;
 			delete current;
 			current = next;
 		}
 
-		this->head = nullptr;
-		this->tail = nullptr;
+		head = nullptr;
 	}
 
 	~CleanupList() {
-		this->Cleanup();
+		Cleanup();
 	}
 };

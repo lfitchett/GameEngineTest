@@ -9,10 +9,10 @@ class CleanupEntity : public TickingEntity {
 	using TickingEntity::TickingEntity;
 
 private:
-	CleanupList<TickingEntity*> list;
+	CleanupList list;
 
 public:
-	void AddToCleanup(TickingEntity* item)
+	void AddToCleanup(IDisposable* item)
 	{
 		this->list.Add(item);
 	}

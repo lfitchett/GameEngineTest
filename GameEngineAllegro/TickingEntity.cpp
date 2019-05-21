@@ -3,6 +3,7 @@
 #include "pch.h"
 
 #include "EventLoop.cpp"
+#include "CleanupList.cpp"
 
 class TickingEntity
 {

@@ -21,5 +21,4 @@ struct SharedData
 	Point mouseLocation;
 	FontManager fontManager;
 	CollisionManager collisionManager;
-	CleanupEntity* cleanup;
 };

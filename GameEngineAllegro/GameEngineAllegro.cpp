@@ -22,20 +22,16 @@ int main()
 
 	EventLoop mainLoop;
 	SharedData data;
-	CleanupList<void*> cleanup;
+	CleanupList cleanup;
 
 	data.displaySize.width = 800;
 	data.displaySize.height = 600;
 	data.display = al_create_display(data.displaySize.width, data.displaySize.height);
 
-	data.cleanup = new CleanupEntity(mainLoop);
-	cleanup.Add(data.cleanup);
-
-	cleanup.Add(new Renderer(mainLoop));
-	cleanup.Add(new EventListener(mainLoop, data));
-	//cleanup.Add(new Text(mainLoop, data));
-	cleanup.Add(new BouncingCircle(mainLoop, data));
-	cleanup.Add(new BouncingCircle(mainLoop, data));
+	auto renderer = std::make_unique<Renderer>(mainLoop);
+	auto listener = std::make_unique<EventListener>(mainLoop, data);
+	auto c1 = std::make_unique<BouncingCircle>(mainLoop, data);
+	auto c2 = std::make_unique<BouncingCircle>(mainLoop, data);
 
 
 	mainLoop.Start();

@@ -3,7 +3,6 @@
 #include "pch.h"
 
 #include "EventNode.cpp"
-#include "CleanupList.cpp"
 
 #define EventId EventNode*
 #define NUM_PRIORITIES 3

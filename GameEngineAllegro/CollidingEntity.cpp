@@ -11,11 +11,11 @@ class CollidingEntity : public EntityWithData
 {
 private:
 	EventId id;
+	HitboxDisplay* hbDisplay;
 
 protected:
 	EventLoop &mainLoop;
 	Hitbox* hitbox;
-	HitboxDisplay* hbDisplay;
 
 	virtual void onCollision(CollisionResult collision) = 0;
 
