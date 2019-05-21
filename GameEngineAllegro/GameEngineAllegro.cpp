@@ -16,13 +16,12 @@
 
 int main()
 {
-	al_init();
+	/*al_init();
 	al_init_image_addon();
 	al_init_primitives_addon();
 
 	EventLoop mainLoop;
 	SharedData data;
-	CleanupList cleanup;
 
 	data.displaySize.width = 800;
 	data.displaySize.height = 600;
@@ -37,11 +36,19 @@ int main()
 	text->location.x = 200;
 	text->location.y = 300;
 
-
 	mainLoop.Start();
-
-	cleanup.Cleanup();
 	al_destroy_display(data.display);
+	*/
+
+	int poly[3][2] = { {1,1},{2,2},{3,3} };
+	double x = 5, y = 10;
+	auto test = new MovingPolygon<3>([&x, &y] {return Point{ x,y }; }, poly);
+
+	auto a = test->GetCenter();
+	x = 10, y = 20;
+	auto b = test->GetCenter();
+
+
 
 	return 0;
 }

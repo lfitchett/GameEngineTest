@@ -11,17 +11,19 @@
 class Polygon : public Shape
 {
 public:
-	virtual Point* GetPoints() = 0;
+	virtual Point* GetPoint(size_t i) = 0;
 	virtual size_t GetNumPoints() = 0;
-	Point Center;
-	double Radius;
+	virtual Point* GetCenter() = 0;
+	virtual double GetRadius() = 0;
 };
 
 template<uint16_t s>
 class SizedPolygon : public Polygon
 {
-private:
+protected:
 	Point Points[s];
+	double Radius;
+	Point Center;
 
 public:
 	SizedPolygon(int points[s][2])
@@ -31,28 +33,45 @@ public:
 			Points[i].x = points[i][0];
 			Points[i].y = points[i][1];
 
-			if (xMax < Points[i].x) {
-				xMax = Points[i].x;
-			}
-			if (xMin > Points[i].x) {
-				xMin = Points[i].x;
-			}
-
-			if (yMax < Points[i].y) {
-				yMax = Points[i].y;
-			}
-			if (yMin > Points[i].y) {
-				yMin = Points[i].y;
-			}
+			xMax = std::max(xMax, points[i][0]);
+			xMin = std::min(xMin, points[i][0]);
+			yMax = std::max(yMax, points[i][1]);
+			yMin = std::min(yMin, points[i][1]);
 		}
 
 		Radius = std::max(xMax - xMin, yMax - yMin) / 2;
 		Center.x = (xMax + xMin) / 2;
 		Center.y = (yMax + yMin) / 2;
-	}
 
-	Point* GetPoints() override { return Points; }
+	};
 
 	size_t GetNumPoints() override { return s; }
+	Point* GetPoint(size_t i) override { return &Points[i]; }
+	double GetRadius() override { return Radius; }
+	Point* GetCenter() override { return &Center; }
 };
+
+template<uint16_t s>
+class MovingPolygon : public SizedPolygon<s>
+{
+private:
+	std::function<Point()> Center;
+
+public:
+	MovingPolygon(std::function<Point()> center, int points[s][2]) : SizedPolygon<s>(points)
+	{
+		Center = center;
+		for (size_t i = 0; i < s; i++)
+		{
+			Points[i].x -= SizedPolygon<s>::Center.x;
+			Points[i].y -= SizedPolygon<s>::Center.y;
+		}
+	}
+
+	Point* GetCenter() override { return &Center(); }
+	Point* GetPoint(size_t i) override { return Points[i]; }
+
+
+};
+
 
