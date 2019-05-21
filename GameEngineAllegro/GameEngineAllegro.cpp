@@ -22,11 +22,12 @@ int main()
 
 	EventLoop mainLoop;
 	SharedData data;
-	CleanupList cleanup;
 
 	data.displaySize.width = 800;
 	data.displaySize.height = 600;
-	data.display = al_create_display(data.displaySize.width, data.displaySize.height);
+
+	std::unique_ptr<ALLEGRO_DISPLAY, decltype(&al_destroy_display)> display(al_create_display(data.displaySize.width, data.displaySize.height), &al_destroy_display);
+	data.display = display.get();
 
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
@@ -39,9 +40,4 @@ int main()
 
 
 	mainLoop.Start();
-
-	cleanup.Cleanup();
-	al_destroy_display(data.display);
-
-	return 0;
 }
