@@ -200,7 +200,7 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeCollision.cpp" />
     <ClCompile Include="SharedData.cpp" />
-    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="TextBase.cpp" />
     <ClCompile Include="TickingEntity.cpp" />
   </ItemGroup>
   <ItemGroup>

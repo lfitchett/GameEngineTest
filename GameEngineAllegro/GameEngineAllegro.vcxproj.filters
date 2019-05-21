@@ -68,9 +68,6 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="EntityWithData.cpp">
       <Filter>Source Files\Entities\Base</Filter>
     </ClCompile>
@@ -136,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="CollidingEntity.cpp">
       <Filter>Source Files\Entities\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBase.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

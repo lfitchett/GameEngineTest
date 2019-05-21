@@ -1,9 +1,11 @@
+#pragma once
+
 #include "pch.h"
 
 #include "EntityWithData.cpp"
 #include "RenderedEntity.cpp"
 
-class Text : public EntityWithData, public RenderedEntity
+class TextBase : public EntityWithData, public RenderedEntity
 {
 public:
 	ALLEGRO_COLOR color = al_map_rgb(200, 0, 0);
@@ -13,7 +15,7 @@ public:
 	uint16_t flags = 0;
 	std::string text;
 
-	Text(EventLoop &loop, SharedData &data) : EntityWithData(data), RenderedEntity(loop) {	}
+	TextBase(EventLoop &loop, SharedData &data) : EntityWithData(data), RenderedEntity(loop) {	}
 
 protected:
 	void Render() override

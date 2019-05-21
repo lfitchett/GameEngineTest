@@ -11,7 +11,7 @@
 #include "Renderer.cpp"
 #include "CleanupEntity.cpp"
 #include "BitmapBase.cpp"
-#include "Text.cpp"
+#include "TextBase.cpp"
 #include "BouncingCircle.cpp"
 
 int main()
@@ -28,11 +28,11 @@ int main()
 	data.displaySize.height = 600;
 	data.display = al_create_display(data.displaySize.width, data.displaySize.height);
 
-	auto renderer = std::make_unique<Renderer>(mainLoop);
+	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 	auto c1 = std::make_unique<BouncingCircle>(mainLoop, data);
 	auto c2 = std::make_unique<BouncingCircle>(mainLoop, data);
-	auto text = std::make_unique<Text>(mainLoop, data);
+	auto text = std::make_unique<TextBase>(mainLoop, data);
 	text->text = "Test";
 	text->location.x = 200;
 	text->location.y = 300;
