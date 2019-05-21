@@ -6,9 +6,11 @@
 
 class TickingEntity
 {
+private:
+	EventId id;
+
 protected:
 	EventLoop &mainLoop;
-	EventId id;
 
 	virtual void Tick() = 0;
 

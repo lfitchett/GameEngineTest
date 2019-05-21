@@ -193,6 +193,7 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="PolygonCollision.cpp" />
+    <ClCompile Include="RenderedEntity.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="EventListener.cpp" />
     <ClCompile Include="Shape.cpp" />
