@@ -1,23 +1,23 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
-#include "TickingEntity.cpp"
+#include "RenderedEntity.cpp"
 
-class Text : public EntityWithData, public TickingEntity
+class Text : public EntityWithData, public RenderedEntity
 {
 public:
-	Text(EventLoop &loop, SharedData &data) : EntityWithData(data), TickingEntity(loop)
-	{
-		
-	}
+	ALLEGRO_COLOR color = al_map_rgb(200, 0, 0);
+	std::string font = "./Resources/Fonts/arial.ttf";
+	uint16_t fontSize = 12;
+	Point location;
+	uint16_t flags = 0;
+	std::string text;
 
-	~Text() {
-		printf("Cleanup Text\n");
-	}
+	Text(EventLoop &loop, SharedData &data) : EntityWithData(data), RenderedEntity(loop) {	}
 
 protected:
-	void Tick()
+	void Render() override
 	{
-		al_draw_text(sharedData.fontManager.GetFont("./Resources/Fonts/arial.ttf", 72), al_map_rgb(255, 255, 255), 400, 300, ALLEGRO_ALIGN_CENTER, "Welcome to Allegro!");
+		al_draw_text(sharedData.fontManager.GetFont(font, fontSize), color, location.x, location.y, flags, text.c_str());
 	}
 };
