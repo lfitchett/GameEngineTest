@@ -202,6 +202,8 @@
     <ClCompile Include="SharedData.cpp" />
     <ClCompile Include="TextBase.cpp" />
     <ClCompile Include="TickingEntity.cpp" />
+    <ClCompile Include="UnitVector.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

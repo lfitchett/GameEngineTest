@@ -37,6 +37,9 @@
     <Filter Include="Source Files\CollisionDetection\CollisionManager">
       <UniqueIdentifier>{6229307d-756e-4fe7-9647-d583d533d292}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\CollisionDetection\VectorMath">
+      <UniqueIdentifier>{be209e7c-04e0-4ee2-bfa6-e07be9e12b86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -136,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="TextBase.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Source Files\CollisionDetection\VectorMath</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitVector.cpp">
+      <Filter>Source Files\CollisionDetection\VectorMath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
