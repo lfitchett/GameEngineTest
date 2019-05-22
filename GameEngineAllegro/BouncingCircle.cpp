@@ -3,7 +3,7 @@
 #include "BitmapBase.cpp"
 #include "CollidingEntity.cpp"
 
-constexpr int MOVE_SPEED = 5;
+constexpr int MOVE_SPEED = 10;
 constexpr int RADIUS = 50;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
@@ -11,6 +11,7 @@ class BouncingCircle : public TickingEntity, public EntityWithData
 private:
 	bool movingRight = true;
 	bool movingDown = true;
+	Point location;
 	BitmapBase bitmap;
 	CollidingEntity collisionChecker;
 
@@ -18,11 +19,11 @@ public:
 	BouncingCircle(EventLoop &loop, SharedData &data)
 		: TickingEntity(loop),
 		EntityWithData(data),
+		location{ (double)(rand() % data.displaySize.width), (double)(rand() % data.displaySize.height) },
 		bitmap(loop, data, "Resources/Images/blueCircle.png"),
 		collisionChecker(loop, data, makeHitbox(), [this](CollisionResult result) {onCollision(std::move(result)); })
 	{
 		bitmap.setSize(RADIUS * 2, RADIUS * 2);
-		bitmap.setLocation(rand() % data.displaySize.width, rand() % data.displaySize.height);
 	}
 
 	~BouncingCircle()
@@ -34,46 +35,48 @@ protected:
 	void Tick() override
 	{
 		if (movingRight) {
-			bitmap.currLocation.x += MOVE_SPEED;
-			if (bitmap.currLocation.x > sharedData.displaySize.width) {
-				bitmap.currLocation.x = 2 * sharedData.displaySize.width - bitmap.currLocation.x;
+			location.x += MOVE_SPEED;
+			if (location.x > sharedData.displaySize.width) {
+				location.x = 2 * sharedData.displaySize.width - location.x;
 				movingRight = false;
 			}
 		}
 		else {
-			bitmap.currLocation.x -= MOVE_SPEED;
-			if (bitmap.currLocation.x < 0) {
-				bitmap.currLocation.x = 0 - bitmap.currLocation.x;
+			location.x -= MOVE_SPEED;
+			if (location.x < 0) {
+				location.x = 0 - location.x;
 				movingRight = true;
 			}
 		}
 
 		if (movingDown) {
-			bitmap.currLocation.y += MOVE_SPEED;
-			if (bitmap.currLocation.y > sharedData.displaySize.height) {
-				bitmap.currLocation.y = 2 * sharedData.displaySize.height - bitmap.currLocation.y;
+			location.y += MOVE_SPEED;
+			if (location.y > sharedData.displaySize.height) {
+				location.y = 2 * sharedData.displaySize.height - location.y;
 				movingDown = false;
 			}
 		}
 		else {
-			bitmap.currLocation.y -= MOVE_SPEED;
-			if (bitmap.currLocation.y < 0) {
-				bitmap.currLocation.y = 0 - bitmap.currLocation.y;
+			location.y -= MOVE_SPEED;
+			if (location.y < 0) {
+				location.y = 0 - location.y;
 				movingDown = true;
 			}
 		}
+
+		bitmap.setLocation(location);
 	}
 
 
 private:
 	Hitbox* makeHitbox()
 	{
-		return new SingleHitbox(new MovingCircle([this] {return Point{ bitmap.currLocation.x + RADIUS, bitmap.currLocation.y + RADIUS }; }, RADIUS));
+		return new SingleHitbox(new MovingCircle([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, RADIUS));
 	}
 
 	void onCollision(CollisionResult collision)
 	{
-		movingDown = collision->OtherCenter->x < bitmap.currLocation.x;
-		movingRight = collision->OtherCenter->y < bitmap.currLocation.y;
+		movingDown = collision->OtherCenter->x < location.x;
+		movingRight = collision->OtherCenter->y < location.y;
 	}
 };
