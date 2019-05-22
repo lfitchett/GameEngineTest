@@ -11,9 +11,7 @@ CollisionInformation* CollisionManager::isColliding(Circle* c1, Circle* c2)
 	double radiusSumSquared = sr * sr;
 
 	if (radiusSumSquared >= centerDistSquared) {
-		CollisionInformation* result = new CollisionInformation();
-		result->OtherCenter = &c2->GetCenter();
-		return result;
+		return new CollisionInformation{ new Point(c2->GetCenter()) };
 	}
 
 	return false;

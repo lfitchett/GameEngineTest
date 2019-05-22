@@ -5,4 +5,9 @@
 struct CollisionInformation
 {
 	Point* OtherCenter;
+
+	~CollisionInformation()
+	{
+		delete OtherCenter;
+	}
 };

@@ -8,11 +8,12 @@
 class BitmapBase : public EntityWithData, public RenderedEntity
 {
 protected:
-	Point currLocation;
 	ALLEGRO_BITMAP* bitmap = nullptr;
 	Size size;
 
 public:
+	Point currLocation;
+
 	BitmapBase(EventLoop &loop, SharedData &data, int width, int height, ALLEGRO_COLOR color)
 		: EntityWithData(data), RenderedEntity(loop)
 	{
@@ -41,8 +42,6 @@ public:
 		currLocation.y = loc.y;
 	}
 
-
-protected:
 	BitmapBase(EventLoop &loop, SharedData &data) : EntityWithData(data), RenderedEntity(loop) {}
 
 	void Render() override
@@ -74,6 +73,11 @@ protected:
 
 		size.width = al_get_bitmap_width(bitmap);
 		size.height = al_get_bitmap_height(bitmap);
+	}
+
+	Size GetSize()
+	{
+		return size;
 	}
 
 	void setSize(int newWidth, int newHeight)

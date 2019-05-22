@@ -17,11 +17,12 @@ protected:
 	EventLoop &mainLoop;
 	Hitbox* hitbox;
 
-	virtual void onCollision(CollisionResult collision) = 0;
+	std::function<void(CollisionResult)> onCollision;
 
 public:
-	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox) : mainLoop(loop), EntityWithData(data) {
-		id = loop.Subscribe([this] { CheckCollision(); }, 1);	
+	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox, std::function<void(CollisionResult)> onCollision)
+		: mainLoop(loop), EntityWithData(data), onCollision(onCollision) {
+		id = loop.Subscribe([this] { CheckCollision(); }, 1);
 
 		this->hitbox = hitbox;
 		sharedData.collisionManager.AddHitbox(hitbox);
