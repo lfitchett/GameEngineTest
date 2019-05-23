@@ -33,10 +33,6 @@ public:
 protected:
 	void Tick() override
 	{
-		if (!al_event_queue_is_empty(eventQueue)) {
-			printf("not empty\n");
-		}
-
 		while (al_get_next_event(eventQueue, &currentEvent)) {
 			switch (currentEvent.type)
 			{

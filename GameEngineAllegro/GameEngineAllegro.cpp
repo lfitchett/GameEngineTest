@@ -31,13 +31,11 @@ int main()
 
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
-	auto c1 = std::make_unique<BouncingCircle>(mainLoop, data);
-	auto c2 = std::make_unique<BouncingCircle>(mainLoop, data);
-	auto text = std::make_unique<TextBase>(mainLoop, data);
-	text->text = "Test";
-	text->location.x = 200;
-	text->location.y = 300;
 
+	std::vector<std::unique_ptr<BouncingCircle>> circles;
+	for (int i = 0; i < 100; i++) {
+		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
+	}
 
 	mainLoop.Start();
 }

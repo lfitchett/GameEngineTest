@@ -4,8 +4,8 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr int MOVE_SPEED = 8;
-constexpr int RADIUS = 75;
+constexpr int MOVE_SPEED = 5;
+constexpr int RADIUS = 5;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
 {
@@ -20,7 +20,7 @@ public:
 		: TickingEntity(loop),
 		EntityWithData(data),
 		direction((float)rand(), (float)rand()),
-		location{ (double)(rand() % data.displaySize.width), (double)(rand() % data.displaySize.height) },
+		location{ (double)((rand() % (data.displaySize.width / 2)) + data.displaySize.width / 4), (double)((rand() % (data.displaySize.height / 2)) + data.displaySize.height / 4) },
 		bitmap(loop, data, "Resources/Images/blueCircle.png"),
 		collisionChecker(loop, data, makeHitbox(), [this](CollisionResult result) {onCollision(std::move(result)); })
 	{

@@ -42,7 +42,7 @@ private:
 	{
 		CollisionResult collision = sharedData.collisionManager.FindCollision(hitbox);
 		if (collision) {
-			printf("Collision\n");
+			// printf("Collision\n");
 			onCollision(std::move(collision));
 		}
 	}

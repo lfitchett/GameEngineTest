@@ -43,8 +43,6 @@ protected:
 
 		auto fps = duration_cast<nanoseconds>(seconds(1)) / duration_cast<nanoseconds>(system_clock::now() - lastTickTime);
 		averageFps = .9 * averageFps + .1 * fps;
-
-		printf("FPS: %.2f / %d\n", averageFps, FPS_TARGET);
 		fpsMeter.text = std::to_string(averageFps);
 
 		lastTickTime = system_clock::now();
