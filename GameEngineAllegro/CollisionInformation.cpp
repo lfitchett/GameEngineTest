@@ -1,13 +1,10 @@
 #include "pch.h"
 
 #include "Point.cpp"
+#include "Vector.cpp"
 
 struct CollisionInformation
 {
-	Point* OtherCenter;
-
-	~CollisionInformation()
-	{
-		delete OtherCenter;
-	}
+	Point OtherCenter;
+	Vector Direction;
 };

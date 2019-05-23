@@ -8,11 +8,13 @@
 class UnitVector : public Vector
 {
 public:
-	UnitVector(const Vector& v)
+	UnitVector(const Vector& v) : UnitVector(v.x, v.y) {}
+
+	UnitVector(float x, float y)
 	{
-		float invMag = inv_square(v.x * v.x + v.y * v.y);
-		x = v.x * invMag;
-		y = v.y * invMag;
+		float invMag = inv_square(x * x + y * y);
+		this->x = x * invMag;
+		this->y = y * invMag;
 	}
 
 private:
