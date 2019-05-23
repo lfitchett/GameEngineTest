@@ -26,6 +26,16 @@ public:
 		return Vector{ x - b.x, y - b.y };
 	}
 
+	float operator*(const Vector& b)
+	{
+		return x * b.x + y * b.y;
+	}
+
+	Vector operator*(float s)
+	{
+		return Vector(x*s, y*s);
+	}
+
 	Vector ToNorm()
 	{
 		return Vector{ -y, x };

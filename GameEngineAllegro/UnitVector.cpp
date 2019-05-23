@@ -17,6 +17,13 @@ public:
 		this->y = y * invMag;
 	}
 
+	Vector Reflect(Vector& b)
+	{
+		UnitVector n = b.ToNorm();
+
+		return (*this) - (n * ((*this)*n)) * 2.f;
+	}
+
 private:
 	float inv_square(float a)
 	{
