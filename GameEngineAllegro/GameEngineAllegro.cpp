@@ -32,7 +32,7 @@ int main()
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 	auto c1 = std::make_unique<BouncingCircle>(mainLoop, data);
-	//auto c2 = std::make_unique<BouncingCircle>(mainLoop, data);
+	auto c2 = std::make_unique<BouncingCircle>(mainLoop, data);
 	auto text = std::make_unique<TextBase>(mainLoop, data);
 	text->text = "Test";
 	text->location.x = 200;

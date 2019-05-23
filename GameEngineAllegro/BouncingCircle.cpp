@@ -4,8 +4,8 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr int MOVE_SPEED = 15;
-constexpr int RADIUS = 25;
+constexpr int MOVE_SPEED = 8;
+constexpr int RADIUS = 75;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
 {
@@ -64,6 +64,7 @@ private:
 
 	void onCollision(CollisionResult collision)
 	{
-
+		Vector pseudoWall = collision->Direction.ToNorm();
+		direction = direction.Reflect(pseudoWall);
 	}
 };

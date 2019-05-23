@@ -26,11 +26,13 @@ public:
 		return Vector{ x - b.x, y - b.y };
 	}
 
+	// Dot Product
 	float operator*(const Vector& b)
 	{
 		return x * b.x + y * b.y;
 	}
 
+	// Scaler Multiplication
 	Vector operator*(float s)
 	{
 		return Vector(x*s, y*s);
