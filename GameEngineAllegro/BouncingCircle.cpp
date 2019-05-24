@@ -59,7 +59,13 @@ protected:
 private:
 	Hitbox* makeHitbox()
 	{
-		return new SingleHitbox(new MovingCircle([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, RADIUS));
+		int points[4][2] = { {0,0},{RADIUS * 3,0},{RADIUS * 3,RADIUS * 3}, {0,RADIUS * 3} };
+		return new SingleHitbox(
+			new MovingPolygon<4>(
+				[this] {return Point{ location.x + RADIUS, location.y + RADIUS }; },
+				points
+				)
+		);
 	}
 
 	void onCollision(CollisionResult collision)

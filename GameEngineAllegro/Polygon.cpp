@@ -52,7 +52,7 @@ public:
 		Center.y = (yMax + yMin) / 2;
 	}
 
-	Point** GetPoints() override { return &Points; }
+	Point** GetPoints() override { return (Point**)&Points; }
 
 	size_t GetNumPoints() override { return s; }
 
@@ -68,7 +68,7 @@ private:
 	Point NewPoints[s];
 
 public:
-	MovingPolygon(int points[s][2], std::function<Point()> center) : SizedPolygon<s>(points)
+	MovingPolygon(std::function<Point()> center, int points[s][2]) : CenterFunc(center), SizedPolygon<s>(points)
 	{
 		for (int i = 0; i < s; i++) {
 			this->Points[i].x -= this->Center.x;
@@ -80,15 +80,15 @@ public:
 		return CenterFunc();
 	}
 
-	Point** GetPoints() override { 
+	Point** GetPoints() override {
 		Point newCenter = CenterFunc();
 
 		for (int i = 0; i < s; i++) {
-			this->NewPoints[i].x += newCenter.x;
-			this->NewPoints[i].y += newCenter.y;
+			this->NewPoints[i].x = this->Points[i].x + newCenter.x;
+			this->NewPoints[i].y = this->Points[i].y + newCenter.y;
 		}
 
-		return &this->NewPoints;
+		return (Point**)&this->NewPoints;
 	}
 
 };
