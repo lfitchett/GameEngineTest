@@ -20,7 +20,7 @@ public:
 template<uint16_t s>
 class SizedPolygon : public Polygon
 {
-private:
+protected:
 	Point Points[s];
 	Point Center;
 
@@ -57,6 +57,39 @@ public:
 	size_t GetNumPoints() override { return s; }
 
 	Point GetCenter() override { return Center; }
+
+};
+
+template<uint16_t s>
+class MovingPolygon : public SizedPolygon<s>
+{
+private:
+	std::function<Point()> CenterFunc;
+	Point NewPoints[s];
+
+public:
+	MovingPolygon(int points[s][2], std::function<Point()> center) : SizedPolygon<s>(points)
+	{
+		for (int i = 0; i < s; i++) {
+			this->Points[i].x -= this->Center.x;
+			this->Points[i].y -= this->Center.y;
+		}
+	}
+
+	Point GetCenter() override {
+		return CenterFunc();
+	}
+
+	Point** GetPoints() override { 
+		Point newCenter = CenterFunc();
+
+		for (int i = 0; i < s; i++) {
+			this->NewPoints[i].x += newCenter.x;
+			this->NewPoints[i].y += newCenter.y;
+		}
+
+		return &this->NewPoints;
+	}
 
 };
 
