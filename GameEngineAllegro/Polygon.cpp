@@ -27,7 +27,7 @@ protected:
 public:
 	SizedPolygon(int points[s][2])
 	{
-		int xMax = INT_MIN, xMin = INT_MAX, yMax = INT_MIN, yMin = INT_MAX;
+		double xMax = -DBL_MAX, xMin = DBL_MAX, yMax = -DBL_MAX, yMin = DBL_MAX;
 		for (int i = 0; i < s; i++) {
 			Points[i].x = points[i][0];
 			Points[i].y = points[i][1];
@@ -47,9 +47,10 @@ public:
 			}
 		}
 
-		Radius = std::max(xMax - xMin, yMax - yMin) / 2;
 		Center.x = (xMax + xMin) / 2;
 		Center.y = (yMax + yMin) / 2;
+
+		Radius = sqrt((xMax - Center.x) * (xMax - Center.x) + (yMax - Center.y)*(yMax - Center.y));
 	}
 
 	Point** GetPoints() override { return (Point**)&Points; }

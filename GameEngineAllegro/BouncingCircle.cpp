@@ -59,9 +59,9 @@ protected:
 private:
 	Hitbox* makeHitbox()
 	{
-		int points[4][2] = { {0,0},{RADIUS * 3,0},{RADIUS * 3,RADIUS * 3}, {0,RADIUS * 3} };
+		int points[5][2] = { {0,0},{RADIUS * 3,0},{RADIUS * 3,RADIUS * 3}, {RADIUS * 2,RADIUS * 5}, {0,RADIUS * 3} };
 		return new SingleHitbox(
-			new MovingPolygon<4>(
+			new MovingPolygon<5>(
 				[this] {return Point{ location.x + RADIUS, location.y + RADIUS }; },
 				points
 				)
