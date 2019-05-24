@@ -33,7 +33,7 @@ int main()
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 
 	std::vector<std::unique_ptr<BouncingCircle>> circles;
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 2; i++) {
 		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
 	}
 

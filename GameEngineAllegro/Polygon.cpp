@@ -11,7 +11,7 @@
 class Polygon : public Shape
 {
 public:
-	virtual Point** GetPoints() = 0;
+	virtual Point* GetPoints() = 0;
 	virtual size_t GetNumPoints() = 0;
 	virtual Point GetCenter() = 0;
 	double Radius;
@@ -53,7 +53,7 @@ public:
 		Radius = sqrt((xMax - Center.x) * (xMax - Center.x) + (yMax - Center.y)*(yMax - Center.y));
 	}
 
-	Point** GetPoints() override { return (Point**)&Points; }
+	Point* GetPoints() override { return (Point*)&Points; }
 
 	size_t GetNumPoints() override { return s; }
 
@@ -81,7 +81,7 @@ public:
 		return CenterFunc();
 	}
 
-	Point** GetPoints() override {
+	Point* GetPoints() override {
 		Point newCenter = CenterFunc();
 
 		for (int i = 0; i < s; i++) {
@@ -89,7 +89,7 @@ public:
 			this->NewPoints[i].y = this->Points[i].y + newCenter.y;
 		}
 
-		return (Point**)&this->NewPoints;
+		return (Point*)&this->NewPoints;
 	}
 
 };

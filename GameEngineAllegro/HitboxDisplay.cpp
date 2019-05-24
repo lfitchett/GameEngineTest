@@ -41,7 +41,7 @@ protected:
 
 	void DrawPolygon(Polygon* p)
 	{
-		Point* start = (Point*)p->GetPoints();
+		Point* start = p->GetPoints();
 		Point* end = start + p->GetNumPoints() - 1;
 
 		for (Point* p = start; p < end; p++) {
