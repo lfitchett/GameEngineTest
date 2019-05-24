@@ -14,7 +14,8 @@ public:
 	float y;
 
 	Vector(float x, float y) : x(x), y(y) {}
-	Vector(Point p1, Point p2) : x(p1.x - p2.x), y(p1.y - p2.y) {}
+	Vector(const Point& p) : x(p.x), y(p.y) {}
+	Vector(const Point& p1, const Point& p2) : x(p1.x - p2.x), y(p1.y - p2.y) {}
 
 	Vector operator+(const Vector& b)
 	{
@@ -46,5 +47,10 @@ public:
 	Vector ProjectOnto(Vector& v)
 	{
 		return v * (((*this) * v) / (v.x*v.x + v.y*v.y));
+	}
+
+	float MagSquared()
+	{
+		return x * x + y * y;
 	}
 };

@@ -11,9 +11,9 @@
 class Polygon : public Shape
 {
 public:
-	virtual Point* GetPoints() = 0;
+	virtual Point** GetPoints() = 0;
 	virtual size_t GetNumPoints() = 0;
-	Point Center;
+	virtual Point GetCenter() = 0;
 	double Radius;
 };
 
@@ -22,6 +22,7 @@ class SizedPolygon : public Polygon
 {
 private:
 	Point Points[s];
+	Point Center;
 
 public:
 	SizedPolygon(int points[s][2])
@@ -51,8 +52,11 @@ public:
 		Center.y = (yMax + yMin) / 2;
 	}
 
-	Point* GetPoints() override { return Points; }
+	Point** GetPoints() override { return &Points; }
 
 	size_t GetNumPoints() override { return s; }
+
+	Point GetCenter() override { return Center; }
+
 };
 
