@@ -1,10 +1,12 @@
 #include "pch.h"
 
 #include "Point.cpp"
-#include "Vector.cpp"
+#include "UnitVector.cpp"
 
 struct CollisionInformation
 {
 	Point OtherCenter;
-	Vector Direction;
+	UnitVector Direction;
+	double overlap;
+	bool isOtherMoving;
 };

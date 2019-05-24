@@ -7,11 +7,17 @@ CollisionInformation* CollisionManager::isColliding(Circle* c1, Circle* c2)
 	double dy = c1->GetCenter().y - c2->GetCenter().y;
 	double centerDistSquared = dx * dx + dy * dy;
 
-	double sr = c1->Radius + c2->Radius;
-	double radiusSumSquared = sr * sr;
+	double radiusSum = c1->Radius + c2->Radius;
+	double radiusSumSquared = radiusSum * radiusSum;
 
 	if (radiusSumSquared >= centerDistSquared) {
-		return new CollisionInformation{ Point(c2->GetCenter()), Vector(c1->GetCenter(), c2->GetCenter()) };
+		double overlap = radiusSum - sqrt(centerDistSquared);
+		return new CollisionInformation{ 
+			Point(c2->GetCenter()), 
+			Vector(c1->GetCenter(), c2->GetCenter()),
+			overlap,
+			true
+		};
 	}
 
 	return false;
