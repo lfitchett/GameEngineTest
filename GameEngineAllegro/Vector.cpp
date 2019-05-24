@@ -42,4 +42,9 @@ public:
 	{
 		return Vector{ -y, x };
 	}
+
+	Vector ProjectOnto(Vector& v)
+	{
+		return v * (((*this) * v) / (v.x*v.x + v.y*v.y));
+	}
 };
