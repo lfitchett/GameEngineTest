@@ -57,7 +57,7 @@ CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* pol
 	return new CollisionInformation{
 			Point(poly2->GetCenter()),
 			collisionAngle,
-			sqrt(minOverlap),
+			minOverlap,
 			true
 	};
 }
@@ -77,13 +77,19 @@ double FindOverlap(Point* p1, Point* p2, size_t n1, size_t n2, Vector& axis) {
 		min2 = std::min(min2, mag);
 	}
 
-	float overlap = std::max(max1 - min2, max2 - min1);
-
-	if (overlap < 0) {
-		/* Gap found, no overlap */
-		return 0;
+	/* Find the minimum positive gap */
+	float diff1 = max1 - min2;
+	float diff2 = max2 - min1;
+	if (diff1 > 0 && (diff2 < 0 || diff1 < diff2))
+	{
+		return sqrt(max1) - sqrt(min2);
 	}
-	else {
-		return overlap;
+	else if (diff2 > 0)
+	{
+		return sqrt(max2) - sqrt(min1);
+	}
+	else
+	{
+		return 0;
 	}
 }
