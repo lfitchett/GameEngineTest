@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "CollisionManager.h"
 
+bool CheckVectorForGap(Point* p1, Point* p2, size_t n1, size_t n2, Vector vectorToCheck, float& minOverlap, Vector& collisionAngle);
 double FindOverlap(Point* p1, Point* p2, size_t n1, size_t n2, Vector& axis);
 
 CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* poly2)
@@ -20,50 +21,60 @@ CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* pol
 	size_t n2 = poly2->GetNumPoints();
 
 	Vector collisionAngle(0, 0);
-	double minOverlap = DBL_MAX;
+	float minOverlap = FLT_MAX;
 	/* Check first shape */
-	for (Point* p = p1; p < p1 + n1 - 1; p++) {
-		/* Find normal vector */
-		Vector axis = Vector(*p, *(p + 1)).ToNorm();
-
-		float overlap = FindOverlap(p1, p2, n1, n2, axis);
-		if (overlap == 0) {
-			/* Gap found */
+	Point* end = p1 + n1 - 1;
+	for (Point* p = p1; p < end; p++) {
+		if (CheckVectorForGap(p1, p2, n1, n2, Vector(*p, *(p + 1)), minOverlap, collisionAngle)) {
 			return false;
 		}
-
-		if (overlap < minOverlap) {
-			minOverlap = overlap;
-			collisionAngle = axis;
-		}
 	}
+	if (CheckVectorForGap(p1, p2, n1, n2, Vector(*p1, *end), minOverlap, collisionAngle)) {
+		return false;
+	}
+
 	/* Check second shape */
-	for (Point* p = p2; p < p2 + n2 - 1; p++) {
-		/* Find normal vector */
-		Vector axis = Vector(*p, *(p + 1)).ToNorm();
-
-		float overlap = FindOverlap(p1, p2, n1, n2, axis);
-		if (overlap == 0) {
-			/* Gap found */
+	end = p2 + n2 - 1;
+	for (Point* p = p2; p < end; p++) {
+		if (CheckVectorForGap(p1, p2, n1, n2, Vector(*p, *(p + 1)), minOverlap, collisionAngle)) {
 			return false;
 		}
-
-		if (overlap < minOverlap) {
-			minOverlap = overlap;
-			collisionAngle = axis;
-		}
 	}
+	if (CheckVectorForGap(p1, p2, n1, n2, Vector(*p2, *end), minOverlap, collisionAngle)) {
+		return false;
+	}
+
+	
 
 	return new CollisionInformation{
 			Point(poly2->GetCenter()),
-			collisionAngle,
+			Vector(c1, c2),
 			minOverlap,
 			true
 	};
 }
 
-double FindOverlap(Point* p1, Point* p2, size_t n1, size_t n2, Vector& axis) {
+bool CheckVectorForGap(Point* p1, Point* p2, size_t n1, size_t n2, Vector vectorToCheck, float& minOverlap, Vector& collisionAngle)
+{
+	/* Find normal vector */
+	Vector axis = vectorToCheck.ToNorm();
 
+	float overlap = FindOverlap(p1, p2, n1, n2, axis);
+	if (overlap == 0) {
+		/* Gap found */
+		return true;
+	}
+
+	if (overlap < minOverlap) {
+		minOverlap = overlap;
+		collisionAngle = axis;
+	}
+
+	return false;
+}
+
+double FindOverlap(Point* p1, Point* p2, size_t n1, size_t n2, Vector& axis) 
+{
 	/* Find min and max magnitude of each point projected onto the axis */
 	float max1 = 0, min1 = FLT_MAX, max2 = 0, min2 = FLT_MAX;
 	for (size_t i = 0; i < n1; i++) {
