@@ -12,6 +12,8 @@
 // TODO: add headers that you want to pre-compile here
 #include <memory>
 #include <functional>
+#include <vector>
+#include <forward_list>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>

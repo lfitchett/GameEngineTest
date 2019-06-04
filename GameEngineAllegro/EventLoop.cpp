@@ -2,6 +2,8 @@
 
 #include "pch.h"
 
+#include <thread> 
+
 #include "EventNode.cpp"
 
 #define EventId EventNode*
@@ -73,11 +75,22 @@ public:
 			al_wait_for_event(event_queue, &ev);
 
 			for (size_t i = 0; i < NUM_PRIORITIES; i++) {
+				std::vector<std::thread> threads;
+
 				current = head[i];
 				while (current)
 				{
-					current->Func();
+					if (i != 2) {
+						threads.emplace_back(current->Func);
+					}
+					else {
+						current->Func();
+					}
 					current = current->Child;
+				}
+
+				for (size_t i = 0; i < threads.size(); i++) {
+					threads[i].join();
 				}
 			}
 		}
