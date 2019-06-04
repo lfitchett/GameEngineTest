@@ -17,10 +17,10 @@ protected:
 	EventLoop &mainLoop;
 	Hitbox* hitbox;
 
-	std::function<void(CollisionResult)> onCollision;
+	std::function<void(CollisionInformation*)> onCollision;
 
 public:
-	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox, std::function<void(CollisionResult)> onCollision)
+	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox, std::function<void(CollisionInformation*)> onCollision)
 		: mainLoop(loop), EntityWithData(data), onCollision(onCollision) {
 		id = loop.Subscribe([this] { CheckCollision(); }, 1);
 
@@ -43,7 +43,7 @@ private:
 		CollisionResult collision = sharedData.collisionManager.FindCollision(hitbox);
 		if (collision) {
 			// printf("Collision\n");
-			onCollision(std::move(collision));
+			onCollision(collision.get());
 		}
 	}
 };
