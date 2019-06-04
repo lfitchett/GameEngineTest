@@ -25,7 +25,7 @@ protected:
 	Point Center;
 
 public:
-	SizedPolygon(int points[s][2])
+	SizedPolygon(double points[s][2])
 	{
 		double xMax = -DBL_MAX, xMin = DBL_MAX, yMax = -DBL_MAX, yMin = DBL_MAX;
 		for (int i = 0; i < s; i++) {

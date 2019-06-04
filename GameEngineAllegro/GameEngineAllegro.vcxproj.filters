@@ -40,6 +40,9 @@
     <Filter Include="Source Files\CollisionDetection\VectorMath">
       <UniqueIdentifier>{be209e7c-04e0-4ee2-bfa6-e07be9e12b86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\TestEntities">
+      <UniqueIdentifier>{977f2627-0a62-4ea1-ab8b-708f1ad07882}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="UnitVector.cpp">
       <Filter>Source Files\CollisionDetection\VectorMath</Filter>
+    </ClCompile>
+    <ClCompile Include="SittingSquare.cpp">
+      <Filter>Source Files\Entities\TestEntities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

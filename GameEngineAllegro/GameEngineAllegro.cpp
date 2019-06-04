@@ -13,6 +13,7 @@
 #include "BitmapBase.cpp"
 #include "TextBase.cpp"
 #include "BouncingCircle.cpp"
+#include "SittingSquare.cpp"
 
 int main()
 {
@@ -32,10 +33,13 @@ int main()
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 
-	std::vector<std::unique_ptr<BouncingCircle>> circles;
+	std::unique_ptr<Square> square(new Square(mainLoop, data, Point{ 200, 200 }, 50));
+
+
+	/*std::vector<std::unique_ptr<BouncingCircle>> circles;
 	for (int i = 0; i < 2; i++) {
 		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
-	}
+	}*/
 
 	mainLoop.Start();
 }
