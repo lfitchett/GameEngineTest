@@ -72,17 +72,24 @@ public:
 		isLooping = true;
 		al_start_timer(timer);
 
-		EventNode *current;
 		ALLEGRO_EVENT ev;
-
 		while (isLooping)
 		{
 			al_wait_for_event(event_queue, &ev);
 			al_flush_event_queue(event_queue);
 
+			currentNode = nullptr;
+			currentPriority = 0;
 			std::thread test(&EventLoop::callNext, this);
 
 			test.join();
+			/* Allegro shares a global var, so call the render stuff here */
+			EventNode* current = head[NUM_PRIORITIES - 1];
+			while (current)
+			{
+				current->Func();
+				current = current->Child;
+			}
 		}
 	}
 
@@ -118,7 +125,8 @@ private:
 		getNextMux.lock();
 
 		if (currentNode == nullptr) {
-			if (currentPriority < NUM_PRIORITIES) {
+			/* Allegro shares a global var, so don't call the render stuff in a seperate thread */
+			if (currentPriority < NUM_PRIORITIES - 1) {
 				/* Get next priority head */
 				currentNode = head[currentPriority++];
 				result = currentNode;
