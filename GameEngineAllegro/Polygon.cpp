@@ -69,22 +69,26 @@ private:
 	Point NewPoints[s];
 
 public:
-	MovingPolygon(std::function<Point()> center, double points[s][2], bool pointsRelative = true) : CenterFunc(center), SizedPolygon<s>(points)
+	MovingPolygon(std::function<Point()> center, double points[s][2], Point* centerOffset = nullptr) : CenterFunc(center), SizedPolygon<s>(points)
 	{
-		if (pointsRelative) {
-			for (int i = 0; i < s; i++) {
-				SizedPolygon<s>::Points[i].x -= SizedPolygon<s>::Center.x;
-				SizedPolygon<s>::Points[i].y -= SizedPolygon<s>::Center.y;
-			}
+
+		for (int i = 0; i < s; i++) {
+			SizedPolygon<s>::Points[i].x -= SizedPolygon<s>::Center.x;
+			SizedPolygon<s>::Points[i].y -= SizedPolygon<s>::Center.y;
 		}
-		else {
+
+		if (centerOffset) {
 			double maxDistance = 0;
 			for (int i = 0; i < s; i++) {
+				SizedPolygon<s>::Points[i].x -= centerOffset->x;
+				SizedPolygon<s>::Points[i].y -= centerOffset->y;
+
 				double dx = SizedPolygon<s>::Points[i].x;
 				double dy = SizedPolygon<s>::Points[i].y;
 
 				maxDistance = std::max(maxDistance, dx * dx + dy * dy);
 			}
+
 			SizedPolygon<s>::Radius = sqrt(maxDistance);
 		}
 	}
