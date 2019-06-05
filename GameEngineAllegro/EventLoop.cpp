@@ -76,8 +76,8 @@ public:
 		std::thread threads[10];
 		while (isLooping)
 		{
-			al_wait_for_event(event_queue, &ev);
-			al_flush_event_queue(event_queue);
+			//al_wait_for_event(event_queue, &ev);
+			//al_flush_event_queue(event_queue);
 
 			currentNode = nullptr;
 			currentPriority = 0;
@@ -127,29 +127,25 @@ private:
 
 	EventNode* getNextEvent()
 	{
-		EventNode* result;
-		getNextMux.lock();
+		std::lock_guard<std::mutex> lock(getNextMux);
 
 		if (currentNode == nullptr) {
 			/* Allegro shares a global var, so don't call the render stuff in a seperate thread */
 			if (currentPriority < NUM_PRIORITIES - 1) {
 				/* Get next priority head */
 				currentNode = head[currentPriority++];
-				result = currentNode;
-				currentNode = currentNode->Child;
 			}
 			else {
 				/* Done, return null */
-				result = nullptr;
+				return nullptr;
 			}
 		}
-		else {
-			/* Traverse list normally */
-			result = currentNode;
-			currentNode = currentNode->Child;
-		}
 
-		getNextMux.unlock();
+		/* Traverse list normally */
+		EventNode* result;
+		result = currentNode;
+		currentNode = currentNode->Child;
+
 		return result;
 	}
 
