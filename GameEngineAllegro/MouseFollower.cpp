@@ -29,11 +29,13 @@ private:
 		};
 
 
-		return new SingleHitbox(new MovingPolygon<3>([this] {return location; }, points), false);
+		return new SingleHitbox(new MovingPolygon<4>([this] {return location; }, points), false);
 	}
 
 	void onCollision(CollisionInformation* collision)
 	{
-		printf("mouse hit\n");
+		double moveAmount = collision->isOtherMoving ? collision->overlap / 2 : collision->overlap;
+		location.x += (moveAmount * collision->Direction.x);
+		location.y += (moveAmount * collision->Direction.y);
 	}
 };

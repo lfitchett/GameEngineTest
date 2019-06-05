@@ -4,8 +4,8 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr int MOVE_SPEED = 3;
-constexpr int RADIUS = 25;
+constexpr int MOVE_SPEED = 0;
+constexpr int RADIUS = 20;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
 {

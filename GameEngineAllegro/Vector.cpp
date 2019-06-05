@@ -53,4 +53,9 @@ public:
 	{
 		return x * x + y * y;
 	}
+
+	void print()
+	{
+		printf("x: %f, y:%f\n", x, y);
+	}
 };

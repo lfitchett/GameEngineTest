@@ -96,8 +96,9 @@ public:
 			current = head[i];
 			while (current)
 			{
+				EventNode* toDelete = current;
 				current = current->Child;
-				delete current;
+				delete toDelete;
 			}
 		}
 

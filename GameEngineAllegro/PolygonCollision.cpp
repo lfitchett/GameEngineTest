@@ -44,12 +44,14 @@ CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* pol
 		return false;
 	}
 
-	if (c1.x < c2.x) {
+	/*if (c1.x < c2.x) {
 		collisionAngle.x *= -1;
 	}
 	if (c1.y > c2.y) {
 		collisionAngle.y *= -1;
-	}
+	}*/
+
+	collisionAngle.print();
 
 	return new CollisionInformation{
 			c2,

@@ -4,7 +4,7 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr double width = 5;
+constexpr double width = 15;
 
 class Wall : EntityWithData, RenderedEntity
 {
