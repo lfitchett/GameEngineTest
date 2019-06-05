@@ -39,6 +39,6 @@ protected:
 		al_clear_to_color(al_map_rgb(0, 0, 0));
 
 		lastTickTime = system_clock::now();
-		printf("refresh\n\n\n");
+		//printf("refresh\n\n\n");
 	}
 };

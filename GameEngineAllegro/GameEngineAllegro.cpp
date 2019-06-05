@@ -14,6 +14,7 @@
 #include "TextBase.cpp"
 #include "BouncingCircle.cpp"
 #include "SittingSquare.cpp"
+#include "MouseFollower.cpp"
 
 int main()
 {
@@ -34,6 +35,7 @@ int main()
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 
 	std::unique_ptr<Square> square(new Square(mainLoop, data, Point{ 200, 200 }, 50));
+	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
 
 
 	/*std::vector<std::unique_ptr<BouncingCircle>> circles;

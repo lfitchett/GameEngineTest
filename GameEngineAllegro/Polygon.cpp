@@ -69,7 +69,7 @@ private:
 	Point NewPoints[s];
 
 public:
-	MovingPolygon(std::function<Point()> center, int points[s][2]) : CenterFunc(center), SizedPolygon<s>(points)
+	MovingPolygon(std::function<Point()> center, double points[s][2]) : CenterFunc(center), SizedPolygon<s>(points)
 	{
 		for (int i = 0; i < s; i++) {
 			this->Points[i].x -= this->Center.x;

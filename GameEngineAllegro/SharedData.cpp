@@ -17,8 +17,8 @@ struct SharedData
 {
 	ALLEGRO_DISPLAY* display;
 	Size displaySize;
-	Point mouseClickLocation;
-	Point mouseLocation;
+	Point mouseClickLocation = Point{ 0,0 };
+	Point mouseLocation = Point{ 0,0 };
 	FontManager fontManager;
 	CollisionManager collisionManager;
 };

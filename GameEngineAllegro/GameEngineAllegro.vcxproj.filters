@@ -152,6 +152,9 @@
     <ClCompile Include="SittingSquare.cpp">
       <Filter>Source Files\Entities\TestEntities</Filter>
     </ClCompile>
+    <ClCompile Include="MouseFollower.cpp">
+      <Filter>Source Files\Entities\TestEntities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
