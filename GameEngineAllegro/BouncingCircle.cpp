@@ -4,7 +4,7 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr int MOVE_SPEED = 0;
+constexpr int MOVE_SPEED = 3;
 constexpr int RADIUS = 25;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
@@ -38,20 +38,6 @@ protected:
 		location.x += direction.x * MOVE_SPEED;
 		location.y += direction.y * MOVE_SPEED;
 
-		if (location.x < 0) {
-			direction.x *= -1;
-		}
-		if (location.x + 2 * RADIUS > sharedData.displaySize.width) {
-			direction.x *= -1;
-		}
-
-		if (location.y < 0) {
-			direction.y *= -1;
-		}
-		if (location.y + 2 * RADIUS > sharedData.displaySize.height) {
-			direction.y *= -1;
-		}
-
 		bitmap.setLocation(location);
 	}
 
@@ -79,5 +65,6 @@ private:
 		double moveAmount = collision->isOtherMoving ? collision->overlap / 2 : collision->overlap;
 		location.x += (moveAmount * collision->Direction.x);
 		location.y += (moveAmount * collision->Direction.y);
+		bitmap.setLocation(location);
 	}
 };

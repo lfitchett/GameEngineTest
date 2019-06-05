@@ -29,7 +29,7 @@ private:
 		};
 
 
-		return new SingleHitbox(new MovingPolygon<2>([this] {return location; }, points), true);
+		return new SingleHitbox(new MovingPolygon<3>([this] {return location; }, points), false);
 	}
 
 	void onCollision(CollisionInformation* collision)
