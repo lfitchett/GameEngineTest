@@ -71,6 +71,7 @@ public:
 		while (isLooping)
 		{
 			al_wait_for_event(event_queue, &ev);
+			al_flush_event_queue(event_queue);
 
 			for (size_t i = 0; i < NUM_PRIORITIES; i++) {
 				current = head[i];
