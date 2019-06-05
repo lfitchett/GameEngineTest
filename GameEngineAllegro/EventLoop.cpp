@@ -4,6 +4,7 @@
 
 #include <mutex>
 #include <thread>
+#include <atomic>
 
 #include "EventNode.cpp"
 
@@ -15,10 +16,12 @@ constexpr int FPS_TARGET = 60;
 class EventLoop
 {
 private:
-	EventNode* head[NUM_PRIORITIES];
-	bool isLooping;
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	ALLEGRO_TIMER* timer;
+
+	EventNode* head[NUM_PRIORITIES];
+	bool isLooping;
+	std::thread threads[10];
 
 	EventNode* currentNode = nullptr;
 	size_t currentPriority = 0;
@@ -37,6 +40,10 @@ public:
 
 		for (size_t i = 0; i < NUM_PRIORITIES; i++) {
 			head[i] = nullptr;
+		}
+
+		for (auto& thread : threads) {
+			thread = std::thread(&EventLoop::callNext, this);
 		}
 	};
 
@@ -72,8 +79,7 @@ public:
 		isLooping = true;
 		al_start_timer(timer);
 
-		ALLEGRO_EVENT ev;
-		std::thread threads[10];
+		//ALLEGRO_EVENT ev;
 		while (isLooping)
 		{
 			//al_wait_for_event(event_queue, &ev);
@@ -81,12 +87,14 @@ public:
 
 			currentNode = nullptr;
 			currentPriority = 0;
-			for (auto& thread : threads) {
-				thread = std::thread(&EventLoop::callNext, this);
-			}
-
-			for (auto& thread : threads) {
-				thread.join();
+			oneLoopRan = false;
+			activeLoops = 0;
+			waitForNextLoopCV.notify_all();
+			{
+				std::unique_lock<std::mutex> lock(loopFinishedMux);
+				loopFinishedCV.wait(lock, [this] {
+					return oneLoopRan && activeLoops == 0; 
+				});
 			}
 
 			/* Allegro shares a global var, so call the render stuff here */
@@ -125,6 +133,14 @@ public:
 private:
 	std::mutex getNextMux;
 
+	std::mutex waitForNextLoopMux;
+	std::condition_variable waitForNextLoopCV;
+
+	std::atomic<int> activeLoops = 0;
+	std::atomic<bool> oneLoopRan = false;
+	std::mutex loopFinishedMux;
+	std::condition_variable loopFinishedCV;
+
 	EventNode* getNextEvent()
 	{
 		std::lock_guard<std::mutex> lock(getNextMux);
@@ -151,9 +167,20 @@ private:
 
 	void callNext()
 	{
-		EventNode* event;
-		while (event = getNextEvent()) {
-			event->Func();
+		while (true)
+		{
+			{
+				std::unique_lock<std::mutex> lock(getNextMux);
+				waitForNextLoopCV.wait(lock);
+			}
+			activeLoops++;
+			oneLoopRan = true;
+			EventNode* event;
+			while (event = getNextEvent()) {
+				event->Func();
+			}
+			activeLoops--;
+			loopFinishedCV.notify_one();
 		}
 	}
 };

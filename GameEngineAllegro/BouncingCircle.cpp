@@ -5,7 +5,7 @@
 #include "UnitVector.cpp"
 
 constexpr int MOVE_SPEED = 1;
-constexpr int RADIUS = 20;
+constexpr int RADIUS = 5;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
 {
