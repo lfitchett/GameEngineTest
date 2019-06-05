@@ -38,10 +38,10 @@ int main()
 	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
 
 
-	/*std::vector<std::unique_ptr<BouncingCircle>> circles;
-	for (int i = 0; i < 2; i++) {
+	std::vector<std::unique_ptr<BouncingCircle>> circles;
+	for (int i = 0; i < 20; i++) {
 		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
-	}*/
+	}
 
 	mainLoop.Start();
 }

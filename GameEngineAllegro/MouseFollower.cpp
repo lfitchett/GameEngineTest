@@ -4,7 +4,7 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr double size = 100;
+constexpr double size = 25;
 
 class MouseFollower
 {
@@ -21,15 +21,14 @@ public:
 private:
 	Hitbox* makeHitbox()
 	{
-		double points[5][2] = {
-					{location.x, location.y},
-					{location.x + size / 2, location.y},
-					{location.x + size / 2, location.y + size / 2},
-					{location.x + size / 4, location.y + size},
-					{location.x, location.y + size / 2}
+		double points[4][2] = {
+					{-size, -size},
+					{-size, size},
+					{size, size},
+					{size, -size }
 		};
 
-		return new SingleHitbox(new MovingPolygon<5>([this] {return location; }, points), true);
+		return new SingleHitbox(new MovingPolygon<4>([this] {return location; }, points, false), true);
 	}
 
 	void onCollision(CollisionInformation* collision)

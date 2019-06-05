@@ -69,11 +69,13 @@ private:
 	Point NewPoints[s];
 
 public:
-	MovingPolygon(std::function<Point()> center, double points[s][2]) : CenterFunc(center), SizedPolygon<s>(points)
+	MovingPolygon(std::function<Point()> center, double points[s][2], bool pointsAbsolute = true) : CenterFunc(center), SizedPolygon<s>(points)
 	{
-		for (int i = 0; i < s; i++) {
-			this->Points[i].x -= this->Center.x;
-			this->Points[i].y -= this->Center.y;
+		if (pointsAbsolute) {
+			for (int i = 0; i < s; i++) {
+				this->Points[i].x -= this->Center.x;
+				this->Points[i].y -= this->Center.y;
+			}
 		}
 	}
 

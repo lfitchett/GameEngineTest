@@ -4,7 +4,7 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr int MOVE_SPEED = 10;
+constexpr int MOVE_SPEED = 3;
 constexpr int RADIUS = 25;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
@@ -59,7 +59,16 @@ protected:
 private:
 	Hitbox* makeHitbox()
 	{
-		return new SingleHitbox(new MovingCircle([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, RADIUS), true);
+		//return new SingleHitbox(new MovingCircle([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, RADIUS), true);
+
+		double points[4][2] = {
+					{location.x, location.y},
+					{location.x + RADIUS * 2, location.y},
+					{location.x + RADIUS * 2, location.y + RADIUS * 2},
+					{location.x, location.y + RADIUS * 2}
+		};
+
+		return new SingleHitbox(new MovingPolygon<4>([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, points), true);
 	}
 
 	void onCollision(CollisionInformation* collision)
