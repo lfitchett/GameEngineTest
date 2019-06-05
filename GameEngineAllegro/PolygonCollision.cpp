@@ -44,9 +44,16 @@ CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* pol
 		return false;
 	}
 
+	if (c1.x < c2.x) {
+		collisionAngle.x *= -1;
+	}
+	if (c1.y > c2.y) {
+		collisionAngle.y *= -1;
+	}
+
 	return new CollisionInformation{
-			Point(poly2->GetCenter()),
-			Vector(c1, c2),
+			c2,
+			collisionAngle,
 			minOverlap
 	};
 }
