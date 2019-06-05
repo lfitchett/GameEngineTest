@@ -33,7 +33,7 @@ private:
 					{location.x, location.y + sideLength / 2}
 		};
 
-		return new SingleHitbox(new SizedPolygon<4>(points));
+		return new SingleHitbox(new SizedPolygon<4>(points), false);
 	}
 
 	void onCollision(CollisionInformation* collision)

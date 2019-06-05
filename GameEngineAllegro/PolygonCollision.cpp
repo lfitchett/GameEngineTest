@@ -44,13 +44,10 @@ CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* pol
 		return false;
 	}
 
-
-
 	return new CollisionInformation{
 			Point(poly2->GetCenter()),
 			Vector(c1, c2),
-			minOverlap,
-			true
+			minOverlap
 	};
 }
 

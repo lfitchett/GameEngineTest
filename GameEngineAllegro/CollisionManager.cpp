@@ -23,6 +23,7 @@ CollisionResult CollisionManager::FindCollision(Hitbox* h1)
 			continue;
 
 		if (result = isColliding(h1, h2)) {
+			result->isOtherMoving = h2->isMoving;
 			return CollisionResult(result);
 		}
 	}

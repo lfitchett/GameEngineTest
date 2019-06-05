@@ -21,14 +21,15 @@ public:
 private:
 	Hitbox* makeHitbox()
 	{
-		double points[4][2] = {
+		double points[5][2] = {
 					{location.x, location.y},
 					{location.x + size / 2, location.y},
 					{location.x + size / 2, location.y + size / 2},
+					{location.x + size / 4, location.y + size},
 					{location.x, location.y + size / 2}
 		};
 
-		return new SingleHitbox(new MovingPolygon<4>([this] {return location; }, points));
+		return new SingleHitbox(new MovingPolygon<5>([this] {return location; }, points), true);
 	}
 
 	void onCollision(CollisionInformation* collision)
