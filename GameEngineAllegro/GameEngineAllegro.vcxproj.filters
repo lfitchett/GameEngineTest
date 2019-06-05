@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Entities\TestEntities">
       <UniqueIdentifier>{977f2627-0a62-4ea1-ab8b-708f1ad07882}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\StaticEntities">
+      <UniqueIdentifier>{2ff26d84-7e86-4a64-a03e-226606f76557}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="MouseFollower.cpp">
       <Filter>Source Files\Entities\TestEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\Entities\StaticEntities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

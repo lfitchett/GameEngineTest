@@ -206,6 +206,7 @@
     <ClCompile Include="TickingEntity.cpp" />
     <ClCompile Include="UnitVector.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

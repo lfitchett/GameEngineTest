@@ -15,6 +15,7 @@
 #include "BouncingCircle.cpp"
 #include "SittingSquare.cpp"
 #include "MouseFollower.cpp"
+#include "Wall.cpp"
 
 int main()
 {
@@ -38,10 +39,14 @@ int main()
 	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
 
 
-	/*std::vector<std::unique_ptr<BouncingCircle>> circles;
+	std::vector<std::unique_ptr<BouncingCircle>> circles;
 	for (int i = 0; i < 20; i++) {
 		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
-	}*/
+	}
+
+	std::vector<std::unique_ptr<Wall>> walls;
+	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 100,100 }, Point{ 100, 400 }));
+
 
 	mainLoop.Start();
 }

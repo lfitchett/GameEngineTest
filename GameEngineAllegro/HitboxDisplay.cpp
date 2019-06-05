@@ -56,8 +56,8 @@ protected:
 		}
 		al_draw_line(end->x, end->y, start->x, start->y, *currentColor, 1);
 
-		Point center = p->GetCenter();
-		al_draw_circle(center.x, center.y, p->Radius, *currentColor, 1);
+		/*Point center = p->GetCenter();
+		al_draw_circle(center.x, center.y, p->Radius, *currentColor, 1);*/
 
 	}
 };

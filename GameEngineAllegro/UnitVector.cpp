@@ -10,6 +10,8 @@ class UnitVector : public Vector
 public:
 	UnitVector(const Vector& v) : UnitVector(v.x, v.y) {}
 
+	UnitVector(const Point& p1, const Point& p2) : UnitVector(p1.x - p2.x, p1.y - p2.y) {}
+
 	UnitVector(float x, float y)
 	{
 		float invMag = inv_square(x * x + y * y);

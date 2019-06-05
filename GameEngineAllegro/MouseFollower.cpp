@@ -29,8 +29,7 @@ private:
 		};
 
 
-		Point test{ 10,0 };
-		return new SingleHitbox(new MovingPolygon<2>([this] {return location; }, points, &test), true);
+		return new SingleHitbox(new MovingPolygon<2>([this] {return location; }, points), true);
 	}
 
 	void onCollision(CollisionInformation* collision)
