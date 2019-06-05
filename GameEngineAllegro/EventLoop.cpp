@@ -73,6 +73,7 @@ public:
 		al_start_timer(timer);
 
 		ALLEGRO_EVENT ev;
+		std::thread threads[10];
 		while (isLooping)
 		{
 			al_wait_for_event(event_queue, &ev);
@@ -80,9 +81,14 @@ public:
 
 			currentNode = nullptr;
 			currentPriority = 0;
-			std::thread test(&EventLoop::callNext, this);
+			for (auto& thread : threads) {
+				thread = std::thread(&EventLoop::callNext, this);
+			}
 
-			test.join();
+			for (auto& thread : threads) {
+				thread.join();
+			}
+
 			/* Allegro shares a global var, so call the render stuff here */
 			EventNode* current = head[NUM_PRIORITIES - 1];
 			while (current)

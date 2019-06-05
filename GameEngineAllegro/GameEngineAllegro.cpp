@@ -35,13 +35,13 @@ int main()
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 
-	std::unique_ptr<Square> square(new Square(mainLoop, data, Point{ 100, 400 }, 200));
-	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
+	// std::unique_ptr<Square> square(new Square(mainLoop, data, Point{ 100, 400 }, 200));
+	// std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
 
 
 	std::vector<std::unique_ptr<BouncingCircle>> circles;
-	for (int i = 0; i < 20; i++) {
-		//circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
+	for (int i = 0; i < 200; i++) {
+		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
 	}
 
 	std::vector<std::unique_ptr<Wall>> walls;
@@ -50,15 +50,15 @@ int main()
 	Point br{ (double)data.displaySize.width, (double)data.displaySize.height };
 	Point bl{ (double)data.displaySize.width, 0 };
 
-	/*walls.push_back(std::make_unique<Wall>(mainLoop, data, ul, ur));
+	walls.push_back(std::make_unique<Wall>(mainLoop, data, ul, ur));
 	walls.push_back(std::make_unique<Wall>(mainLoop, data, ur, br));
 	walls.push_back(std::make_unique<Wall>(mainLoop, data, br, bl));
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, bl, ul));*/
+	walls.push_back(std::make_unique<Wall>(mainLoop, data, bl, ul));
 
 
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 200, 200 }, Point{ 500, 500 }));
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 600, 200 }, Point{ 600, 500 }));
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 800, 200 }, Point{ 700, 900 }));
+	// walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 200, 200 }, Point{ 500, 500 }));
+	// walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 600, 200 }, Point{ 600, 500 }));
+	// walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 800, 200 }, Point{ 700, 900 }));
 
 
 
