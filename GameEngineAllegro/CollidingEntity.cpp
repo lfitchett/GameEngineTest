@@ -43,7 +43,11 @@ private:
 		CollisionResult collision = sharedData.collisionManager.FindCollision(hitbox);
 		if (collision) {
 			// printf("Collision\n");
+			hbDisplay->setIsHit(true);
 			onCollision(collision.get());
+		}
+		else {
+			hbDisplay->setIsHit(false);
 		}
 	}
 };

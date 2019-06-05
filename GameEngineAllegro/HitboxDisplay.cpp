@@ -9,12 +9,19 @@ class HitboxDisplay : public EntityWithData, public RenderedEntity
 {
 private:
 	Hitbox* hitbox;
-	ALLEGRO_COLOR color = al_map_rgb(255, 0, 0);
+	ALLEGRO_COLOR red = al_map_rgb(255, 0, 0);
+	ALLEGRO_COLOR green = al_map_rgb(0, 255, 0);
+	ALLEGRO_COLOR* currentColor;
 
 public:
 	HitboxDisplay(EventLoop &loop, SharedData &data, Hitbox* hitbox) : EntityWithData(data), RenderedEntity(loop)
 	{
 		this->hitbox = hitbox;
+		currentColor = &green;
+	}
+
+	void setIsHit(bool isHit) {
+		currentColor = isHit ? &red : &green;
 	}
 
 protected:
@@ -36,7 +43,7 @@ protected:
 
 	void DrawCircle(Circle* c)
 	{
-		al_draw_circle(c->GetCenter().x, c->GetCenter().y, c->Radius, color, 1);
+		al_draw_circle(c->GetCenter().x, c->GetCenter().y, c->Radius, *currentColor, 1);
 	}
 
 	void DrawPolygon(Polygon* p)
@@ -45,12 +52,12 @@ protected:
 		Point* end = start + p->GetNumPoints() - 1;
 
 		for (Point* p = start; p < end; p++) {
-			al_draw_line(p->x, p->y, (p+1)->x, (p+1)->y, color, 1);
+			al_draw_line(p->x, p->y, (p+1)->x, (p+1)->y, *currentColor, 1);
 		}
-		al_draw_line(end->x, end->y, start->x, start->y, color, 1);
+		al_draw_line(end->x, end->y, start->x, start->y, *currentColor, 1);
 
 		Point center = p->GetCenter();
-		al_draw_circle(center.x, center.y, p->Radius, color, 1);
+		al_draw_circle(center.x, center.y, p->Radius, *currentColor, 1);
 
 	}
 };
