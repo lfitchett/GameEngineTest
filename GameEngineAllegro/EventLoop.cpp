@@ -2,10 +2,14 @@
 
 #include "pch.h"
 
+#include <mutex>
+#include <thread>
+
 #include "EventNode.cpp"
 
 #define EventId EventNode*
-#define NUM_PRIORITIES 3
+
+constexpr size_t NUM_PRIORITIES = 3;
 constexpr int FPS_TARGET = 60;
 
 class EventLoop
@@ -15,6 +19,9 @@ private:
 	bool isLooping;
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	ALLEGRO_TIMER* timer;
+
+	EventNode* currentNode = nullptr;
+	size_t currentPriority = 0;
 
 public:
 	EventLoop() : timer{ al_create_timer(1.0 / FPS_TARGET) }, event_queue{ al_create_event_queue() }
@@ -73,14 +80,9 @@ public:
 			al_wait_for_event(event_queue, &ev);
 			al_flush_event_queue(event_queue);
 
-			for (size_t i = 0; i < NUM_PRIORITIES; i++) {
-				current = head[i];
-				while (current)
-				{
-					current->Func();
-					current = current->Child;
-				}
-			}
+			std::thread test(&EventLoop::callNext, this);
+
+			test.join();
 		}
 	}
 
@@ -105,5 +107,43 @@ public:
 
 		al_destroy_timer(timer);
 		al_destroy_event_queue(event_queue);
+	}
+
+private:
+	std::mutex getNextMux;
+
+	EventNode* getNextEvent()
+	{
+		EventNode* result;
+		getNextMux.lock();
+
+		if (currentNode == nullptr) {
+			if (currentPriority < NUM_PRIORITIES) {
+				/* Get next priority head */
+				currentNode = head[currentPriority++];
+				result = currentNode;
+				currentNode = currentNode->Child;
+			}
+			else {
+				/* Done, return null */
+				result = nullptr;
+			}
+		}
+		else {
+			/* Traverse list normally */
+			result = currentNode;
+			currentNode = currentNode->Child;
+		}
+
+		getNextMux.unlock();
+		return result;
+	}
+
+	void callNext()
+	{
+		EventNode* event;
+		while (event = getNextEvent()) {
+			event->Func();
+		}
 	}
 };
