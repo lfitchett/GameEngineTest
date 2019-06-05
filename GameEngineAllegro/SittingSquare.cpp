@@ -38,6 +38,6 @@ private:
 
 	void onCollision(CollisionInformation* collision)
 	{
-		printf("square hit\n");
+		//printf("square hit\n");
 	}
 };

@@ -5,6 +5,7 @@
 #include <mutex>
 #include <thread>
 #include <atomic>
+#include <chrono>
 
 #include "EventNode.cpp"
 
@@ -22,9 +23,6 @@ private:
 	EventNode* head[NUM_PRIORITIES];
 	bool isLooping;
 	std::thread threads[10];
-
-	EventNode* currentNode = nullptr;
-	size_t currentPriority = 0;
 
 public:
 	EventLoop() : timer{ al_create_timer(1.0 / FPS_TARGET) }, event_queue{ al_create_event_queue() }
@@ -44,6 +42,7 @@ public:
 
 		for (auto& thread : threads) {
 			thread = std::thread(&EventLoop::callNext, this);
+			//thread.detach();
 		}
 	};
 
@@ -85,15 +84,22 @@ public:
 			//al_wait_for_event(event_queue, &ev);
 			//al_flush_event_queue(event_queue);
 
-			currentNode = nullptr;
-			currentPriority = 0;
-			oneLoopRan = false;
-			activeLoops = 0;
+			{
+				std::lock_guard<std::mutex> lock(currentMux);
+				currentNode = nullptr;
+				currentPriority = 0;
+			}
+			{
+				std::unique_lock<std::mutex> lk(activeLoopsMux);
+				activeLoops = 10;
+			}
 			waitForNextLoopCV.notify_all();
 			{
 				std::unique_lock<std::mutex> lock(loopFinishedMux);
 				loopFinishedCV.wait(lock, [this] {
-					return oneLoopRan && activeLoops == 0; 
+					std::unique_lock<std::mutex> lk(activeLoopsMux);
+					printf("checking with %d loops left.\n", activeLoops);
+					return activeLoops == 0;
 				});
 			}
 
@@ -128,22 +134,29 @@ public:
 
 		al_destroy_timer(timer);
 		al_destroy_event_queue(event_queue);
+
+		for (auto& thread : threads) {
+			thread.~thread();
+		}
 	}
 
 private:
-	std::mutex getNextMux;
+	std::mutex currentMux;
+	EventNode* currentNode = nullptr;
+	size_t currentPriority = 0;
+
+	int activeLoops;
+	std::mutex activeLoopsMux;
 
 	std::mutex waitForNextLoopMux;
 	std::condition_variable waitForNextLoopCV;
 
-	std::atomic<int> activeLoops = 0;
-	std::atomic<bool> oneLoopRan = false;
 	std::mutex loopFinishedMux;
 	std::condition_variable loopFinishedCV;
 
 	EventNode* getNextEvent()
 	{
-		std::lock_guard<std::mutex> lock(getNextMux);
+		std::lock_guard<std::mutex> lock(currentMux);
 
 		if (currentNode == nullptr) {
 			/* Allegro shares a global var, so don't call the render stuff in a seperate thread */
@@ -165,22 +178,38 @@ private:
 		return result;
 	}
 
+	std::atomic<int> tempLoopId = 0;
+
 	void callNext()
 	{
+		int id = tempLoopId++;
 		while (true)
 		{
 			{
-				std::unique_lock<std::mutex> lock(getNextMux);
+				std::unique_lock<std::mutex> lock(waitForNextLoopMux);
 				waitForNextLoopCV.wait(lock);
 			}
-			activeLoops++;
-			oneLoopRan = true;
+
+			/*{
+				std::unique_lock<std::mutex> pl(printMux);
+				printf("Starting loop %d.\n", id);
+			}*/
+
 			EventNode* event;
 			while (event = getNextEvent()) {
 				event->Func();
 			}
-			activeLoops--;
-			loopFinishedCV.notify_one();
+
+			/*{
+				std::unique_lock<std::mutex> pl(printMux);
+				printf("Ending loop %d.\n", id);
+			}*/
+
+			{
+				std::unique_lock<std::mutex> lk(activeLoopsMux);
+				activeLoops--;
+			}
+			loopFinishedCV.notify_all();
 		}
 	}
 };

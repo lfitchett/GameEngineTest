@@ -51,7 +51,7 @@ CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* pol
 		collisionAngle.y *= -1;
 	}
 
-	collisionAngle.print();
+	//collisionAngle.print();
 
 	return new CollisionInformation{
 			c2,

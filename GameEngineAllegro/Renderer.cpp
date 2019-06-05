@@ -1,7 +1,6 @@
 #include "pch.h"
 
 #include <chrono>
-#include <thread>
 #include <string>
 
 #include "RenderedEntity.cpp"
