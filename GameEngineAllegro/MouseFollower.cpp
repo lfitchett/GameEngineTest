@@ -33,6 +33,6 @@ private:
 
 	void onCollision(CollisionInformation* collision)
 	{
-		printf("square hit");
+		printf("mouse hit\n");
 	}
 };

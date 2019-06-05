@@ -34,7 +34,7 @@ int main()
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 
-	std::unique_ptr<Square> square(new Square(mainLoop, data, Point{ 200, 200 }, 50));
+	std::unique_ptr<Square> square(new Square(mainLoop, data, Point{ 200, 200 }, 200));
 	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
 
 
