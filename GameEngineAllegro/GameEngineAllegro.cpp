@@ -35,13 +35,13 @@ int main()
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 
-	//std::unique_ptr<Rectangle> square(new Rectangle(mainLoop, data, Point{ 100, 400 }, 200));
+	std::unique_ptr<Rectangle> square(new Rectangle(mainLoop, data, Point{ 100, 400 }, 200));
 	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
 
 
 	std::vector<std::unique_ptr<BouncingCircle>> circles;
 	for (int i = 0; i < 2; i++) {
-		//circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
+		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
 	}
 
 	std::vector<std::unique_ptr<Wall>> walls;
