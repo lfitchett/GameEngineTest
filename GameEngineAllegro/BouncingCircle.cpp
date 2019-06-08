@@ -4,7 +4,7 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-constexpr int MOVE_SPEED = 0;
+constexpr int MOVE_SPEED = 3;
 constexpr int RADIUS = 20;
 
 class BouncingCircle : public TickingEntity, public EntityWithData
@@ -14,10 +14,11 @@ private:
 	Point location;
 	BitmapBase bitmap;
 	CollidingEntity collisionChecker;
+	Vector collisionCorrection;
 
 public:
-	BouncingCircle(EventLoop &loop, SharedData &data)
-		: TickingEntity(loop),
+	BouncingCircle(EventLoop &loop, SharedData &data) :
+		TickingEntity(loop),
 		EntityWithData(data),
 		direction((float)rand(), (float)rand()),
 		location{ (double)((rand() % (data.displaySize.width / 2)) + data.displaySize.width / 4), (double)((rand() % (data.displaySize.height / 2)) + data.displaySize.height / 4) },
@@ -35,6 +36,11 @@ public:
 protected:
 	void Tick() override
 	{
+		location.x += collisionCorrection.x;
+		location.y += collisionCorrection.y;
+		collisionCorrection.x = 0;
+		collisionCorrection.y = 0;
+
 		location.x += direction.x * MOVE_SPEED;
 		location.y += direction.y * MOVE_SPEED;
 
@@ -63,8 +69,6 @@ private:
 		direction = direction.Reflect(pseudoWall);
 
 		double moveAmount = collision->isOtherMoving ? collision->overlap / 2 : collision->overlap;
-		location.x += (moveAmount * collision->Direction.x);
-		location.y += (moveAmount * collision->Direction.y);
-		bitmap.setLocation(location);
+		collisionCorrection = collision->Direction * moveAmount;
 	}
 };

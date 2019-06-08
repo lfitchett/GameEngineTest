@@ -6,13 +6,11 @@
 
 class Vector
 {
-protected:
-	Vector() {}
-
 public:
 	float x;
 	float y;
 
+	Vector() : x(0), y(0) {}
 	Vector(float x, float y) : x(x), y(y) {}
 	Vector(const Point& p) : x(p.x), y(p.y) {}
 	Vector(const Point& p1, const Point& p2) : x(p1.x - p2.x), y(p1.y - p2.y) {}

@@ -17,8 +17,7 @@ public:
 	MouseFollower(EventLoop &loop, SharedData &data) :
 		TickingEntity(loop),
 		location(data.mouseLocation),
-		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); }),
-		collisionCorrection(0,0)
+		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); })
 	{	}
 
 protected:
