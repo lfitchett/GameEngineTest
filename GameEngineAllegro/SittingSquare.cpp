@@ -4,7 +4,7 @@
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
 
-class Square
+class Rectangle
 {
 private:
 	Point location;
@@ -13,7 +13,7 @@ private:
 	CollidingEntity collisionChecker;
 
 public:
-	Square(EventLoop &loop, SharedData &data, Point location, double sideLength) :
+	Rectangle(EventLoop &loop, SharedData &data, Point location, double sideLength) :
 		location(location),
 		sideLength(sideLength),
 		bitmap(loop, data, "Resources/Images/square.jpg"),
