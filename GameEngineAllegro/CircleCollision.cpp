@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CollisionManager.h"
 
-CollisionInformation* CollisionManager::isColliding(Circle* c1, Circle* c2)
+CollisionInformation* CollisionManager::isColliding(Ellipse* c1, Ellipse* c2)
 {
 	double dx = c1->GetCenter().x - c2->GetCenter().x;
 	double dy = c1->GetCenter().y - c2->GetCenter().y;

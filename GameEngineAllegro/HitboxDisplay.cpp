@@ -30,7 +30,7 @@ protected:
 		for (size_t i = 0; i < hitbox->GetSize(); i++) {
 			Shape* s = hitbox->GetShapes()[i];
 			
-			if (Circle* c = dynamic_cast<Circle*>(s)) {
+			if (Ellipse* c = dynamic_cast<Ellipse*>(s)) {
 				DrawCircle(c);
 				continue;
 			}
@@ -41,7 +41,7 @@ protected:
 		}
 	}
 
-	void DrawCircle(Circle* c)
+	void DrawCircle(StaticEllipse* c)
 	{
 		al_draw_circle(c->GetCenter().x, c->GetCenter().y, c->Radius, *currentColor, 1);
 	}

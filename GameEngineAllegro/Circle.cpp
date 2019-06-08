@@ -3,63 +3,44 @@
 #include "Point.cpp"
 #include "Shape.cpp"
 
-class Circle : public Shape
+class Ellipse : public Shape
 {
 public:
 	double Radius;
 
-	virtual Point GetCenter() = 0;
+	/*virtual Point GetF1() = 0;
+	virtual Point GetF2() = 0;*/
 
-	virtual ~Circle() {};
+	//virtual operator StaticEllipse() const = 0;
+
+	virtual ~Ellipse() {};
 
 protected:
-	Circle() {};
+	Ellipse() {};
 };
 
-class StaticCircle : Circle
+class StaticEllipse : Ellipse
 {
 private:
-	Point Center;
+	Point Focus1;
+	Point Focus2;
 
 public:
-	StaticCircle(double x, double y, double radius)
-	{
-		Center.x = x;
-		Center.y = y;
-		Radius = radius;
-	}
+	StaticEllipse(Point focus1, Point focus2) : Focus1(focus1), Focus2(focus2) {	}
 
 };
 
-class ReferenceCircle : public Circle
+class MovingEllipse : public Ellipse
 {
 private:
-	Point& Center;
+	std::function<std::tuple<Point, Point>()> Foci;
 
 public:
-	ReferenceCircle(Point& center, double radius) : Center(center)
+	MovingEllipse(std::function<std::tuple<Point, Point>()> foci) : Foci(foci) {}
+
+	operator StaticEllipse() const
 	{
-		Radius = radius;
-	}
-
-	Point GetCenter() override {
-		return Center;
-	}
-};
-
-class MovingCircle : public Circle
-{
-private:
-	std::function<Point()> Center;
-
-public:
-	MovingCircle(std::function<Point()> center, double radius)
-	{
-		Center = center;
-		Radius = radius;
-	}
-
-	Point GetCenter() override {
-		return Center();
+		std::tuple<Point, Point> foci = Foci();
+		return StaticEllipse(std::get<0>(foci), std::get<1>(foci));
 	}
 };
