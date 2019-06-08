@@ -11,8 +11,8 @@
 struct RectangleBound
 {
 	double xMax = -DBL_MAX;
-	double xMin = DBL_MAX;
 	double yMax = -DBL_MAX;
+	double xMin = DBL_MAX;
 	double yMin = DBL_MAX;
 };
 
@@ -114,7 +114,7 @@ public:
 		NewBounds.yMin = SizedPolygon<s>::Bounds.yMin + newCenter.y;
 
 
-		return SizedPolygon<s>::GetBounds();
+		return &NewBounds;
 	}
 
 	Point* GetPoints() override {

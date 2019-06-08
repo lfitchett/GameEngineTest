@@ -5,7 +5,6 @@
 
 struct CollisionInformation
 {
-	Point OtherCenter;
 	UnitVector Direction;
 	double overlap;
 	bool isOtherMoving;

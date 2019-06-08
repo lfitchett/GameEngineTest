@@ -33,10 +33,10 @@ private:
 	Hitbox* makeHitbox()
 	{
 		double points[4][2] = {
-					{-size, -size},
-					{-size, size},
-					{size, size},
-					{size, -size }
+					{0, -size},
+					{size, 0},
+					{0, size},
+					{-size, 0 }
 		};
 
 

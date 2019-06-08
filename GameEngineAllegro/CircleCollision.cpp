@@ -13,7 +13,6 @@ CollisionInformation* CollisionManager::isColliding(Circle* c1, Circle* c2)
 	if (radiusSumSquared >= centerDistSquared) {
 		double overlap = radiusSum - sqrt(centerDistSquared);
 		return new CollisionInformation{ 
-			Point(c2->GetCenter()), 
 			Vector(c1->GetCenter(), c2->GetCenter()),
 			overlap,
 			true
