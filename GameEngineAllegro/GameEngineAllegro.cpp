@@ -56,9 +56,8 @@ int main()
 	walls.push_back(std::make_unique<Wall>(mainLoop, data, bl, ul));*/
 
 
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 200, 200 }, Point{ 500, 500 }));
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 600, 200 }, Point{ 600, 500 }));
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 800, 200 }, Point{ 700, 900 }));
+	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 400, 400 }, Point{ 500, 600 }));
+	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 800, 700 }, Point{ 700, 900 }));
 
 
 

@@ -6,17 +6,29 @@
 
 constexpr double size = 25;
 
-class MouseFollower
+class MouseFollower : TickingEntity
 {
 private:
 	Point& location;
 	CollidingEntity collisionChecker;
+	Vector collisionCorrection;
 
 public:
 	MouseFollower(EventLoop &loop, SharedData &data) :
+		TickingEntity(loop),
 		location(data.mouseLocation),
-		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); })
+		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); }),
+		collisionCorrection(0,0)
 	{	}
+
+protected:
+	void Tick() override 
+	{
+		location.x += collisionCorrection.x;
+		location.y += collisionCorrection.y;
+		collisionCorrection.x = 0;
+		collisionCorrection.y = 0;
+	}
 
 private:
 	Hitbox* makeHitbox()
@@ -35,7 +47,6 @@ private:
 	void onCollision(CollisionInformation* collision)
 	{
 		double moveAmount = collision->isOtherMoving ? collision->overlap / 2 : collision->overlap;
-		location.x += (moveAmount * collision->Direction.x);
-		location.y += (moveAmount * collision->Direction.y);
+		collisionCorrection = collision->Direction * moveAmount;
 	}
 };

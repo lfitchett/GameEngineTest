@@ -44,14 +44,12 @@ CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* pol
 		return false;
 	}
 
-	if (c1.x < c2.x) {
-		collisionAngle.x *= -1;
-	}
-	if (c1.y > c2.y) {
+
+
+	/* For some reason I have to do this */
+	if (collisionAngle.x == 0) {
 		collisionAngle.y *= -1;
 	}
-
-	collisionAngle.print();
 
 	return new CollisionInformation{
 			c2,
@@ -104,6 +102,8 @@ double FindOverlap(Point* p1, Point* p2, size_t n1, size_t n2, Vector& axis)
 	float diff2 = max2 - min1;
 	if (diff1 < diff2)
 	{
+		axis.x *= -1;
+		axis.y *= -1;
 		return sqrt(max1) - sqrt(min2);
 	}
 	else
