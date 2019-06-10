@@ -1,19 +1,21 @@
 #include "pch.h"
 #include "CollisionManager.h"
 
-CollisionInformation* CollisionManager::isColliding(Circle* c1, Circle* c2)
+CollisionInformation* CollisionManager::isColliding(Circle* circ1, Circle* circ2)
 {
-	double dx = c1->GetCenter().x - c2->GetCenter().x;
-	double dy = c1->GetCenter().y - c2->GetCenter().y;
+	Point c1 = circ1->GetCenter();
+	Point c2 = circ2->GetCenter();
+	double dx = c1.x - c2.x;
+	double dy = c1.y - c2.y;
 	double centerDistSquared = dx * dx + dy * dy;
 
-	double radiusSum = c1->Radius + c2->Radius;
+	double radiusSum = circ1->Radius + circ2->Radius;
 	double radiusSumSquared = radiusSum * radiusSum;
 
 	if (radiusSumSquared >= centerDistSquared) {
 		double overlap = radiusSum - sqrt(centerDistSquared);
 		return new CollisionInformation{ 
-			Vector(c1->GetCenter(), c2->GetCenter()),
+			Vector(c1, c2),
 			overlap,
 			true
 		};

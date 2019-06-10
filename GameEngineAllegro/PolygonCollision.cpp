@@ -9,9 +9,7 @@ double FindOverlap(Point* p1, Point* p2, size_t n1, size_t n2, Vector& axis);
 CollisionInformation* CollisionManager::isColliding(Polygon* poly1, Polygon* poly2)
 {
 	/* Check outside bounds */
-	RectangleBound* b1 = poly1->GetBounds();
-	RectangleBound* b2 = poly2->GetBounds();
-	if (!(b1->xMin < b2->xMax && b1->xMax > b2->xMin && b1->yMin < b2->yMax && b1->yMax > b2->yMin)) {
+	if (!poly1->GetBounds()->intersects(poly2->GetBounds())) {
 		return false;
 	}
 

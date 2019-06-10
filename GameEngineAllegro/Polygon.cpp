@@ -4,17 +4,9 @@
 
 #include "pch.h"
 
-#include <algorithm>
 #include "Point.cpp"
 #include "Shape.cpp"
-
-struct RectangleBound
-{
-	double xMax = -DBL_MAX;
-	double yMax = -DBL_MAX;
-	double xMin = DBL_MAX;
-	double yMin = DBL_MAX;
-};
+#include "RectangleBound.cpp"
 
 
 class Polygon : public Shape
