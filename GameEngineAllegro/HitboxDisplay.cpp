@@ -57,8 +57,8 @@ protected:
 		al_draw_line(end->x, end->y, start->x, start->y, *currentColor, 1);
 
 
-		RectangleBound* bounds = p->GetBounds();
-		al_draw_rectangle(bounds->xMin, bounds->yMin, bounds->xMax, bounds->yMax, *currentColor, 1);
+		//RectangleBound* bounds = p->GetBounds();
+		//al_draw_rectangle(bounds->xMin, bounds->yMin, bounds->xMax, bounds->yMax, *currentColor, 1);
 
 	}
 };
