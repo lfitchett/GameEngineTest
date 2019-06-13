@@ -33,12 +33,18 @@ private:
 	Hitbox* makeHitbox()
 	{
 		double points[4][2] = {
+					{size, -size},
+					{size, size},
+					{-size, size},
+					{-size, -size }
+		};
+
+		/*double points[4][2] = {
 					{0, -size},
 					{size, 0},
 					{0, size},
 					{-size, 0 }
-		};
-
+		};*/
 
 		return new SingleHitbox(new MovingPolygon<4>([this] {return location; }, points), false);
 	}

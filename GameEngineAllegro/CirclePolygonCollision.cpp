@@ -15,23 +15,58 @@ CollisionInformation* CollisionManager::isColliding(Circle* circ, Polygon* poly)
 	Point* pStart = poly->GetPoints();
 	Point* pEnd = pStart + n;
 
-	Point* closestPoint;
+	Point* closestPoint = nullptr;
 	double minDistance = DBL_MAX;
 	for (Point* p = pStart; p < pEnd; p++) {
 		double dx = c.x - p->x;
 		double dy = c.y - p->y;
 		double centerDistSquared = dx * dx + dy * dy;
-		
+
 		if (centerDistSquared < minDistance) {
 			minDistance = centerDistSquared;
 			closestPoint = p;
 		}
 	}
 
+	Vector projAxis(c, *closestPoint);
 
+	/* Find min and max magnitude of each point projected onto the axis */
+	float mag = Vector(c).ProjectOnto(projAxis).MagSquared();
 
+	float cMax = sqrt(mag) + r;
+	float cMin = sqrt(mag) - r;
+	cMax = cMax * cMax;
+	cMin = cMin * cMin;
 
-	return false;
+	float pMax = 0, pMin = FLT_MAX;
+	for (Point* p = pStart; p < pEnd; p++) {
+		float mag = Vector(*p).ProjectOnto(projAxis).MagSquared();
+		pMax = std::max(pMax, mag);
+		pMin = std::min(pMin, mag);
+	}
+
+	/* Gap found, no collision */
+	if (cMin > pMax || pMin > cMax) {
+		return false;
+	}
+
+	/* Find the minimum overlap */
+	float diff1 = cMax - pMin;
+	float diff2 = pMax - cMin;
+	double minOverlap;
+	if (diff1 < diff2)
+	{
+		minOverlap = sqrt(cMax) - sqrt(pMin);
+	}
+	else
+	{
+		minOverlap = sqrt(pMax) - sqrt(cMin);
+	}
+
+	return new CollisionInformation{
+			projAxis,
+			minOverlap
+	};
 }
 
 CollisionInformation* CollisionManager::isColliding(Polygon* p1, Circle* c2)

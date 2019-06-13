@@ -41,15 +41,18 @@ protected:
 		}
 	}
 
-	void DrawCircle(Circle* c)
+	void DrawCircle(Circle* circ)
 	{
-		al_draw_circle(c->GetCenter().x, c->GetCenter().y, c->Radius, *currentColor, 1);
+		Point c = circ->GetCenter();
+		al_draw_circle(c.x, c.y, circ->Radius, *currentColor, 1);
+		//al_draw_rectangle(c.x + circ->Radius, c.y + circ->Radius, c.x - circ->Radius, c.y - circ->Radius, *currentColor, 1);
+		
 	}
 
-	void DrawPolygon(Polygon* p)
+	void DrawPolygon(Polygon* poly)
 	{
-		Point* start = p->GetPoints();
-		Point* end = start + p->GetNumPoints() - 1;
+		Point* start = poly->GetPoints();
+		Point* end = start + poly->GetNumPoints() - 1;
 
 		for (Point* p = start; p < end; p++) {
 			al_draw_line(p->x, p->y, (p+1)->x, (p+1)->y, *currentColor, 1);
@@ -57,8 +60,8 @@ protected:
 		al_draw_line(end->x, end->y, start->x, start->y, *currentColor, 1);
 
 
-		//RectangleBound* bounds = p->GetBounds();
-		//al_draw_rectangle(bounds->xMin, bounds->yMin, bounds->xMax, bounds->yMax, *currentColor, 1);
+		/*RectangleBound* bounds = poly->GetBounds();
+		al_draw_rectangle(bounds->xMin, bounds->yMin, bounds->xMax, bounds->yMax, *currentColor, 1);*/
 
 	}
 };
