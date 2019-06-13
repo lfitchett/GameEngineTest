@@ -42,6 +42,11 @@ public:
 		return Vector{ -y, x };
 	}
 
+	Vector Inv()
+	{
+		return Vector{ -x,-y };
+	}
+
 	Vector ProjectOnto(Vector& v)
 	{
 		return v * (((*this) * v) / (v.x*v.x + v.y*v.y));

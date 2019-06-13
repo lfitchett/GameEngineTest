@@ -13,11 +13,11 @@ CollisionInformation* CollisionManager::isColliding(Circle* circ, Polygon* poly)
 
 	size_t n = poly->GetNumPoints();
 	Point* pStart = poly->GetPoints();
-	Point* pEnd = pStart + n;
+	Point* pEnd = pStart + n - 1;
 
 	Point* closestPoint = nullptr;
 	double minDistance = DBL_MAX;
-	for (Point* p = pStart; p < pEnd; p++) {
+	for (Point* p = pStart; p <= pEnd; p++) {
 		double dx = c.x - p->x;
 		double dy = c.y - p->y;
 		double centerDistSquared = dx * dx + dy * dy;
@@ -63,9 +63,19 @@ CollisionInformation* CollisionManager::isColliding(Circle* circ, Polygon* poly)
 		minOverlap = sqrt(pMax) - sqrt(cMin);
 	}
 
+	Point* x = closestPoint == pStart ? pEnd : closestPoint - 1;
+	Point* y = closestPoint == pEnd ? pStart : closestPoint + 1;
+	Vector direction;
+	if (Vector(c, *x).MagSquared() < Vector(c, *y).MagSquared()) {
+		direction = Vector(*y, *closestPoint).Inv();
+	}
+	else {
+		direction = Vector(*closestPoint, *x);
+	}
+
 	return new CollisionInformation{
-			projAxis,
-			minOverlap
+			direction,
+			1
 	};
 }
 
