@@ -13,6 +13,7 @@
 #include <memory>
 #include <functional>
 #include <vector>
+#include <unordered_map>
 #include <algorithm>
 
 #include <allegro5/allegro.h>

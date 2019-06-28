@@ -9,7 +9,6 @@
 
 #include "EventListener.cpp"
 #include "Renderer.cpp"
-#include "CleanupEntity.cpp"
 #include "BitmapBase.cpp"
 #include "TextBase.cpp"
 #include "BouncingCircle.cpp"

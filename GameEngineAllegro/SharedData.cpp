@@ -5,7 +5,6 @@
 #include "Point.cpp"
 #include "FontManager.cpp"
 #include "CollisionManager.h"
-#include "CleanupEntity.cpp"
 
 struct Size 
 {

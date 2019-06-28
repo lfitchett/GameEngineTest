@@ -68,12 +68,6 @@
     <ClCompile Include="EventNode.cpp">
       <Filter>Source Files\EventLoop</Filter>
     </ClCompile>
-    <ClCompile Include="CleanupList.cpp">
-      <Filter>Source Files\EventLoop</Filter>
-    </ClCompile>
-    <ClCompile Include="CleanupEntity.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
@@ -160,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files\Entities\StaticEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Observable.cpp">
+      <Filter>Source Files\EventLoop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
