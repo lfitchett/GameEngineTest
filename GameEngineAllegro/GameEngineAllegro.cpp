@@ -5,8 +5,6 @@
 
 #include "SharedData.cpp"
 #include "EventLoop.cpp"
-#include "CleanupList.cpp"
-
 #include "EventListener.cpp"
 #include "Renderer.cpp"
 #include "BitmapBase.cpp"

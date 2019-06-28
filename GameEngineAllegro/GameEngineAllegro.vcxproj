@@ -178,7 +178,6 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EntityWithData.cpp" />
     <ClCompile Include="EventLoop.cpp" />
-    <ClCompile Include="EventNode.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameEngineAllegro.cpp" />
     <ClCompile Include="HitboxCollision.cpp" />

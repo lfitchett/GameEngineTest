@@ -65,9 +65,6 @@
     <ClCompile Include="EventLoop.cpp">
       <Filter>Source Files\EventLoop</Filter>
     </ClCompile>
-    <ClCompile Include="EventNode.cpp">
-      <Filter>Source Files\EventLoop</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>

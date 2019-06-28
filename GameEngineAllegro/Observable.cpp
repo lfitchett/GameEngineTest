@@ -17,15 +17,15 @@ public:
 class Subscription {
 private:
 	int id;
-	Observable* observe;
+	Observable& observe;
 
 public:
-	Subscription(Observable* observable, std::function<void()> func) : observe(observable) {
-		id = observe->nextKey++;
-		observe->currentSubscriptions[id] = func;
+	Subscription(Observable& observable, std::function<void()> func) : observe(observable) {
+		id = observe.nextKey++;
+		observe.currentSubscriptions[id] = func;
 	}
 
 	~Subscription() {
-		observe->currentSubscriptions.erase(id);
+		observe.currentSubscriptions.erase(id);
 	}
 };
