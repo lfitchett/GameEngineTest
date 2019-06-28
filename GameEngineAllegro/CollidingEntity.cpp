@@ -10,8 +10,8 @@
 class CollidingEntity : public EntityWithData
 {
 private:
-	EventId id;
 	HitboxDisplay* hbDisplay;
+	Subscription subscription;
 
 protected:
 	EventLoop &mainLoop;
@@ -21,17 +21,14 @@ protected:
 
 public:
 	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox, std::function<void(CollisionInformation*)> onCollision)
-		: mainLoop(loop), EntityWithData(data), onCollision(onCollision) {
-		id = loop.Subscribe([this] { CheckCollision(); }, 1);
-
+		: mainLoop(loop), EntityWithData(data), onCollision(onCollision), subscription(loop.Subscribe([this] { CheckCollision(); }, 1))
+	{
 		this->hitbox = hitbox;
 		sharedData.collisionManager.AddHitbox(hitbox);
 		hbDisplay = new HitboxDisplay(mainLoop, sharedData, hitbox);
 	};
 
 	virtual ~CollidingEntity() {
-		mainLoop.Unsubscribe(id);
-
 		delete hbDisplay;
 		sharedData.collisionManager.RemoveHitbox(hitbox);
 		delete hitbox;

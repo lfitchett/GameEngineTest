@@ -25,6 +25,7 @@ public:
 		}
 
 		al_register_event_source(event_queue, al_get_timer_event_source(timer));
+		priorities.resize(3);
 	};
 
 	Subscription Subscribe(std::function<void()> func, uint16_t priority = 0)

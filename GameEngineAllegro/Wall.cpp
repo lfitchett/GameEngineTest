@@ -9,6 +9,7 @@ constexpr double width = 15;
 class Wall : EntityWithData, RenderedEntity
 {
 private:
+	EventLoop& mainLoop;
 	Point start;
 	Point end;
 	Hitbox* hitbox;
@@ -17,6 +18,7 @@ private:
 
 public:
 	Wall(EventLoop &loop, SharedData& data, Point start, Point end) :
+		mainLoop(loop),
 		EntityWithData(data),
 		RenderedEntity(loop),
 		start(start),

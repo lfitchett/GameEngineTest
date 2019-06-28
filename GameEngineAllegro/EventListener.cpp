@@ -8,9 +8,10 @@ class EventListener : public EntityWithData, public TickingEntity
 private:
 	ALLEGRO_EVENT_QUEUE* eventQueue; 
 	ALLEGRO_EVENT currentEvent;
+	EventLoop& mainLoop;
 
 public:
-	EventListener(EventLoop &loop, SharedData &data) : EntityWithData(data), TickingEntity(loop)
+	EventListener(EventLoop &loop, SharedData &data) : mainLoop(loop), EntityWithData(data), TickingEntity(loop)
 	{
 		eventQueue = al_create_event_queue();
 		if (!eventQueue) {

@@ -3,6 +3,7 @@
 #include "BitmapBase.cpp"
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
+#include "TickingEntity.cpp"
 
 constexpr int MOVE_SPEED = 0;
 constexpr int RADIUS = 20;

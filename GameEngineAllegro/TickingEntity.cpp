@@ -7,19 +7,11 @@
 class TickingEntity
 {
 private:
-	EventId id;
+	Subscription subscription;
 
 protected:
-	EventLoop &mainLoop;
-
 	virtual void Tick() = 0;
 
 public:
-	TickingEntity(EventLoop &loop) : mainLoop(loop) {
-		id = loop.Subscribe([this] { Tick(); });
-	};
-
-	virtual ~TickingEntity() {
-		mainLoop.Unsubscribe(id);
-	}
+	TickingEntity(EventLoop &loop) : subscription(loop.Subscribe([this] { Tick(); }, 2)) {	};
 };

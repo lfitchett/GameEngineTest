@@ -3,6 +3,7 @@
 #include "BitmapBase.cpp"
 #include "CollidingEntity.cpp"
 #include "UnitVector.cpp"
+#include "TickingEntity.cpp"
 
 constexpr double size = 25;
 
