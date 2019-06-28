@@ -13,9 +13,8 @@ class Renderer : public RenderedEntity
 {
 private:
 	time_point<system_clock> lastTickTime;
-	double averageFps;
 	TextBase fpsMeter;
-	nanoseconds threadDelay;
+	double averageFps = 0;
 
 public:
 	Renderer(EventLoop &loop, SharedData& data) :RenderedEntity(loop), fpsMeter(loop, data)
