@@ -8,7 +8,7 @@
 constexpr int MOVE_SPEED = 0;
 constexpr int RADIUS = 20;
 
-class BouncingCircle : public TickingEntity, public EntityWithData
+class BouncingCircle : public TickingEntity<Calculation>, public EntityWithData
 {
 private:
 	UnitVector direction;

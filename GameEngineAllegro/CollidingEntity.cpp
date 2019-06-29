@@ -7,11 +7,10 @@
 #include "Hitbox.cpp"
 #include "HitboxDisplay.cpp"
 
-class CollidingEntity : public EntityWithData
+class CollidingEntity : public EntityWithData, TickingEntity<CollisionDetection>
 {
 private:
 	HitboxDisplay* hbDisplay;
-	Subscription subscription;
 
 protected:
 	EventLoop &mainLoop;
@@ -21,7 +20,7 @@ protected:
 
 public:
 	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox, std::function<void(CollisionInformation*)> onCollision)
-		: mainLoop(loop), EntityWithData(data), onCollision(onCollision), subscription(loop.Subscribe([this] { CheckCollision(); }, 1))
+		: mainLoop(loop), EntityWithData(data), onCollision(onCollision), TickingEntity(mainLoop)
 	{
 		this->hitbox = hitbox;
 		sharedData.collisionManager.AddHitbox(hitbox);
@@ -35,7 +34,7 @@ public:
 	}
 
 private:
-	void CheckCollision()
+	void Tick()
 	{
 		CollisionResult collision = sharedData.collisionManager.FindCollision(hitbox);
 		if (collision) {

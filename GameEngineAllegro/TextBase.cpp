@@ -3,9 +3,9 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
-#include "RenderedEntity.cpp"
+#include "TickingEntity.cpp"
 
-class TextBase : public EntityWithData, public RenderedEntity
+class TextBase : public EntityWithData, public TickingEntity<Rendering>
 {
 public:
 	ALLEGRO_COLOR color = al_map_rgb(200, 0, 0);
@@ -15,10 +15,10 @@ public:
 	uint16_t flags = 0;
 	std::string text;
 
-	TextBase(EventLoop &loop, SharedData &data) : EntityWithData(data), RenderedEntity(loop) {	}
+	TextBase(EventLoop &loop, SharedData &data) : EntityWithData(data), TickingEntity(loop) {	}
 
 protected:
-	void Render() override
+	void Tick() override
 	{
 		al_draw_text(sharedData.fontManager.GetFont(font, fontSize), color, location.x, location.y, flags, text.c_str());
 	}

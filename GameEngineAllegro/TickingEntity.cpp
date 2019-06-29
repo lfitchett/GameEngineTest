@@ -4,6 +4,7 @@
 
 #include "EventLoop.cpp"
 
+template <EventPriority priority>
 class TickingEntity
 {
 private:
@@ -13,5 +14,5 @@ protected:
 	virtual void Tick() = 0;
 
 public:
-	TickingEntity(EventLoop &loop) : subscription(loop.Subscribe([this] { Tick(); }, 2)) {	};
+	TickingEntity(EventLoop &loop) : subscription(loop.Subscribe([this] { Tick(); }, priority)) {	};
 };

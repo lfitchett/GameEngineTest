@@ -4,12 +4,12 @@
 #include <thread>
 #include <string>
 
-#include "RenderedEntity.cpp"
+#include "TickingEntity.cpp"
 #include "TextBase.cpp"
 
 using namespace std::chrono;
 
-class Renderer : public RenderedEntity
+class Renderer : public TickingEntity<Rendering>
 {
 private:
 	time_point<system_clock> lastTickTime;
@@ -17,7 +17,7 @@ private:
 	double averageFps = 60;
 
 public:
-	Renderer(EventLoop &loop, SharedData& data) :RenderedEntity(loop), fpsMeter(loop, data)
+	Renderer(EventLoop &loop, SharedData& data) : TickingEntity(loop), fpsMeter(loop, data)
 	{
 		fpsMeter.color = al_map_rgb(250, 218, 94);
 		fpsMeter.flags = ALLEGRO_ALIGN_RIGHT;
@@ -28,7 +28,7 @@ public:
 	}
 
 protected:
-	void Render() override
+	void Tick() override
 	{
 		auto fps = duration_cast<nanoseconds>(seconds(1)) / duration_cast<nanoseconds>(system_clock::now() - lastTickTime);
 		averageFps = .98 * averageFps + .02 * fps;

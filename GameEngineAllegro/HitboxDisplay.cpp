@@ -3,9 +3,9 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
-#include "RenderedEntity.cpp"
+#include "TickingEntity.cpp"
 
-class HitboxDisplay : public EntityWithData, public RenderedEntity
+class HitboxDisplay : public EntityWithData, public TickingEntity<Rendering>
 {
 private:
 	Hitbox* hitbox;
@@ -14,7 +14,7 @@ private:
 	ALLEGRO_COLOR* currentColor;
 
 public:
-	HitboxDisplay(EventLoop &loop, SharedData &data, Hitbox* hitbox) : EntityWithData(data), RenderedEntity(loop)
+	HitboxDisplay(EventLoop &loop, SharedData &data, Hitbox* hitbox) : EntityWithData(data), TickingEntity(loop)
 	{
 		this->hitbox = hitbox;
 		currentColor = &green;
@@ -25,7 +25,7 @@ public:
 	}
 
 protected:
-	void Render() override
+	void Tick() override
 	{
 		for (size_t i = 0; i < hitbox->GetSize(); i++) {
 			Shape* s = hitbox->GetShapes()[i];

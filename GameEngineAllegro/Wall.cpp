@@ -6,7 +6,7 @@
 
 constexpr double width = 15;
 
-class Wall : EntityWithData, RenderedEntity
+class Wall : EntityWithData, TickingEntity<Rendering>
 {
 private:
 	EventLoop& mainLoop;
@@ -20,7 +20,7 @@ public:
 	Wall(EventLoop &loop, SharedData& data, Point start, Point end) :
 		mainLoop(loop),
 		EntityWithData(data),
-		RenderedEntity(loop),
+		TickingEntity(loop),
 		start(start),
 		end(end)
 	{
@@ -46,7 +46,7 @@ public:
 	}
 
 protected:
-	void Render() override
+	void Tick() override
 	{
 		al_draw_line(start.x, start.y, end.x, end.y, wallColor, width);
 	}

@@ -3,7 +3,7 @@
 #include "EntityWithData.cpp"
 #include "TickingEntity.cpp"
 
-class EventListener : public EntityWithData, public TickingEntity
+class EventListener : public EntityWithData, public TickingEntity<Rendering>
 {
 private:
 	ALLEGRO_EVENT_QUEUE* eventQueue; 

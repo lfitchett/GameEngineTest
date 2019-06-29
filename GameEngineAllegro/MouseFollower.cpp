@@ -7,7 +7,7 @@
 
 constexpr double size = 25;
 
-class MouseFollower : TickingEntity
+class MouseFollower : TickingEntity<Calculation>
 {
 private:
 	Point& location;

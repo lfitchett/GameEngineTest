@@ -3,9 +3,9 @@
 #include "pch.h"
 
 #include "EntityWithData.cpp"
-#include "RenderedEntity.cpp"
+#include "TickingEntity.cpp"
 
-class BitmapBase : public EntityWithData, public RenderedEntity
+class BitmapBase : public EntityWithData, public TickingEntity<Rendering>
 {
 protected:
 	ALLEGRO_BITMAP* bitmap = nullptr;
@@ -14,13 +14,13 @@ protected:
 
 public:
 	BitmapBase(EventLoop &loop, SharedData &data, int width, int height, ALLEGRO_COLOR color)
-		: EntityWithData(data), RenderedEntity(loop)
+		: EntityWithData(data), TickingEntity(loop)
 	{
 		makeBitmap(width, height, color);
 	}
 
 	BitmapBase(EventLoop &loop, SharedData &data, std::string filename)
-		: EntityWithData(data), RenderedEntity(loop)
+		: EntityWithData(data), TickingEntity(loop)
 	{
 		loadBitmap(filename);
 	}
@@ -59,9 +59,9 @@ public:
 	}
 
 protected:
-	BitmapBase(EventLoop &loop, SharedData &data) : EntityWithData(data), RenderedEntity(loop) {}
+	BitmapBase(EventLoop &loop, SharedData &data) : EntityWithData(data), TickingEntity(loop) {}
 
-	void Render() override
+	void Tick() override
 	{
 		al_draw_bitmap(bitmap, location.x, location.y, 0);
 	}
