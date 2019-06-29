@@ -15,6 +15,7 @@
 #include <functional>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <algorithm>
 
 #include <allegro5/allegro.h>
