@@ -8,7 +8,7 @@
 constexpr int MOVE_SPEED = 0;
 constexpr int RADIUS = 20;
 
-class BouncingCircle : public TickingEntity<Calculation>, public EntityWithData
+class BouncingCircle : public TickingEntity<Calculation>
 {
 private:
 	UnitVector direction;
@@ -20,7 +20,6 @@ private:
 public:
 	BouncingCircle(EventLoop &loop, SharedData &data) :
 		TickingEntity(loop),
-		EntityWithData(data),
 		direction((float)rand(), (float)rand()),
 		location{ (double)((rand() % (data.displaySize.width / 2)) + data.displaySize.width / 4), (double)((rand() % (data.displaySize.height / 2)) + data.displaySize.height / 4) },
 		bitmap(loop, data, "Resources/Images/blueCircle.png"),

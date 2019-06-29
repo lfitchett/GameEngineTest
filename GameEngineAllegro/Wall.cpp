@@ -6,7 +6,7 @@
 
 constexpr double width = 5;
 
-class Wall : EntityWithData, TickingEntity<Rendering>
+class Wall : TickingEntity<Rendering>
 {
 private:
 	Point start;
@@ -16,7 +16,6 @@ private:
 
 public:
 	Wall(EventLoop &loop, SharedData& data, Point start, Point end) :
-		EntityWithData(data),
 		TickingEntity(loop),
 		start(start),
 		end(end),
