@@ -20,7 +20,7 @@ private:
 	bool isActive = false;
 
 
-	std::shared_ptr<bool> isAlive = std::make_shared<bool>(true);
+	bool isAlive = true;
 
 public:
 	ThreadedObservable()
@@ -53,13 +53,8 @@ public:
 	~ThreadedObservable()
 	{
 		isAlive = false;
-		{
-			std::lock_guard<std::mutex> lock(waitForNextLoopMux);
-			isActive = true;
-			waitForNextLoopCV.notify_all();
-		}
 		for (auto& thread : threads) {
-			thread.detach();
+			thread.join();
 		}
 	}
 
@@ -75,7 +70,7 @@ private:
 			/* Wait for signal from "on" */
 			{
 				std::unique_lock<std::mutex> lock(waitForNextLoopMux);
-				while (!waitForNextLoopCV.wait_for(lock, std::chrono::milliseconds(50), [this] {return isActive; }));
+				while (!waitForNextLoopCV.wait_for(lock, std::chrono::milliseconds(50), [this] {return isActive || !isAlive; }));
 				if (!isAlive) {
 					return;
 				}
