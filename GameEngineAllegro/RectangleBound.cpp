@@ -9,8 +9,8 @@ struct RectangleBound
 	double xMin = DBL_MAX;
 	double yMin = DBL_MAX;
 
-	bool intersects(RectangleBound* other)
+	bool intersects(RectangleBound& other)
 	{
-		return this->xMin < other->xMax && this->xMax > other->xMin && this->yMin < other->yMax && this->yMax > other->yMin;
+		return xMin < other.xMax && xMax > other.xMin && yMin < other.yMax && yMax > other.yMin;
 	}
 };
