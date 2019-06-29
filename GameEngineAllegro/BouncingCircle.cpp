@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "BitmapBase.cpp"
-#include "CollidingEntity.cpp"
+#include "ReactiveCollidingEntity.cpp"
 #include "UnitVector.cpp"
 #include "TickingEntity.cpp"
 
@@ -14,7 +14,7 @@ private:
 	UnitVector direction;
 	Point location;
 	BitmapBase bitmap;
-	CollidingEntity collisionChecker;
+	ReactiveCollidingEntity collisionChecker;
 	Vector collisionCorrection;
 
 public:
@@ -27,11 +27,6 @@ public:
 		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); })
 	{
 		bitmap.setSize(RADIUS * 2, RADIUS * 2);
-	}
-
-	~BouncingCircle()
-	{
-
 	}
 
 protected:

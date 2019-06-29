@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "BitmapBase.cpp"
-#include "CollidingEntity.cpp"
+#include "ReactiveCollidingEntity.cpp"
 #include "UnitVector.cpp"
 #include "TickingEntity.cpp"
 
@@ -11,7 +11,7 @@ class MouseFollower : TickingEntity<Calculation>
 {
 private:
 	Point& location;
-	CollidingEntity collisionChecker;
+	ReactiveCollidingEntity collisionChecker;
 	Vector collisionCorrection;
 
 public:

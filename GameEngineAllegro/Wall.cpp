@@ -9,16 +9,13 @@ constexpr double width = 15;
 class Wall : EntityWithData, TickingEntity<Rendering>
 {
 private:
-	EventLoop& mainLoop;
 	Point start;
 	Point end;
-	Hitbox* hitbox;
 	ALLEGRO_COLOR wallColor = al_map_rgb(0, 0, 255);
-	HitboxDisplay* hbDisplay;
+	CollidingEntity* collision;
 
 public:
 	Wall(EventLoop &loop, SharedData& data, Point start, Point end) :
-		mainLoop(loop),
 		EntityWithData(data),
 		TickingEntity(loop),
 		start(start),
@@ -33,16 +30,13 @@ public:
 			{end.x - offset.x, end.y - offset.y},
 			{end.x + offset.x, end.y + offset.y}
 		};
-		hitbox = new SingleHitbox(new SizedPolygon<4>(points), false);
-		sharedData.collisionManager.AddHitbox(hitbox);
-		hbDisplay = new HitboxDisplay(mainLoop, sharedData, hitbox);
 
+		collision = new CollidingEntity(loop, sharedData, new SingleHitbox(new SizedPolygon<4>(points), false));
 	}
 
 	~Wall()
 	{
-		sharedData.collisionManager.RemoveHitbox(hitbox);
-		delete hitbox;
+		delete collision;
 	}
 
 protected:

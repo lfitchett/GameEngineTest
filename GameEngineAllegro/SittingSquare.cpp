@@ -17,7 +17,7 @@ public:
 		location(location),
 		sideLength(sideLength),
 		bitmap(loop, data, "Resources/Images/square.jpg"),
-		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); })
+		collisionChecker(loop, data, makeHitbox())
 	{
 		bitmap.setSize(sideLength / 2 - 1, sideLength / 2 - 1);
 		bitmap.setLocation(location);
@@ -34,10 +34,5 @@ private:
 		};
 
 		return new SingleHitbox(new SizedPolygon<4>(points), false);
-	}
-
-	void onCollision(CollisionInformation* collision)
-	{
-		printf("square hit\n");
 	}
 };

@@ -5,7 +5,7 @@
 #include "EntityWithData.cpp"
 #include "TickingEntity.cpp"
 
-class HitboxDisplay : public EntityWithData, public TickingEntity<Rendering>
+class HitboxDisplay : public TickingEntity<Rendering>
 {
 private:
 	Hitbox* hitbox;
@@ -14,7 +14,7 @@ private:
 	ALLEGRO_COLOR* currentColor;
 
 public:
-	HitboxDisplay(EventLoop &loop, SharedData &data, Hitbox* hitbox) : EntityWithData(data), TickingEntity(loop)
+	HitboxDisplay(EventLoop &loop, Hitbox* hitbox) : TickingEntity(loop)
 	{
 		this->hitbox = hitbox;
 		currentColor = &green;

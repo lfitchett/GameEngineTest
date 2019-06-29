@@ -7,43 +7,22 @@
 #include "Hitbox.cpp"
 #include "HitboxDisplay.cpp"
 
-class CollidingEntity : public EntityWithData, TickingEntity<CollisionDetection>
+class CollidingEntity : protected EntityWithData
 {
-private:
-	HitboxDisplay* hbDisplay;
-
 protected:
-	EventLoop &mainLoop;
 	Hitbox* hitbox;
-
-	std::function<void(CollisionInformation*)> onCollision;
+	HitboxDisplay hbDisplay;
 
 public:
-	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox, std::function<void(CollisionInformation*)> onCollision)
-		: mainLoop(loop), EntityWithData(data), onCollision(onCollision), TickingEntity(mainLoop)
+	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox)
+		: EntityWithData(data), hbDisplay(loop, hitbox), hitbox(hitbox)
 	{
-		this->hitbox = hitbox;
 		sharedData.collisionManager.AddHitbox(hitbox);
-		hbDisplay = new HitboxDisplay(mainLoop, sharedData, hitbox);
 	};
 
-	virtual ~CollidingEntity() {
-		delete hbDisplay;
+	virtual ~CollidingEntity()
+	{
 		sharedData.collisionManager.RemoveHitbox(hitbox);
 		delete hitbox;
-	}
-
-private:
-	void Tick()
-	{
-		CollisionResult collision = sharedData.collisionManager.FindCollision(hitbox);
-		if (collision) {
-			// printf("Collision\n");
-			hbDisplay->setIsHit(true);
-			onCollision(collision.get());
-		}
-		else {
-			hbDisplay->setIsHit(false);
-		}
 	}
 };
