@@ -57,6 +57,22 @@ public:
 		bitmap = newBitmap;
 	}
 
+	/* Not working well yet */
+	void rotate(float radians)
+	{
+		float extraSize = 1 / cos(radians);
+
+		ALLEGRO_BITMAP* newBitmap = al_create_bitmap(size.width * extraSize, size.height * extraSize);
+		al_set_target_bitmap(newBitmap);
+		al_draw_rotated_bitmap(bitmap, size.width / 2, size.height / 2, size.width / 2, size.height / 2, radians, 0);
+		al_set_target_bitmap(al_get_backbuffer(sharedData.display));
+		
+		al_destroy_bitmap(bitmap);
+		bitmap = newBitmap;
+		size.width *= extraSize;
+		size.height *= extraSize;
+	}
+
 protected:
 	BitmapBase(EventLoop &loop, SharedData &data) : EntityWithData(data), TickingEntity(loop) {}
 
