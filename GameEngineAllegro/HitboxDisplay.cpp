@@ -44,8 +44,8 @@ protected:
 	void DrawCircle(Circle* circ)
 	{
 		Point c = circ->GetCenter();
-		al_draw_circle(c.x, c.y, circ->Radius, *currentColor, 1);
-		//al_draw_rectangle(c.x + circ->Radius, c.y + circ->Radius, c.x - circ->Radius, c.y - circ->Radius, *currentColor, 1);
+		al_draw_circle(c.x, c.y, circ->radius, *currentColor, 1);
+		//al_draw_rectangle(c.x + circ->radius, c.y + circ->radius, c.x - circ->radius, c.y - circ->radius, *currentColor, 1);
 		
 	}
 

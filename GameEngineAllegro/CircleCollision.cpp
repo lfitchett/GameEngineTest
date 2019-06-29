@@ -9,7 +9,7 @@ CollisionInformation* CollisionManager::isColliding(Circle* circ1, Circle* circ2
 	double dy = c1.y - c2.y;
 	double centerDistSquared = dx * dx + dy * dy;
 
-	double radiusSum = circ1->Radius + circ2->Radius;
+	double radiusSum = circ1->radius + circ2->radius;
 	double radiusSumSquared = radiusSum * radiusSum;
 
 	if (radiusSumSquared >= centerDistSquared) {

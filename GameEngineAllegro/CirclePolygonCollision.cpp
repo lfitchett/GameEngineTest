@@ -5,7 +5,7 @@ CollisionInformation* CollisionManager::isColliding(Circle* circ, Polygon* poly)
 {
 	/* Check outside bounds */
 	Point c = circ->GetCenter();
-	double r = circ->Radius;
+	double r = circ->radius;
 	RectangleBound circleBound{ c.x + r, c.y + r, c.x - r, c.y - r };
 	if (!circleBound.intersects(poly->GetBounds())) {
 		return false;
