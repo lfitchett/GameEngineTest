@@ -23,24 +23,22 @@ namespace Collisions
 
 		/* Check first shape */
 		std::vector<Point>::iterator p = p1.begin();
+		std::vector<Point>::iterator prev = --p1.end();
 		while(p != p1.end()) {
-			if (!CheckVectorForGap(p1, p2, Vector(*p, *++p), minOverlap, collisionAngle)) {
+			if (!CheckVectorForGap(p1, p2, Vector(*prev, *p), minOverlap, collisionAngle)) {
 				return false;
 			}
-		}
-		if (!CheckVectorForGap(p1, p2, Vector(*p1.end(), *p1.begin()), minOverlap, collisionAngle)) {
-			return false;
+			prev = p++;
 		}
 
 		/* Check second shape */
 		p = p2.begin();
+		prev = --p2.end();
 		while (p != p2.end()) {
-			if (!CheckVectorForGap(p1, p2, Vector(*p, *++p), minOverlap, collisionAngle)) {
+			if (!CheckVectorForGap(p1, p2, Vector(*prev, *p), minOverlap, collisionAngle)) {
 				return false;
 			}
-		}
-		if (!CheckVectorForGap(p1, p2, Vector(*p2.end(), *p2.begin()), minOverlap, collisionAngle)) {
-			return false;
+			prev = p++;
 		}
 
 

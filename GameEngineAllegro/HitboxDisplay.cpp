@@ -41,24 +41,24 @@ protected:
 		}
 	}
 
-	void DrawCircle(Circle* circ)
+	void DrawCircle(Circle& circ)
 	{
-		Point c = circ->GetCenter();
-		al_draw_circle(c.x, c.y, circ->radius, *currentColor, 1);
+		al_draw_circle(circ.center.x, circ.center.y, circ.radius, *currentColor, 1);
 		//al_draw_rectangle(c.x + circ->radius, c.y + circ->radius, c.x - circ->radius, c.y - circ->radius, *currentColor, 1);
 		
 	}
 
-	void DrawPolygon(Polygon* poly)
+	void DrawPolygon(Polygon& poly)
 	{
-		Point* start = poly->GetPoints();
-		Point* end = start + poly->GetNumPoints() - 1;
+		std::vector<Point>& points = poly.GetPoints();
 
-		for (Point* p = start; p < end; p++) {
-			al_draw_line(p->x, p->y, (p+1)->x, (p+1)->y, *currentColor, 1);
+		std::vector<Point>::iterator p = points.begin();
+		std::vector<Point>::iterator prev = --points.end();
+		while (p != points.end()) {
+			al_draw_line(p->x, p->y, prev->x, prev->y, *currentColor, 1);
+			prev = p++;
 		}
-		al_draw_line(end->x, end->y, start->x, start->y, *currentColor, 1);
-
+		
 
 		/*RectangleBound* bounds = poly->GetBounds();
 		al_draw_rectangle(bounds->xMin, bounds->yMin, bounds->xMax, bounds->yMax, *currentColor, 1);*/
