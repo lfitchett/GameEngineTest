@@ -38,7 +38,7 @@ public:
 		o.id = 0;
 	}
 
-	Subscription&& operator=(Subscription&& o)
+	Subscription& operator=(Subscription&& o)
 	{
 		id = o.id;
 		o.id = 0;
