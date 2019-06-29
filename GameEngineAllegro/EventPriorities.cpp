@@ -11,7 +11,7 @@ namespace \
 }; \
 
 SequentialEnum(EventPriority,
-	Calculation,
 	CollisionDetection,
+	Calculation,
 	Rendering
 );
