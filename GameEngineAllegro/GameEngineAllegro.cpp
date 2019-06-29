@@ -17,8 +17,6 @@
 int main()
 {
 	al_init();
-	al_init_image_addon();
-	al_init_primitives_addon();
 	srand(time(NULL));
 
 	EventLoop mainLoop;
@@ -35,7 +33,6 @@ int main()
 
 	std::unique_ptr<Rectangle> square(new Rectangle(mainLoop, data, Point{ 100, 400 }, 200));
 	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
-
 
 	std::vector<std::unique_ptr<BouncingCircle>> circles;
 	for (int i = 0; i < 2; i++) {

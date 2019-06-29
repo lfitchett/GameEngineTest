@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitmapBase.cpp" />
+    <ClCompile Include="BitmapManager.cpp" />
     <ClCompile Include="BouncingCircle.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="CircleCollision.cpp" />

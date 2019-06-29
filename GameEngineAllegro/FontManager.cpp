@@ -1,6 +1,5 @@
 #include "pch.h"
 
-#include <unordered_map> 
 #include <allegro5/allegro_ttf.h>
 
 class FontManager {

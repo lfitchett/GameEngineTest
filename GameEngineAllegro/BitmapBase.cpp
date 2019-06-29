@@ -11,7 +11,7 @@ private:
 	Size size;
 
 protected:
-	ALLEGRO_BITMAP* bitmap = nullptr;
+	std::shared_ptr<ALLEGRO_BITMAP> bitmap;
 
 public:
 	Point location;
@@ -28,10 +28,7 @@ public:
 		loadBitmap(filename);
 	}
 
-	virtual ~BitmapBase()
-	{
-		al_destroy_bitmap(bitmap);
-	}
+	virtual ~BitmapBase() {	}
 
 	void setLocation(double x, double y)
 	{
@@ -48,13 +45,12 @@ public:
 	{
 		ALLEGRO_BITMAP* newBitmap = al_create_bitmap(newWidth, newHeight);
 		al_set_target_bitmap(newBitmap);
-		al_draw_scaled_bitmap(bitmap, 0, 0, size.width, size.height, 0, 0, newWidth, newHeight, 0);
+		al_draw_scaled_bitmap(bitmap.get(), 0, 0, size.width, size.height, 0, 0, newWidth, newHeight, 0);
 		al_set_target_bitmap(al_get_backbuffer(sharedData.display));
 
 		size.width = newWidth;
 		size.height = newHeight;
-		al_destroy_bitmap(bitmap);
-		bitmap = newBitmap;
+		bitmap = sharedData.bitmapManager.wrapBitmap(newBitmap);
 	}
 
 	/* Not working well yet */
@@ -64,11 +60,10 @@ public:
 
 		ALLEGRO_BITMAP* newBitmap = al_create_bitmap(size.width * extraSize, size.height * extraSize);
 		al_set_target_bitmap(newBitmap);
-		al_draw_rotated_bitmap(bitmap, size.width / 2, size.height / 2, size.width / 2, size.height / 2, radians, 0);
+		al_draw_rotated_bitmap(bitmap.get(), size.width / 2, size.height / 2, size.width / 2, size.height / 2, radians, 0);
 		al_set_target_bitmap(al_get_backbuffer(sharedData.display));
-		
-		al_destroy_bitmap(bitmap);
-		bitmap = newBitmap;
+
+		bitmap = sharedData.bitmapManager.wrapBitmap(newBitmap);
 		size.width *= extraSize;
 		size.height *= extraSize;
 	}
@@ -78,17 +73,17 @@ protected:
 
 	void Tick() override
 	{
-		al_draw_bitmap(bitmap, location.x, location.y, 0);
+		al_draw_bitmap(bitmap.get(), location.x, location.y, 0);
 	}
 
 	void makeBitmap(int width, int height, ALLEGRO_COLOR color)
 	{
-		bitmap = al_create_bitmap(width, height);
+		bitmap = sharedData.bitmapManager.wrapBitmap(al_create_bitmap(width, height));
 		if (!bitmap) {
 			printf("Failed to make bitmap\n");
 		}
 
-		al_set_target_bitmap(bitmap);
+		al_set_target_bitmap(bitmap.get());
 		al_clear_to_color(color);
 		al_set_target_bitmap(al_get_backbuffer(sharedData.display));
 
@@ -98,12 +93,9 @@ protected:
 
 	void loadBitmap(std::string filename)
 	{
-		bitmap = al_load_bitmap(filename.c_str());
-		if (!bitmap) {
-			printf("Failed to load bitmap\n");
-		}
+		bitmap = sharedData.bitmapManager.loadBitmap(filename);
 
-		size.width = al_get_bitmap_width(bitmap);
-		size.height = al_get_bitmap_height(bitmap);
+		size.width = al_get_bitmap_width(bitmap.get());
+		size.height = al_get_bitmap_height(bitmap.get());
 	}
 };

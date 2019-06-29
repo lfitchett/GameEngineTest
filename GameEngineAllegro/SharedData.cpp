@@ -4,6 +4,7 @@
 
 #include "Point.cpp"
 #include "FontManager.cpp"
+#include "BitmapManager.cpp"
 #include "CollisionManager.h"
 
 struct Size 
@@ -19,5 +20,6 @@ struct SharedData
 	Point mouseClickLocation = Point{ 0,0 };
 	Point mouseLocation = Point{ 0,0 };
 	FontManager fontManager;
+	BitmapManager bitmapManager;
 	CollisionManager collisionManager;
 };
