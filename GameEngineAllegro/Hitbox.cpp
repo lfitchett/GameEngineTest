@@ -29,7 +29,7 @@ public:
 
 	MultiHitbox(Shape* shapes[s], bool isMoving) : Hitbox(isMoving) {
 		for (size_t i = 0; i < s; i++) {
-			Shapes[i] - shapes[i];
+			Shapes[i] = shapes[i];
 		}
 	}
 
