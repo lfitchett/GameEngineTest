@@ -39,7 +39,7 @@ protected:
 		location.x += direction.x * MOVE_SPEED;
 		location.y += direction.y * MOVE_SPEED;
 
-		bitmap.setLocation(location);
+		bitmap.location = location;
 	}
 
 

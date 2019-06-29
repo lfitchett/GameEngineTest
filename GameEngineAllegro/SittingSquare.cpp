@@ -20,7 +20,7 @@ public:
 		collisionChecker(loop, data, makeHitbox())
 	{
 		bitmap.setSize(sideLength / 2 - 1, sideLength / 2 - 1);
-		bitmap.setLocation(location);
+		bitmap.location = location;
 	}
 
 private:

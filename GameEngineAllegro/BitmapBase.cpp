@@ -7,12 +7,15 @@
 
 class BitmapBase : public EntityWithData, public TickingEntity<Rendering>
 {
+private:
+	Size size;
+
 protected:
 	ALLEGRO_BITMAP* bitmap = nullptr;
-	Size size;
-	Point location;
 
 public:
+	Point location;
+
 	BitmapBase(EventLoop &loop, SharedData &data, int width, int height, ALLEGRO_COLOR color)
 		: EntityWithData(data), TickingEntity(loop)
 	{
@@ -34,10 +37,6 @@ public:
 	{
 		location.x = x;
 		location.y = y;
-	}
-	void setLocation(const Point& loc)
-	{
-		location = loc;
 	}
 
 	Size GetSize()
