@@ -21,13 +21,14 @@ int main()
 	al_init_primitives_addon();
 	srand(time(NULL));
 
-	EventLoop mainLoop;
 	SharedData data;
 
 	data.displaySize.width = 1000;
 	data.displaySize.height = 1000;
 	std::unique_ptr<ALLEGRO_DISPLAY, decltype(&al_destroy_display)> display(al_create_display(data.displaySize.width, data.displaySize.height), &al_destroy_display);
 	data.display = display.get();
+
+	EventLoop mainLoop;
 
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);

@@ -9,12 +9,14 @@ protected:
 	friend class Subscription;
 
 public:
-	virtual void on() 
+	virtual void on()
 	{
 		for (auto subscription : currentSubscriptions) {
 			subscription.second();
 		}
 	}
+
+	virtual ~Observable() {};
 };
 
 class Subscription {
@@ -26,7 +28,7 @@ public:
 	Subscription(const Subscription&) = delete; // non construction-copyable
 	Subscription& operator=(const Subscription&) = delete; // non copyable
 
-	Subscription(Observable& observable, std::function<void()> func) : observe(observable) 
+	Subscription(Observable& observable, std::function<void()> func) : observe(observable)
 	{
 		id = observe.nextKey++;
 		observe.currentSubscriptions[id] = func;
@@ -44,7 +46,7 @@ public:
 		o.id = 0;
 	}
 
-	~Subscription() 
+	~Subscription()
 	{
 		observe.currentSubscriptions.erase(id);
 	}

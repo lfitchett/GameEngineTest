@@ -17,9 +17,10 @@ private:
 
 	std::mutex waitForNextLoopMux;
 	std::condition_variable waitForNextLoopCV;
+	bool isActive = false;
 
 
-	bool isAlive = true;
+	std::shared_ptr<bool> isAlive = std::make_shared<bool>(true);
 
 public:
 	ThreadedObservable()
@@ -31,26 +32,34 @@ public:
 
 	void on() override {
 		{
-			std::unique_lock<std::mutex> lock(currentMux);
+			std::lock_guard<std::mutex> lock(currentMux);
 			current = currentSubscriptions.begin();
+		}
+		{
+			std::lock_guard<std::mutex> lock(waitForNextLoopMux);
+			isActive = true;
 		}
 		waitForNextLoopCV.notify_all();
 		{
 			std::unique_lock<std::mutex> lock(activeThreadMux);
 			loopFinishedCV.wait_for(lock, std::chrono::milliseconds(50), [this] {return activeThreads == 0; });
 		}
+		{
+			std::lock_guard<std::mutex> lock(waitForNextLoopMux);
+			isActive = false;
+		}
 	}
 
 	~ThreadedObservable()
 	{
-		if (activeThreads != 0) {
-			std::unique_lock<std::mutex> lock(activeThreadMux);
-			loopFinishedCV.wait_for(lock, std::chrono::milliseconds(50), [this] {return activeThreads == 0; });
-		}
 		isAlive = false;
-		waitForNextLoopCV.notify_all();
+		{
+			std::lock_guard<std::mutex> lock(waitForNextLoopMux);
+			isActive = true;
+			waitForNextLoopCV.notify_all();
+		}
 		for (auto& thread : threads) {
-			thread.join();
+			thread.detach();
 		}
 	}
 
@@ -66,7 +75,7 @@ private:
 			/* Wait for signal from "on" */
 			{
 				std::unique_lock<std::mutex> lock(waitForNextLoopMux);
-				waitForNextLoopCV.wait(lock);
+				while (!waitForNextLoopCV.wait_for(lock, std::chrono::milliseconds(50), [this] {return isActive; }));
 				if (!isAlive) {
 					return;
 				}
