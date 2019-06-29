@@ -24,7 +24,7 @@ public:
 		direction((float)rand(), (float)rand()),
 		location{ (double)((rand() % (data.displaySize.width / 2)) + data.displaySize.width / 4), (double)((rand() % (data.displaySize.height / 2)) + data.displaySize.height / 4) },
 		bitmap(loop, data, "Resources/Images/blueCircle.png"),
-		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); })
+		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation& result) {onCollision(result); })
 	{
 		bitmap.setSize(RADIUS * 2, RADIUS * 2);
 	}
@@ -59,12 +59,12 @@ private:
 		return new SingleHitbox(new MovingPolygon<4>([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, points), true);*/
 	}
 
-	void onCollision(CollisionInformation* collision)
+	void onCollision(CollisionInformation& collision)
 	{
-		Vector pseudoWall = collision->Direction.ToNorm();
+		Vector pseudoWall = collision.Direction.ToNorm();
 		direction = direction.Reflect(pseudoWall);
 
-		double moveAmount = collision->isOtherMoving ? collision->overlap / 2 : collision->overlap;
-		collisionCorrection = collision->Direction * moveAmount;
+		double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
+		collisionCorrection = collision.Direction * moveAmount;
 	}
 };

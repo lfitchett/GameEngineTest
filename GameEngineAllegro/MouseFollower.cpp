@@ -18,7 +18,7 @@ public:
 	MouseFollower(EventLoop &loop, SharedData &data) :
 		TickingEntity(loop),
 		location(data.mouseLocation),
-		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation* result) {onCollision(result); })
+		collisionChecker(loop, data, makeHitbox(), [this](CollisionInformation& result) {onCollision(result); })
 	{	}
 
 protected:
@@ -50,9 +50,9 @@ private:
 		return new SingleHitbox(new MovingPolygon<4>([this] {return location; }, points), false);
 	}
 
-	void onCollision(CollisionInformation* collision)
+	void onCollision(CollisionInformation& collision)
 	{
-		double moveAmount = collision->isOtherMoving ? collision->overlap / 2 : collision->overlap;
-		collisionCorrection = collision->Direction * moveAmount;
+		double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
+		collisionCorrection = collision.Direction * moveAmount;
 	}
 };
