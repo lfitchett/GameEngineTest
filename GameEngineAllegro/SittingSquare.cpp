@@ -26,13 +26,13 @@ public:
 private:
 	Hitbox* makeHitbox()
 	{
-		double points[4][2] = {
+		std::vector<Point> points = {
 					{location.x, location.y},
 					{location.x + sideLength / 2, location.y},
 					{location.x + sideLength / 2, location.y + sideLength / 2},
 					{location.x, location.y + sideLength / 2}
 		};
 
-		return new SingleHitbox(new SizedPolygon<4>(points), false);
+		return new SingleHitbox(new Polygon(points), false);
 	}
 };

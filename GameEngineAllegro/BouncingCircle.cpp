@@ -46,7 +46,7 @@ protected:
 private:
 	Hitbox* makeHitbox()
 	{
-		return new SingleHitbox(new MovingCircle([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, RADIUS), true);
+		return new SingleHitbox(new Circle(location, RADIUS), true);
 
 		/*double points[4][2] = {
 					{location.x, location.y},

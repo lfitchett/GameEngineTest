@@ -23,14 +23,14 @@ public:
 			UnitVector angle(start, end);
 			Vector offset = angle.ToNorm() * width;
 
-			double points[4][2] = {
+			std::vector<Point> points {
 				{start.x + offset.x, start.y + offset.y},
 				{start.x - offset.x, start.y - offset.y},
 				{end.x - offset.x, end.y - offset.y},
 				{end.x + offset.x, end.y + offset.y}
 			};
 
-			return new SingleHitbox(new SizedPolygon<4>(points), false);
+			return new SingleHitbox(new Polygon(points), false);
 		}())
 	{	}
 

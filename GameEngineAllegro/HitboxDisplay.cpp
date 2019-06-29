@@ -31,11 +31,11 @@ protected:
 			Shape* s = hitbox->GetShapes()[i];
 			
 			if (Circle* c = dynamic_cast<Circle*>(s)) {
-				DrawCircle(c);
+				DrawCircle(*c);
 				continue;
 			}
 			if (Polygon* p = dynamic_cast<Polygon*>(s)) {
-				DrawPolygon(p);
+				DrawPolygon(*p);
 				continue;
 			}
 		}
