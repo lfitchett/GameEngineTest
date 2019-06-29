@@ -1,13 +1,16 @@
+#pragma once
+
 #include "pch.h"
 
 class Observable {
-private:
+protected:
 	std::unordered_map<int, std::function<void()>> currentSubscriptions;
 	int nextKey = 0;
 	friend class Subscription;
 
 public:
-	void on() {
+	virtual void on() 
+	{
 		for (auto subscription : currentSubscriptions) {
 			subscription.second();
 		}
@@ -20,12 +23,14 @@ private:
 	Observable& observe;
 
 public:
-	Subscription(Observable& observable, std::function<void()> func) : observe(observable) {
+	Subscription(Observable& observable, std::function<void()> func) : observe(observable) 
+	{
 		id = observe.nextKey++;
 		observe.currentSubscriptions[id] = func;
 	}
 
-	~Subscription() {
+	~Subscription() 
+	{
 		observe.currentSubscriptions.erase(id);
 	}
 };

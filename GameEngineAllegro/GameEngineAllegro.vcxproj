@@ -201,6 +201,7 @@
     <ClCompile Include="SharedData.cpp" />
     <ClCompile Include="SittingSquare.cpp" />
     <ClCompile Include="TextBase.cpp" />
+    <ClCompile Include="ThreadedObservable.cpp" />
     <ClCompile Include="TickingEntity.cpp" />
     <ClCompile Include="UnitVector.cpp" />
     <ClCompile Include="Vector.cpp" />

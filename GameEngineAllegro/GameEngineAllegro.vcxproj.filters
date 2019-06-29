@@ -155,6 +155,9 @@
     <ClCompile Include="Observable.cpp">
       <Filter>Source Files\EventLoop</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadedObservable.cpp">
+      <Filter>Source Files\EventLoop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
