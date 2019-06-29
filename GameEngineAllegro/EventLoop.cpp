@@ -4,13 +4,14 @@
 
 #include "Observable.cpp"
 #include "ThreadedObservable.cpp"
+#include "EventPriorities.cpp"
 
 constexpr int FPS_TARGET = 60;
 
 class EventLoop
 {
 private:
-	std::vector<Observable*> priorities;
+	Observable* priorities[EventPrioritySize];
 	bool isLooping;
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	ALLEGRO_TIMER* timer;
@@ -27,14 +28,13 @@ public:
 
 		al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-		priorities.resize(3);
-		priorities[0] = new Observable();
-		priorities[1] = new ThreadedObservable();
-		priorities[2] = new Observable();
+		priorities[EventPriority::Calculation] = new Observable();
+		priorities[EventPriority::CollisionDetection] = new ThreadedObservable();
+		priorities[EventPriority::Rendering] = new Observable();
 
 	};
 
-	Subscription Subscribe(std::function<void()> func, uint16_t priority = 0)
+	Subscription Subscribe(std::function<void()> func, EventPriority priority)
 	{
 		return Subscription(*priorities[priority], func);
 	};
