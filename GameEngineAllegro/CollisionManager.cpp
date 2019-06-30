@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "CollisionManager.h"
 
-#include "HitboxCollision.cpp"
-
 void CollisionManager::AddHitbox(Hitbox* h)
 {
 	hitboxes.push_back(h);
@@ -24,7 +22,7 @@ CollisionResult CollisionManager::FindCollision(Hitbox* h1)
 		if (h2 == h1)
 			continue;
 
-		if (result = Collisions::isColliding(*h1, *h2)) {
+		if (result = isColliding(*h1, *h2)) {
 			result->isOtherMoving = h2->isMoving;
 			return CollisionResult(result);
 		}
