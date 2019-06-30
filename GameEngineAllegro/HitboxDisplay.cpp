@@ -11,6 +11,7 @@ private:
 	Hitbox& hitbox;
 	ALLEGRO_COLOR red = al_map_rgb(255, 0, 0);
 	ALLEGRO_COLOR green = al_map_rgb(0, 255, 0);
+	ALLEGRO_COLOR blue = al_map_rgb(0, 0, 255);
 	ALLEGRO_COLOR* currentColor;
 
 public:
@@ -42,12 +43,14 @@ protected:
 
 	void DrawCircle(Circle& circ)
 	{
-		al_draw_circle(circ.center.x, circ.center.y, circ.radius, *currentColor, 1);
 		DrawBounds(circ.GetBounds());
+		al_draw_circle(circ.center.x, circ.center.y, circ.radius, *currentColor, 1);
 	}
 
 	void DrawPolygon(Polygon& poly)
 	{
+		DrawBounds(poly.GetBounds());
+
 		std::vector<Point>& points = poly.GetPoints();
 
 		std::vector<Point>::iterator p = points.begin();
@@ -56,12 +59,10 @@ protected:
 			al_draw_line(p->x, p->y, prev->x, prev->y, *currentColor, 1);
 			prev = p++;
 		}
-
-		DrawBounds(poly.GetBounds());
 	}
 
 	void DrawBounds(RectangleBound& bounds)
 	{
-		al_draw_rectangle(bounds.xMin, bounds.yMin, bounds.xMax, bounds.yMax, *currentColor, 1);
+		al_draw_rectangle(bounds.xMin, bounds.yMin, bounds.xMax, bounds.yMax, blue, 1);
 	}
 };

@@ -33,7 +33,7 @@ int main()
 	auto renderer = std::make_unique<Renderer>(mainLoop, data);
 	auto listener = std::make_unique<EventListener>(mainLoop, data);
 
-	std::unique_ptr<Rectangle> square(new Rectangle(mainLoop, data, Point{ 400, 400 }, 200));
+	std::unique_ptr<Rectangle> square(new Rectangle(mainLoop, data, Point{ 500, 500 }, 200));
 	std::unique_ptr<MouseFollower> follower(new MouseFollower(mainLoop, data));
 
 
@@ -55,8 +55,8 @@ int main()
 	walls.push_back(std::make_unique<Wall>(mainLoop, data, bl, ul));
 
 
-	/*walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 400, 400 }, Point{ 500, 600 }));
-	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 800, 700 }, Point{ 700, 900 }));*/
+	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 200, 200 }, Point{ 300, 400 }));
+	walls.push_back(std::make_unique<Wall>(mainLoop, data, Point{ 800, 700 }, Point{ 700, 910 }));
 
 
 

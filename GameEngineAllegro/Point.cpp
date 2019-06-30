@@ -16,4 +16,9 @@ struct Point
 	{
 		return Point{ x - other.x, y - other.y };
 	}
+
+	Point operator*(const double& scaler)
+	{
+		return Point{ x * scaler, y * scaler };
+	}
 };

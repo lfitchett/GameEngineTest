@@ -11,7 +11,7 @@ class Wall : TickingEntity<Drawing>
 private:
 	Point start;
 	Point end;
-	ALLEGRO_COLOR wallColor = al_map_rgb(0, 0, 255);
+	ALLEGRO_COLOR wallColor = al_map_rgb(139, 69, 19);
 	CollidingEntity collision;
 
 public:

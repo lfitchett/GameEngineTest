@@ -33,7 +33,7 @@ protected:
 private:
 	Hitbox* makeHitbox()
 	{
-		/*double points[4][2] = {
+		/*std::vector<Point> points {
 					{size, -size},
 					{size, size},
 					{-size, size},
@@ -52,7 +52,7 @@ private:
 
 	void onCollision(CollisionInformation& collision)
 	{
-		double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
-		collisionCorrection = collision.Direction * moveAmount;
+		//double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
+		//collisionCorrection = collision.Direction * moveAmount;
 	}
 };

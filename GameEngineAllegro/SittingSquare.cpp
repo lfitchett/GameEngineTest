@@ -27,11 +27,19 @@ private:
 	Hitbox* makeHitbox()
 	{
 		std::vector<Point> points = {
-					{location.x, location.y},
-					{location.x + sideLength / 2, location.y},
-					{location.x + sideLength / 2, location.y + sideLength / 2},
-					{location.x, location.y + sideLength / 2}
+					{22,-12},
+					{6,-24},
+					{-12,-22},
+					{-24,-6},
+					{-22,12},
+					{-6,24},
+					{13,22},
+					{24,6},
 		};
+
+		for (Point& point : points) {
+			point = point * (sideLength / 50) + location;
+		}
 
 		return new SingleHitbox(new Polygon(points), false);
 	}
