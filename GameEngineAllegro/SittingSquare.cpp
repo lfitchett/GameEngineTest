@@ -9,18 +9,18 @@ class Rectangle
 private:
 	Point location;
 	double sideLength;
-	BitmapBase bitmap;
+	//BitmapBase bitmap;
 	CollidingEntity collisionChecker;
 
 public:
 	Rectangle(EventLoop &loop, SharedData &data, Point location, double sideLength) :
 		location(location),
 		sideLength(sideLength),
-		bitmap(loop, data, "Resources/Images/square.jpg"),
+		//bitmap(loop, data, "Resources/Images/square.jpg"),
 		collisionChecker(loop, data, makeHitbox())
 	{
-		bitmap.setSize(sideLength / 2 - 1, sideLength / 2 - 1);
-		bitmap.location = location;
+		//bitmap.setSize(sideLength / 2 - 1, sideLength / 2 - 1);
+		//bitmap.location = location;
 	}
 
 private:

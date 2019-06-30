@@ -53,10 +53,10 @@ public:
 	}
 
 	RectangleBound& GetBounds() override {
-		bounds.xMax = centerPoint.x + referanceBounds.xMax;
-		bounds.xMin = centerPoint.x + referanceBounds.xMin;
-		bounds.yMax = centerPoint.y + referanceBounds.yMax;
-		bounds.yMin = centerPoint.y + referanceBounds.yMin;
+		bounds.xMax = centerPoint.x - referanceBounds.xMax;
+		bounds.xMin = centerPoint.x - referanceBounds.xMin;
+		bounds.yMax = centerPoint.y - referanceBounds.yMax;
+		bounds.yMin = centerPoint.y - referanceBounds.yMin;
 
 		return bounds;
 	}
