@@ -42,7 +42,7 @@ int main()
 		circles.push_back(std::make_unique<BouncingCircle>(mainLoop, data));
 	}
 
-	double offset = 25;
+	double offset = 50;
 	std::vector<std::unique_ptr<Wall>> walls;
 	Point ul{ offset, offset };
 	Point ur{ offset, (double)data.displaySize.height - offset };

@@ -28,10 +28,17 @@ public:
 
 		al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-		priorities[EventPriority::Calculation] = new Observable();
-		priorities[EventPriority::CollisionDetection] = new ThreadedObservable();
-		priorities[EventPriority::Rendering] = new Observable();
-
+		for (auto priority : EventPriorityList) {
+			switch (priority)
+			{
+			case CollisionDetection:
+				priorities[priority] = new ThreadedObservable();
+				break;
+			default:
+				priorities[priority] = new Observable();
+				break;
+			}
+		}
 	};
 
 	Subscription Subscribe(std::function<void()> func, EventPriority priority)

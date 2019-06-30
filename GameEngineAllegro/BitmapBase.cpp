@@ -5,7 +5,7 @@
 #include "EntityWithData.cpp"
 #include "TickingEntity.cpp"
 
-class BitmapBase : public EntityWithData, public TickingEntity<Rendering>
+class BitmapBase : public EntityWithData, public TickingEntity<Drawing>
 {
 private:
 	Size size;

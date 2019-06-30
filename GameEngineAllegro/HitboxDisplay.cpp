@@ -5,7 +5,7 @@
 #include "EntityWithData.cpp"
 #include "TickingEntity.cpp"
 
-class HitboxDisplay : public TickingEntity<Rendering>
+class HitboxDisplay : public TickingEntity<Drawing>
 {
 private:
 	Hitbox* hitbox;

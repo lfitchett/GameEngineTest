@@ -7,6 +7,7 @@
 
 constexpr int MOVE_SPEED = 0;
 constexpr int RADIUS = 20;
+constexpr Point OFFSET{ -RADIUS, -RADIUS };
 
 class BouncingCircle : public TickingEntity<Calculation>
 {
@@ -39,7 +40,7 @@ protected:
 		location.x += direction.x * MOVE_SPEED;
 		location.y += direction.y * MOVE_SPEED;
 
-		bitmap.location = location;
+		bitmap.location = location + OFFSET;
 	}
 
 

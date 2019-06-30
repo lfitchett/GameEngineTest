@@ -6,7 +6,7 @@
 
 constexpr double width = 5;
 
-class Wall : TickingEntity<Rendering>
+class Wall : TickingEntity<Drawing>
 {
 private:
 	Point start;
