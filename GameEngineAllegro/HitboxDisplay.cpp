@@ -28,7 +28,7 @@ protected:
 	{
 		for (size_t i = 0; i < hitbox.GetSize(); i++) {
 			Shape* s = hitbox.GetShapes()[i];
-			
+
 			if (Circle* c = dynamic_cast<Circle*>(s)) {
 				DrawCircle(*c);
 				continue;
@@ -43,8 +43,7 @@ protected:
 	void DrawCircle(Circle& circ)
 	{
 		al_draw_circle(circ.center.x, circ.center.y, circ.radius, *currentColor, 1);
-		//al_draw_rectangle(c.x + circ->radius, c.y + circ->radius, c.x - circ->radius, c.y - circ->radius, *currentColor, 1);
-		
+		DrawBounds(circ.GetBounds());
 	}
 
 	void DrawPolygon(Polygon& poly)
@@ -57,10 +56,12 @@ protected:
 			al_draw_line(p->x, p->y, prev->x, prev->y, *currentColor, 1);
 			prev = p++;
 		}
-		
 
-		/*RectangleBound* bounds = poly->GetBounds();
-		al_draw_rectangle(bounds->xMin, bounds->yMin, bounds->xMax, bounds->yMax, *currentColor, 1);*/
+		DrawBounds(poly.GetBounds());
+	}
 
+	void DrawBounds(RectangleBound& bounds)
+	{
+		al_draw_rectangle(bounds.xMin, bounds.yMin, bounds.xMax, bounds.yMax, *currentColor, 1);
 	}
 };

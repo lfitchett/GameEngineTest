@@ -4,10 +4,15 @@
 
 struct RectangleBound
 {
-	double xMax = -DBL_MAX;
-	double yMax = -DBL_MAX;
-	double xMin = DBL_MAX;
-	double yMin = DBL_MAX;
+	double xMax;
+	double yMax;
+	double xMin;
+	double yMin;
+
+	RectangleBound() : xMax{ -DBL_MAX }, yMax{ -DBL_MAX }, xMin{ DBL_MAX }, yMin{ DBL_MAX }	{}
+	RectangleBound(double xMax, double yMax, double xMin, double yMin)
+		: xMax{ xMax }, yMax{ yMax }, xMin{ xMin }, yMin{ yMin }	{}
+
 
 	bool intersects(RectangleBound& other)
 	{
