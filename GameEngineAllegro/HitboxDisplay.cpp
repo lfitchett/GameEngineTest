@@ -8,15 +8,14 @@
 class HitboxDisplay : public TickingEntity<Drawing>
 {
 private:
-	Hitbox* hitbox;
+	Hitbox& hitbox;
 	ALLEGRO_COLOR red = al_map_rgb(255, 0, 0);
 	ALLEGRO_COLOR green = al_map_rgb(0, 255, 0);
 	ALLEGRO_COLOR* currentColor;
 
 public:
-	HitboxDisplay(EventLoop &loop, Hitbox* hitbox) : TickingEntity(loop)
+	HitboxDisplay(EventLoop &loop, Hitbox& hitbox) : TickingEntity(loop), hitbox(hitbox)
 	{
-		this->hitbox = hitbox;
 		currentColor = &green;
 	}
 
@@ -27,8 +26,8 @@ public:
 protected:
 	void Tick() override
 	{
-		for (size_t i = 0; i < hitbox->GetSize(); i++) {
-			Shape* s = hitbox->GetShapes()[i];
+		for (size_t i = 0; i < hitbox.GetSize(); i++) {
+			Shape* s = hitbox.GetShapes()[i];
 			
 			if (Circle* c = dynamic_cast<Circle*>(s)) {
 				DrawCircle(*c);

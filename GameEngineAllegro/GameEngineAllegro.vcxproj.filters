@@ -164,9 +164,6 @@
     <ClCompile Include="Shape.cpp">
       <Filter>Source Files\CollisionDetection\Hitboxes</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager2.cpp">
-      <Filter>Source Files\CollisionDetection\CollisionManager</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

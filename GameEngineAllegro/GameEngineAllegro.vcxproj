@@ -174,7 +174,6 @@
     <ClCompile Include="CirclePolygonCollision.cpp" />
     <ClCompile Include="CollidingEntity.cpp" />
     <ClCompile Include="CollisionInformation.cpp" />
-    <ClCompile Include="CollisionManager2.cpp" />
     <ClCompile Include="EventPriorities.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="CollisionManager.cpp" />

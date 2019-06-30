@@ -15,7 +15,7 @@ protected:
 
 public:
 	CollidingEntity(EventLoop &loop, SharedData& data, Hitbox* hitbox)
-		: EntityWithData(data), hbDisplay(loop, hitbox), hitbox(hitbox)
+		: EntityWithData(data), hbDisplay(loop, *hitbox), hitbox(hitbox)
 	{
 		sharedData.collisionManager.AddHitbox(hitbox);
 	};
