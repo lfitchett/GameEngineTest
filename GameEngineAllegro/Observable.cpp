@@ -27,6 +27,7 @@ private:
 public:
 	Subscription(const Subscription&) = delete; // non construction-copyable
 	Subscription& operator=(const Subscription&) = delete; // non copyable
+	Subscription& operator=(Subscription&& o) = delete; // No move assignment
 
 	Subscription(Observable& observable, std::function<void()> func) : observe(observable)
 	{
@@ -35,12 +36,6 @@ public:
 	}
 
 	Subscription(Subscription&& o) : observe(o.observe)
-	{
-		id = o.id;
-		o.id = 0;
-	}
-
-	Subscription& operator=(Subscription&& o)
 	{
 		id = o.id;
 		o.id = 0;
