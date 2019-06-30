@@ -61,10 +61,11 @@ private:
 
 	void onCollision(CollisionInformation& collision)
 	{
-		Vector pseudoWall = collision.Direction.ToNorm();
-		direction = direction.Reflect(pseudoWall);
+		direction = direction * -1;
+		//Vector pseudoWall = collision.Direction.ToNorm();
+		//direction = direction.Reflect(pseudoWall);
 
-		double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
-		collisionCorrection = collision.Direction * moveAmount;
+		//double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
+		//collisionCorrection = collision.Direction * moveAmount;
 	}
 };

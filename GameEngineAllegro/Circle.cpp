@@ -13,12 +13,16 @@ public:
 	double radius;
 	Point& center;
 
-	virtual RectangleBound& GetBounds() { return bounds; };
-
 	Circle(Point& center, double radius) : center(center), radius(radius)
 	{
 		setBounds();
 	}
+
+	virtual RectangleBound& GetBounds() 
+	{
+		setBounds();
+		return bounds;
+	};
 
 protected:
 	void setBounds()
@@ -46,7 +50,6 @@ public:
 
 	RectangleBound& GetBounds() override
 	{
-		setBounds();
 		return bounds;
 	};
 };
