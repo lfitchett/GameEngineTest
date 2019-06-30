@@ -5,7 +5,7 @@
 #include "Polygon.cpp"
 #include "CollisionInformation.cpp"
 
-#define CollisionResult std::unique_ptr<CollisionInformation>
+typedef std::unique_ptr<CollisionInformation> CollisionResult;
 
 class CollisionManager
 {
