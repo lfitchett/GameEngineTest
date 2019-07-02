@@ -9,30 +9,38 @@ class Rectangle
 private:
 	Point location;
 	double sideLength;
-	BitmapBase bitmap;
+	//BitmapBase bitmap;
 	CollidingEntity collisionChecker;
 
 public:
 	Rectangle(EventLoop &loop, SharedData &data, Point location, double sideLength) :
 		location(location),
 		sideLength(sideLength),
-		bitmap(loop, data, "Resources/Images/square.jpg"),
+		//bitmap(loop, data, "Resources/Images/square.jpg"),
 		collisionChecker(loop, data, makeHitbox())
 	{
-		bitmap.setSize(sideLength / 2 - 1, sideLength / 2 - 1);
-		bitmap.location = location;
+		//bitmap.setSize(sideLength / 2 - 1, sideLength / 2 - 1);
+		//bitmap.location = location;
 	}
 
 private:
 	Hitbox* makeHitbox()
 	{
-		double points[4][2] = {
-					{location.x, location.y},
-					{location.x + sideLength / 2, location.y},
-					{location.x + sideLength / 2, location.y + sideLength / 2},
-					{location.x, location.y + sideLength / 2}
+		std::vector<Point> points = {
+					{22,-12},
+					{6,-24},
+					{-12,-22},
+					{-24,-6},
+					{-22,12},
+					{-6,24},
+					{13,22},
+					{24,6},
 		};
 
-		return new SingleHitbox(new SizedPolygon<4>(points), false);
+		for (Point& point : points) {
+			point = point * (sideLength / 50) + location;
+		}
+
+		return new SingleHitbox(new Polygon(points), false);
 	}
 };

@@ -33,26 +33,26 @@ protected:
 private:
 	Hitbox* makeHitbox()
 	{
-		/*double points[4][2] = {
+		/*std::vector<Point> points {
 					{size, -size},
 					{size, size},
 					{-size, size},
 					{-size, -size }
 		};*/
 
-		double points[4][2] = {
+		std::vector<Point> points {
 					{0, -size},
 					{size, 0},
 					{0, size},
 					{-size, 0 }
 		};
 
-		return new SingleHitbox(new MovingPolygon<4>([this] {return location; }, points), false);
+		return new SingleHitbox(new MovingPolygon(points, location), false);
 	}
 
 	void onCollision(CollisionInformation& collision)
 	{
-		double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
-		collisionCorrection = collision.Direction * moveAmount;
+		//double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
+		//collisionCorrection = collision.Direction * moveAmount;
 	}
 };

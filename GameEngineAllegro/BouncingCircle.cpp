@@ -7,6 +7,7 @@
 
 constexpr int MOVE_SPEED = 0;
 constexpr int RADIUS = 20;
+constexpr Point OFFSET{ -RADIUS, -RADIUS };
 
 class BouncingCircle : public TickingEntity<Calculation>
 {
@@ -39,14 +40,14 @@ protected:
 		location.x += direction.x * MOVE_SPEED;
 		location.y += direction.y * MOVE_SPEED;
 
-		bitmap.location = location;
+		bitmap.location = location + OFFSET;
 	}
 
 
 private:
 	Hitbox* makeHitbox()
 	{
-		return new SingleHitbox(new MovingCircle([this] {return Point{ location.x + RADIUS, location.y + RADIUS }; }, RADIUS), true);
+		return new SingleHitbox(new Circle(location, RADIUS), true);
 
 		/*double points[4][2] = {
 					{location.x, location.y},
@@ -60,10 +61,11 @@ private:
 
 	void onCollision(CollisionInformation& collision)
 	{
-		Vector pseudoWall = collision.Direction.ToNorm();
-		direction = direction.Reflect(pseudoWall);
+		direction = direction * -1;
+		//Vector pseudoWall = collision.Direction.ToNorm();
+		//direction = direction.Reflect(pseudoWall);
 
-		double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
-		collisionCorrection = collision.Direction * moveAmount;
+		//double moveAmount = collision.isOtherMoving ? collision.overlap / 2 : collision.overlap;
+		//collisionCorrection = collision.Direction * moveAmount;
 	}
 };

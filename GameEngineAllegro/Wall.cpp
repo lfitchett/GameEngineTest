@@ -6,12 +6,12 @@
 
 constexpr double width = 5;
 
-class Wall : TickingEntity<Rendering>
+class Wall : TickingEntity<Drawing>
 {
 private:
 	Point start;
 	Point end;
-	ALLEGRO_COLOR wallColor = al_map_rgb(0, 0, 255);
+	ALLEGRO_COLOR wallColor = al_map_rgb(139, 69, 19);
 	CollidingEntity collision;
 
 public:
@@ -23,14 +23,14 @@ public:
 			UnitVector angle(start, end);
 			Vector offset = angle.ToNorm() * width;
 
-			double points[4][2] = {
+			std::vector<Point> points {
 				{start.x + offset.x, start.y + offset.y},
 				{start.x - offset.x, start.y - offset.y},
 				{end.x - offset.x, end.y - offset.y},
 				{end.x + offset.x, end.y + offset.y}
 			};
 
-			return new SingleHitbox(new SizedPolygon<4>(points), false);
+			return new SingleHitbox(new Polygon(points), false);
 		}())
 	{	}
 

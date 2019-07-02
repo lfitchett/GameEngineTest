@@ -5,7 +5,7 @@
 #include "EntityWithData.cpp"
 #include "TickingEntity.cpp"
 
-class TextBase : public EntityWithData, public TickingEntity<Rendering>
+class TextBase : public EntityWithData, public TickingEntity<Drawing>
 {
 public:
 	ALLEGRO_COLOR color = al_map_rgb(200, 0, 0);

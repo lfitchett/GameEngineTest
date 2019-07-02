@@ -5,18 +5,18 @@
 #include "EntityWithData.cpp"
 #include "TickingEntity.cpp"
 
-class HitboxDisplay : public TickingEntity<Rendering>
+class HitboxDisplay : public TickingEntity<Drawing>
 {
 private:
-	Hitbox* hitbox;
+	Hitbox& hitbox;
 	ALLEGRO_COLOR red = al_map_rgb(255, 0, 0);
 	ALLEGRO_COLOR green = al_map_rgb(0, 255, 0);
+	ALLEGRO_COLOR blue = al_map_rgb(0, 0, 255);
 	ALLEGRO_COLOR* currentColor;
 
 public:
-	HitboxDisplay(EventLoop &loop, Hitbox* hitbox) : TickingEntity(loop)
+	HitboxDisplay(EventLoop &loop, Hitbox& hitbox) : TickingEntity(loop), hitbox(hitbox)
 	{
-		this->hitbox = hitbox;
 		currentColor = &green;
 	}
 
@@ -27,41 +27,42 @@ public:
 protected:
 	void Tick() override
 	{
-		for (size_t i = 0; i < hitbox->GetSize(); i++) {
-			Shape* s = hitbox->GetShapes()[i];
-			
+		for (size_t i = 0; i < hitbox.GetSize(); i++) {
+			Shape* s = hitbox.GetShapes()[i];
+
 			if (Circle* c = dynamic_cast<Circle*>(s)) {
-				DrawCircle(c);
+				DrawCircle(*c);
 				continue;
 			}
 			if (Polygon* p = dynamic_cast<Polygon*>(s)) {
-				DrawPolygon(p);
+				DrawPolygon(*p);
 				continue;
 			}
 		}
 	}
 
-	void DrawCircle(Circle* circ)
+	void DrawCircle(Circle& circ)
 	{
-		Point c = circ->GetCenter();
-		al_draw_circle(c.x, c.y, circ->Radius, *currentColor, 1);
-		//al_draw_rectangle(c.x + circ->Radius, c.y + circ->Radius, c.x - circ->Radius, c.y - circ->Radius, *currentColor, 1);
-		
+		DrawBounds(circ.GetBounds());
+		al_draw_circle(circ.center.x, circ.center.y, circ.radius, *currentColor, 1);
 	}
 
-	void DrawPolygon(Polygon* poly)
+	void DrawPolygon(Polygon& poly)
 	{
-		Point* start = poly->GetPoints();
-		Point* end = start + poly->GetNumPoints() - 1;
+		DrawBounds(poly.GetBounds());
 
-		for (Point* p = start; p < end; p++) {
-			al_draw_line(p->x, p->y, (p+1)->x, (p+1)->y, *currentColor, 1);
+		std::vector<Point>& points = poly.GetPoints();
+
+		std::vector<Point>::iterator p = points.begin();
+		std::vector<Point>::iterator prev = --points.end();
+		while (p != points.end()) {
+			al_draw_line(p->x, p->y, prev->x, prev->y, *currentColor, 1);
+			prev = p++;
 		}
-		al_draw_line(end->x, end->y, start->x, start->y, *currentColor, 1);
+	}
 
-
-		/*RectangleBound* bounds = poly->GetBounds();
-		al_draw_rectangle(bounds->xMin, bounds->yMin, bounds->xMax, bounds->yMax, *currentColor, 1);*/
-
+	void DrawBounds(RectangleBound& bounds)
+	{
+		al_draw_rectangle(bounds.xMin, bounds.yMin, bounds.xMax, bounds.yMax, blue, 1);
 	}
 };

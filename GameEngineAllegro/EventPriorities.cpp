@@ -13,5 +13,6 @@ namespace \
 SequentialEnum(EventPriority,
 	CollisionDetection,
 	Calculation,
+	Drawing,
 	Rendering
 );
